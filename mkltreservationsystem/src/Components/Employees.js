@@ -18,8 +18,6 @@ function AddModal(props) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h4>employeeID</h4>
-        <input></input>
         <h4>firstName</h4>
         <input></input>
         <h4>lastName</h4>
