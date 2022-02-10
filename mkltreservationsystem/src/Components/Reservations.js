@@ -18,8 +18,6 @@ function AddModal(props) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h4>reservationID</h4>
-        <input></input>
         <h4>customerID</h4>
         <input></input>
         <h4>employeeID</h4>

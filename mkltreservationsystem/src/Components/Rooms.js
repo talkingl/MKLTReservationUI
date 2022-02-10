@@ -16,8 +16,6 @@ function AddModal(props) {
         <Modal.Title id="contained-modal-title-vcenter">Add Rooms</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h4>roomID</h4>
-        <input></input>
         <h4>roomFloor</h4>
         <input></input>
         <h4>roomNumber</h4>
