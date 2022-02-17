@@ -62,9 +62,9 @@ function RR({
 }) {
   return (
     <tr>
-      <td>1</td>
-      <td>1</td>
-
+      <td>304</td>
+      <td>Morgan Kandula</td>
+      <td>02/17/2021</td>
       <td>
         <MdEdit onClick={() => setModalShowUpdate(true)} />
         <UpdateModal

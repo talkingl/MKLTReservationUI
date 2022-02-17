@@ -13,13 +13,14 @@ function RRList({
 }) {
   return (
     <div>
-      <h1> Rooms Reservations</h1>
+      <h1> Room Reservations</h1>
       <Table id="RoomsReservations" className="borderless">
         <thead>
-          <th>reservationID</th>
-          <th>roomID</th>
-          <th> Update Room/Reservation</th>
-          <th> Delete Room/Reservation</th>
+          <th>Room Number</th>
+          <th>Guest Name</th>
+          <th>Check In Date</th>
+          <th>Guest Check In</th>
+          <th>Guest Check Out</th>
         </thead>
         <tbody>
           <RR
