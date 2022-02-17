@@ -18,18 +18,12 @@ function Header() {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               <Nav.Link href="/">Home Page</Nav.Link>
-              <NavDropdown title="Tables" id="basic-nav-dropdown">
-                <NavDropdown.Item href="/rooms">Rooms</NavDropdown.Item>
-                <NavDropdown.Item href="/customers">Customers</NavDropdown.Item>
-                <NavDropdown.Item href="/employees">Employees</NavDropdown.Item>
-                <NavDropdown.Item href="/reservations">
-                  Reservations
-                </NavDropdown.Item>
-                <NavDropdown.Item href="/invoices">Invoices</NavDropdown.Item>
-                <NavDropdown.Item href="/roomsreservations">
-                  Rooms Reservations
-                </NavDropdown.Item>
-              </NavDropdown>
+              <Nav.Link href="/rooms">Rooms</Nav.Link>
+              <Nav.Link href="/customers">Customers</Nav.Link>
+              <Nav.Link href="/employees">Employees</Nav.Link>
+              <Nav.Link href="/reservations">Reservations</Nav.Link>
+              <Nav.Link href="/invoices">Invoices</Nav.Link>
+              <Nav.Link href="/roomsreservations">Room Reservations</Nav.Link>
             </Nav>
           </Navbar.Collapse>
           <Navbar.Collapse className="justify-content-end">

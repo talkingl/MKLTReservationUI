@@ -19,9 +19,9 @@ function Rooms() {
         Customers
       </Link>
       <p>
-        Our customer list is found here. 
-        Use this page to add new customers, update current customers,
-        get customer's ID for reservations, or delete a customer.
+        Our customer list is found here. Use this page to add new customers,
+        update current customers, get customer's ID for reservations, or delete
+        a customer.
       </p>
       <br></br>
       <Link to="/employees" className="App-link">
@@ -34,10 +34,7 @@ function Rooms() {
         {" "}
         Reservations
       </Link>
-      <p>
-        Use this page first to register a reservation. 
-        Then use the Rooms Reservations link below to add rooms to the reservation.
-        </p>
+      <p>Use this page to register a new reservation</p>
       <br></br>
       <Link to="/invoices" className="App-link">
         {" "}
@@ -49,7 +46,7 @@ function Rooms() {
         {" "}
         Rooms Reservations
       </Link>
-      <p>Use this page to link rooms to a reservation.</p>
+      <p>Use this page to check guests in and out of their rooms</p>
       <br></br>
     </div>
   );
