@@ -20,7 +20,8 @@ function ReservationList({
           <th>customerID</th>
           <th> employeeID</th>
           <th>checkInDate</th>
-          <th> stayLength</th>
+          <th>Stay Length</th>
+          <th>Room ID</th>
           <th> checkedIn</th>
           <th> checkedOut</th>
           <th> specialRequest</th>

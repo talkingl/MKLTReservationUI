@@ -27,6 +27,8 @@ function AddModal(props) {
         <input></input>
         <h4>stayLength</h4>
         <input></input>
+        <h4>roomID</h4>
+        <input></input>
         <h4>checkedIn</h4>
         <input></input>
         <h4>checkedOut</h4>
@@ -65,6 +67,8 @@ function SearchModal(props) {
         <h4>Check In Date</h4>
         <input></input>
         <h4>Stay Length</h4>
+        <input></input>
+        <h4>Room ID</h4>
         <input></input>
         <h4>Checked In</h4>
         <input></input>

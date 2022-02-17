@@ -24,6 +24,8 @@ function UpdateModal(props) {
         <input></input>
         <h4>stayLength</h4>
         <input></input>
+        <h4>roomID</h4>
+        <input></input>
         <h4>checkedIn</h4>
         <input></input>
         <h4>checkedOut</h4>
@@ -77,6 +79,7 @@ function Reservation({
       <td> 1</td>
       <td> 2/1/2022</td>
       <td> 3</td>
+      <td>3</td>
       <td> Y</td>
       <td>N</td>
       <td> No </td>
