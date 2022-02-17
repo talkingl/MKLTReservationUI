@@ -1,15 +1,15 @@
 import logo from "./logo.svg";
 import "./App.css";
-import Header from "./Components/Header";
+import Header from "./Pages/Header";
 import { Link } from "react-router-dom";
-import Rooms from "./Components/Rooms";
+import Rooms from "./Pages/Rooms";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import HomePage from "./Components/HomePage";
-import Customers from "./Components/Customers";
-import Employees from "./Components/Employees";
-import Reservations from "./Components/Reservations";
-import Invoices from "./Components/Invoices";
-import RoomsReservations from "./Components/RoomReservations";
+import HomePage from "./Pages/HomePage";
+import Customers from "./Pages/Customers";
+import Employees from "./Pages/Employees";
+import Reservations from "./Pages/Reservations";
+import Invoices from "./Pages/Invoices";
+import RoomsReservations from "./Pages/RoomReservations";
 
 function App() {
   return (
