@@ -1,5 +1,5 @@
 import React from "react";
-import { MdDelete, MdEdit } from "react-icons/md";
+import { AiOutlineCheckCircle } from "react-icons/ai";
 import { Modal, Button } from "react-bootstrap";
 
 function UpdateModal(props) {
@@ -12,7 +12,7 @@ function UpdateModal(props) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Update Room/Rsservation
+          Check in Customer to Room
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -22,7 +22,7 @@ function UpdateModal(props) {
         <input></input>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={props.onHide}>Update</Button>
+        <Button onClick={props.onHide}>Check In</Button>
       </Modal.Footer>
     </Modal>
   );
@@ -38,14 +38,14 @@ function RemoveModal(props) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Delete Room/Reservation
+          Check Out Guest
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h4> Are you sure you want to delete this room/reservation? </h4>
+        <h4> Are you sure you want to check out this guest?</h4>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={props.onHide}>Remove</Button>
+        <Button onClick={props.onHide}>Check Out</Button>
       </Modal.Footer>
     </Modal>
   );
@@ -66,14 +66,14 @@ function RR({
       <td>Morgan Kandula</td>
       <td>02/17/2021</td>
       <td>
-        <MdEdit onClick={() => setModalShowUpdate(true)} />
+        <AiOutlineCheckCircle onClick={() => setModalShowUpdate(true)} />
         <UpdateModal
           show={modalShowUpdate}
           onHide={() => setModalShowUpdate(false)}
         />
       </td>
       <td>
-        <MdDelete onClick={() => setModalShowRemove(true)} />
+        <AiOutlineCheckCircle onClick={() => setModalShowRemove(true)} />
         <RemoveModal
           show={modalShowRemove}
           onHide={() => setModalShowRemove(false)}
