@@ -3,6 +3,7 @@ import { Container, Row, Col, Table, Modal, Button } from "react-bootstrap";
 import "../App.css";
 import { Link } from "react-router-dom";
 import React from "react";
+import ReservationList from "../Components/ReservationList";
 
 function AddModal(props) {
   return (
@@ -40,7 +41,7 @@ function AddModal(props) {
   );
 }
 
-function RemoveModal(props) {
+function SearchModal(props) {
   return (
     <Modal
       {...props}
@@ -50,89 +51,59 @@ function RemoveModal(props) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Delete Rooms
+          Search Reservations
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h4>Which reservation do you want to remove? </h4>
+        <h2> Enter any of the following to search for a Reservation</h2>
+        <h4>Reservation ID</h4>
+        <input></input>
+        <h4>Customer ID</h4>
+        <input></input>
+        <h4>Employee ID</h4>
+        <input></input>
+        <h4>Check In Date</h4>
+        <input></input>
+        <h4>Stay Length</h4>
+        <input></input>
+        <h4>Checked In</h4>
+        <input></input>
+        <h4>Checked Out</h4>
+        <input></input>
+        <h4>Special Request</h4>
         <input></input>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={props.onHide}>Remove</Button>
+        <Button onClick={props.onHide}>Search</Button>
       </Modal.Footer>
     </Modal>
   );
 }
 
-function UpdateModal(props) {
-  return (
-    <Modal
-      {...props}
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Update Reservation
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <h4>Which reservation do you want to update? </h4>
-        <input></input>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button onClick={props.onHide}>Update</Button>
-      </Modal.Footer>
-    </Modal>
-  );
-}
 function Reservations() {
   const [modalShowAdd, setModalShowAdd] = React.useState(false);
   const [modalShowRemove, setModalShowRemove] = React.useState(false);
   const [modalShowUpdate, setModalShowUpdate] = React.useState(false);
+  const [modalShowSearch, setModalShowSearch] = React.useState(false);
+
   return (
     <div>
-      <h1> Reservations</h1>
-      <Table id="Reservations" className="borderless">
-        <thead>
-          <th>reservationID</th>
-          <th>customerID</th>
-          <th> employeeID</th>
-          <th>checkInDate</th>
-          <th> stayLength</th>
-          <th> checkedIn</th>
-          <th> checkedOut</th>
-          <th> specialRequest</th>
-        </thead>
-        <tbody>
-          <td>1</td>
-          <td>1</td>
-          <td> 1</td>
-          <td> 2/1/2022</td>
-          <td> 3</td>
-          <td> Y</td>
-          <td>N</td>
-          <td> No </td>
-        </tbody>
-      </Table>
+      <ReservationList
+        modalShowUpdate={modalShowUpdate}
+        setModalShowUpdate={setModalShowUpdate}
+        modalShowRemove={modalShowRemove}
+        setModalShowRemove={setModalShowRemove}
+      ></ReservationList>
       <button className="crud-buttons" onClick={() => setModalShowAdd(true)}>
         Add
       </button>
       <AddModal show={modalShowAdd} onHide={() => setModalShowAdd(false)} />
-      <button className="crud-buttons" onClick={() => setModalShowRemove(true)}>
-        Delete
+      <button className="crud-buttons" onClick={() => setModalShowSearch(true)}>
+        Search
       </button>
-      <RemoveModal
-        show={modalShowRemove}
-        onHide={() => setModalShowRemove(false)}
-      />
-      <button className="crud-buttons" onClick={() => setModalShowUpdate(true)}>
-        Update
-      </button>
-      <UpdateModal
-        show={modalShowUpdate}
-        onHide={() => setModalShowUpdate(false)}
+      <SearchModal
+        show={modalShowSearch}
+        onHide={() => setModalShowSearch(false)}
       />
     </div>
   );

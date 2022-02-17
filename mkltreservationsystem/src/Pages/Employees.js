@@ -3,6 +3,7 @@ import { Container, Row, Col, Table, Modal, Button } from "react-bootstrap";
 import "../App.css";
 import { Link } from "react-router-dom";
 import React from "react";
+import EmployeeList from "../Components/EmployeeList";
 
 function AddModal(props) {
   return (
@@ -18,13 +19,13 @@ function AddModal(props) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h4>firstName</h4>
+        <h4>First Name</h4>
         <input></input>
-        <h4>lastName</h4>
+        <h4>Last Name</h4>
         <input></input>
-        <h4>shiftWorked</h4>
+        <h4>Shift Worked</h4>
         <input></input>
-        <h4>payRatess</h4>
+        <h4>Pay Rates</h4>
         <input></input>
       </Modal.Body>
       <Modal.Footer>
@@ -33,8 +34,7 @@ function AddModal(props) {
     </Modal>
   );
 }
-
-function RemoveModal(props) {
+function SearchModal(props) {
   return (
     <Modal
       {...props}
@@ -44,83 +44,53 @@ function RemoveModal(props) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Delete Employee
+          Search Employees
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h4>Which employee do you want to remove? </h4>
+        <h2> Enter any of the following to search for an Employee</h2>
+        <h4>Employee ID</h4>
+        <input></input>
+        <h4>First Name</h4>
+        <input></input>
+        <h4>Last Name</h4>
+        <input></input>
+        <h4>Shift Worked</h4>
+        <input></input>
+        <h4>Pay Rates</h4>
         <input></input>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={props.onHide}>Remove</Button>
+        <Button onClick={props.onHide}>Search</Button>
       </Modal.Footer>
     </Modal>
   );
 }
 
-function UpdateModal(props) {
-  return (
-    <Modal
-      {...props}
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Update Rooms
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <h4>Which employee do you want to update? </h4>
-        <input></input>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button onClick={props.onHide}>Update</Button>
-      </Modal.Footer>
-    </Modal>
-  );
-}
 function Employees() {
   const [modalShowAdd, setModalShowAdd] = React.useState(false);
   const [modalShowRemove, setModalShowRemove] = React.useState(false);
   const [modalShowUpdate, setModalShowUpdate] = React.useState(false);
+  const [modalShowSearch, setModalShowSearch] = React.useState(false);
+
   return (
     <div>
-      <h1> Employees</h1>
-      <Table id="Employees" className="borderless">
-        <thead>
-          <th>employeeID</th>
-          <th>firstName</th>
-          <th> lastName</th>
-          <th>shiftWorked</th>
-          <th> payRate</th>
-        </thead>
-        <tbody>
-          <td>1</td>
-          <td>Logan</td>
-          <td> Talkington</td>
-          <td>Night</td>
-          <td> $42.22</td>
-        </tbody>
-      </Table>
+      <EmployeeList
+        modalShowUpdate={modalShowUpdate}
+        setModalShowUpdate={setModalShowUpdate}
+        modalShowRemove={modalShowRemove}
+        setModalShowRemove={setModalShowRemove}
+      ></EmployeeList>
       <button className="crud-buttons" onClick={() => setModalShowAdd(true)}>
         Add
       </button>
       <AddModal show={modalShowAdd} onHide={() => setModalShowAdd(false)} />
-      <button className="crud-buttons" onClick={() => setModalShowRemove(true)}>
-        Delete
+      <button className="crud-buttons" onClick={() => setModalShowSearch(true)}>
+        Search
       </button>
-      <RemoveModal
-        show={modalShowRemove}
-        onHide={() => setModalShowRemove(false)}
-      />
-      <button className="crud-buttons" onClick={() => setModalShowUpdate(true)}>
-        Update
-      </button>
-      <UpdateModal
-        show={modalShowUpdate}
-        onHide={() => setModalShowUpdate(false)}
+      <SearchModal
+        show={modalShowSearch}
+        onHide={() => setModalShowSearch(false)}
       />
     </div>
   );

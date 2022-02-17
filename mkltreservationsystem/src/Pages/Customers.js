@@ -19,13 +19,13 @@ function AddModal(props) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h4>firstName</h4>
+        <h4>First Name</h4>
         <input></input>
-        <h4>lastName</h4>
+        <h4>Last Name</h4>
         <input></input>
-        <h4>emailAddress</h4>
+        <h4>Email Address</h4>
         <input></input>
-        <h4>phoneNumber</h4>
+        <h4>Phone Number</h4>
         <input></input>
       </Modal.Body>
       <Modal.Footer>
@@ -34,62 +34,83 @@ function AddModal(props) {
     </Modal>
   );
 }
-
-function onEdit(customer) { 
-  // Want to pre-fill the input fields with that customer's info. Need more research
-  // Need to actually make the change happen when the button is clicked
-  // Need to trigger this based on clicking the edit button nested a few .js files down
+function SearchModal(props) {
   return (
-    <Modal>
+    <Modal
+      {...props}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
       <Modal.Header closeButton>
-        <Modal.Title id="EditCustomer">
-          Update Customer
+        <Modal.Title id="contained-modal-title-vcenter">
+          Search Customers
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h4>firstName</h4>
+        <h2> Enter any of the following to search for a Customer</h2>
+        <h4>Customer ID</h4>
         <input></input>
-        <h4>lastName</h4>
+        <h4>First Name</h4>
         <input></input>
-        <h4>emailAddress</h4>
+        <h4>Last Name</h4>
         <input></input>
-        <h4>phoneNumber</h4>
+        <h4>Email Address</h4>
+        <input></input>
+        <h4>Phone Number</h4>
         <input></input>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={hideModal}>Update</Button>
+        <Button onClick={props.onHide}>Search</Button>
       </Modal.Footer>
     </Modal>
   );
 }
+
 function Customers() {
   const [customers, setCustomers] = React.useState([]);
+  const [modalShowRemove, setModalShowRemove] = React.useState(false);
   const [modalShowAdd, setModalShowAdd] = React.useState(false);
   const [modalShowUpdate, setModalShowUpdate] = React.useState(false);
+  const [modalShowSearch, setModalShowSearch] = React.useState(false);
 
-  const onDelete = ID =>{
+  const onDelete = (ID) => {
     // SQL delete the record
-    setCustomers(customers.filter(e => e.customerID !== ID));
+    setCustomers(customers.filter((e) => e.customerID !== ID));
   };
 
   const loadCustomers = async () => {
-    const response = await fetch('/exercises'); 
+    const response = await fetch("/exercises");
     const resp_data = await response.json();
-    setExercises(resp_data);
+    setCustomers(resp_data);
   };
 
   // SQL SELECT Statement to get customers
-  setCustomers(response);
+  // setCustomers(response);
 
   // Add a search function
   return (
     <div>
       <h1> Customers</h1>
-      <CustomerList customers={customers} onDelete={onDelete} onEdit={onEdit}></CustomerList>
+      <CustomerList
+        customers={customers}
+        onDelete={onDelete}
+        modalShowUpdate={modalShowUpdate}
+        setModalShowUpdate={setModalShowUpdate}
+        modalShowRemove={modalShowRemove}
+        setModalShowRemove={setModalShowRemove}
+      ></CustomerList>
       <button className="crud-buttons" onClick={() => setModalShowAdd(true)}>
         Add
       </button>
       <AddModal show={modalShowAdd} onHide={() => setModalShowAdd(false)} />
+      <button className="crud-buttons" onClick={() => setModalShowSearch(true)}>
+        Search
+      </button>
+      <SearchModal
+        show={modalShowSearch}
+        onHide={() => setModalShowSearch(false)}
+      />
     </div>
   );
 }

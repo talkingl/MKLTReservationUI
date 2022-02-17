@@ -3,6 +3,7 @@ import { Container, Row, Col, Table, Modal, Button } from "react-bootstrap";
 import "../App.css";
 import { Link } from "react-router-dom";
 import React from "react";
+import RRList from "../Components/RRList";
 
 function AddModal(props) {
   return (
@@ -30,7 +31,7 @@ function AddModal(props) {
   );
 }
 
-function RemoveModal(props) {
+function SearchModal(props) {
   return (
     <Modal
       {...props}
@@ -40,77 +41,47 @@ function RemoveModal(props) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Delete Rooms/Reservation
+          Search Reservations
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h4>Which room/reservation do you want to remove? </h4>
+        <h2> Enter any of the following to search for a Room/Reservation</h2>
+        <h4>Reservation ID</h4>
+        <input></input>
+        <h4>Room ID</h4>
         <input></input>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={props.onHide}>Remove</Button>
+        <Button onClick={props.onHide}>Search</Button>
       </Modal.Footer>
     </Modal>
   );
 }
 
-function UpdateModal(props) {
-  return (
-    <Modal
-      {...props}
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Update Rooms/Reservation
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <h4>Which room/reserervation do you want to update? </h4>
-        <input></input>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button onClick={props.onHide}>Update</Button>
-      </Modal.Footer>
-    </Modal>
-  );
-}
 function RoomsReservations() {
   const [modalShowAdd, setModalShowAdd] = React.useState(false);
   const [modalShowRemove, setModalShowRemove] = React.useState(false);
   const [modalShowUpdate, setModalShowUpdate] = React.useState(false);
+  const [modalShowSearch, setModalShowSearch] = React.useState(false);
+
   return (
     <div>
-      <h1> Rooms Reservations</h1>
-      <Table id="RoomsReservations" className="borderless">
-        <thead>
-          <th>reservationID</th>
-          <th>roomID</th>
-        </thead>
-        <tbody>
-          <td> 1</td>
-          <td> 101</td>
-        </tbody>
-      </Table>
+      <RRList
+        modalShowUpdate={modalShowUpdate}
+        setModalShowUpdate={setModalShowUpdate}
+        modalShowRemove={modalShowRemove}
+        setModalShowRemove={setModalShowRemove}
+      ></RRList>
       <button className="crud-buttons" onClick={() => setModalShowAdd(true)}>
         Add
       </button>
       <AddModal show={modalShowAdd} onHide={() => setModalShowAdd(false)} />
-      <button className="crud-buttons" onClick={() => setModalShowRemove(true)}>
-        Delete
+      <button className="crud-buttons" onClick={() => setModalShowSearch(true)}>
+        Search
       </button>
-      <RemoveModal
-        show={modalShowRemove}
-        onHide={() => setModalShowRemove(false)}
-      />
-      <button className="crud-buttons" onClick={() => setModalShowUpdate(true)}>
-        Update
-      </button>
-      <UpdateModal
-        show={modalShowUpdate}
-        onHide={() => setModalShowUpdate(false)}
+      <SearchModal
+        show={modalShowSearch}
+        onHide={() => setModalShowSearch(false)}
       />
     </div>
   );

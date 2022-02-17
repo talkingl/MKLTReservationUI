@@ -12,17 +12,17 @@ function UpdateModal(props) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Update Customer
+          Update Invoice
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h4>First Name</h4>
+        <h4>Invoice Amount</h4>
         <input></input>
-        <h4>Last Name</h4>
+        <h4>Credit Card</h4>
         <input></input>
-        <h4>Email Address</h4>
+        <h4>Due Date</h4>
         <input></input>
-        <h4>Phone Number</h4>
+        <h4> Invoice Paid </h4>
         <input></input>
       </Modal.Body>
       <Modal.Footer>
@@ -42,11 +42,11 @@ function RemoveModal(props) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Delete Customer
+          Delete Invoice
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h4> Are you sure you want to delete this customer? </h4>
+        <h4> Are you sure you want to delete this invoice? </h4>
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={props.onHide}>Remove</Button>
@@ -55,9 +55,10 @@ function RemoveModal(props) {
   );
 }
 
-function Customer({
-  customer,
+function Invoice({
+  invoice,
   onDelete,
+  onEdit,
   modalShowUpdate,
   setModalShowUpdate,
   modalShowRemove,
@@ -65,16 +66,12 @@ function Customer({
 }) {
   return (
     <tr>
-      {/* <td>{customer.customerID}</td>
-            <td>{customer.firstName}</td>
-            <td>{customer.lastName}</td>
-            <td>{customer.emailAddress}</td>
-            <td>{customer.phoneNumber}</td> */}
-      <td>1 </td>
-      <td>Logan</td>
-      <td>Talkington</td>
-      <td> ltalkington@email.com</td>
-      <td> 123456789</td>
+      <td>1</td>
+      <td>1</td>
+      <td> 855.52</td>
+      <td>123456789</td>
+      <td> 3/1/22</td>
+      <td> No</td>
       <td>
         <MdEdit onClick={() => setModalShowUpdate(true)} />
         <UpdateModal
@@ -93,4 +90,4 @@ function Customer({
   );
 }
 
-export default Customer;
+export default Invoice;
