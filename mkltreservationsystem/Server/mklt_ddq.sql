@@ -47,5 +47,4 @@ CREATE TABLE `Invoices` (
   `creditCard` bigInt(11) NOT NULL,
   `dueDate` Date NOT NULL,
   `invoicePaid` boolean NOT NULL
-
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
