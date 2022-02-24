@@ -18,7 +18,7 @@ CREATE TABLE `Employees` (
 --
 LOCK TABLES `Employees` WRITE;
 INSERT INTO `Employees` VALUES (1,'John', 'Doe', 2, 8.75),(2,'Jane', 'Smith', 1, 8.75),
-(3,'Morgan', 'Kandula'),(4,'Logan','Talkington');
+(3,'Morgan', 'Kandula', NULL, NULL),(4,'Logan','Talkington', NULL, NULL);
 UNLOCK TABLES;
 
 --
@@ -31,7 +31,7 @@ CREATE TABLE `Customers` (
   `lastName` varchar(255) NOT NULL,
   `emailAddress` varchar(255) NOT NULL,
   `phoneNumber` varchar(12) DEFAULT NULL,
-  PRIMARY KEY (`customerID`),
+  PRIMARY KEY (`customerID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=159 DEFAULT CHARSET=latin1;
 
 --
@@ -39,8 +39,11 @@ CREATE TABLE `Customers` (
 --
 LOCK TABLES `Customers` WRITE;
 INSERT INTO `Customers` VALUES (6,'Logan','Talkington','lt@osu.com','123-456-7890'),
-(9,'Morgan','Kandula','mk@osu.com','123-456-0000'),(121,'Green','Lantern','gl@jl.com','123-456-1212'),
-(156,'Wonder','Woman','ww@dc.com','123-456-1111'),(157,'James','Fox','jf@abc.com'),(158,'Customer','Twenty','ct@two.com');
+(9,'Morgan','Kandula','mk@osu.com','123-456-0000'),
+(121,'Green','Lantern','gl@jl.com','123-456-1212'),
+(156,'Wonder','Woman','ww@dc.com','123-456-1111'),
+(157,'James','Fox','jf@abc.com', NULL),
+(158,'Customer','Twenty','ct@two.com', NULL);
 UNLOCK TABLES;
 
 --
@@ -53,7 +56,7 @@ CREATE TABLE `Rooms` (
   `roomNumber` char(4) NOT NULL,
   `roomType` varchar(255) NOT NULL,
   `roomPrice` float(11) NOT NULL,
-  PRIMARY KEY (`roomID`)
+  PRIMARY KEY (`roomID`),
   UNIQUE KEY `roomNumber` (`roomNumber`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
@@ -65,7 +68,7 @@ INSERT INTO `Rooms` VALUES (1,1,'101','Handicap King', 100.50),
 (2,1,'102','Handicap Queen', 98.75),(3,1,'103','Queen', 98.75),
 (4,2,'201','Queen', 100.50),(5,2,'202','Jr. Suite', 125.65),
 (6,3,'301','Jr. Suite', 125.65),(7,3,'302','King', 115.64),
-(8,4,'401','King Suite', 149.55)(9,5,'501','Queen', 100.50);
+(8,4,'401','King Suite', 149.55),(9,5,'501','Queen', 100.50);
 UNLOCK TABLES;
 
 --
@@ -82,9 +85,9 @@ CREATE TABLE `Reservations` (
   `checkedIn` tinyint DEFAULT 0,
   `checkedOut` tinyint DEFAULT 0,
   PRIMARY KEY (`reservationID`),
-  CONSTRAINT `Reservations` FOREIGN KEY (`customerID`)
+  CONSTRAINT `Reservations_Cust` FOREIGN KEY (`customerID`)
     REFERENCES `Customers` (`customerID`),
-  CONSTRAINT `Reservations` FOREIGN KEY (`employeeID`)
+  CONSTRAINT `Reservations_Emp` FOREIGN KEY (`employeeID`)
     REFERENCES `Employees` (`employeeID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
 
@@ -92,9 +95,9 @@ CREATE TABLE `Reservations` (
 -- Dumping data for table `Reservations`
 --
 LOCK TABLES `Reservations` WRITE;
-INSERT INTO `Reservations` VALUES (1,2,NULL,'02/15/2022',3,NULL,1,1),
-(2,1,1,'03/01/2022',7,'Honeymoon',0,0),(3,3,2,'02/28/2022',1,NULL,0,0),
-(4,2,1,'02/22/2022',4,NULL,1,0);
+INSERT INTO `Reservations` VALUES (1,6,NULL,'2022-02-15',3,NULL,1,1),
+(2,9,1,'2022-03-01',7,'Honeymoon',0,0),(3,121,2,'2022-02-28',1,NULL,0,0),
+(4,6,1,'2022-02-22',4,NULL,1,0);
 UNLOCK TABLES;
 
 --
@@ -105,9 +108,9 @@ CREATE TABLE `RoomReservations` (
   `roomID` int(11) NOT NULL DEFAULT '0',
   `reservationID` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`roomID`,`reservationID`),
-  CONSTRAINT `RoomReservations` FOREIGN KEY (`roomID`)
+  CONSTRAINT `RoomReservations_Room` FOREIGN KEY (`roomID`)
     REFERENCES `Rooms` (`roomID`),
-  CONSTRAINT `RoomReservations` FOREIGN KEY (`reservationID`)
+  CONSTRAINT `RoomReservations_Reservation` FOREIGN KEY (`reservationID`)
     REFERENCES `Reservations` (`reservationID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -127,17 +130,17 @@ CREATE TABLE `Invoices` (
   `invoiceAmount` float(11) NOT NULL,
   `creditCard` bigint DEFAULT NULL,
   `dueDate` date NOT NULL,
-  `invoicePaid` tinyint DEFAULT 0;
-  PRIMARY KEY (`invoiceID`)
+  `invoicePaid` tinyint DEFAULT 0,
+  PRIMARY KEY (`invoiceID`),
   CONSTRAINT `Invoices` FOREIGN KEY (`reservationID`)
-    REFERENCES `Reservations` (`reservationID`),
+    REFERENCES `Reservations` (`reservationID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
 -- Sample data for table `Invoices`
 --
 LOCK TABLES `Invoices` WRITE;
-INSERT INTO `Invoices` VALUES (1,1,2.22,NULL,'02/22/2022',1),
-(2,1,50.45,NULL,'02/28/2022',0),(3,4,98.75,NULL,'03/15/2022',0),
-(4,3,100.75,1234567890901234,'03/01/2022',0),(5,4,45.77,NULL,'02/21/2022',1);
+INSERT INTO `Invoices` VALUES (1,1,2.22,NULL,'2022-02-22',1),
+(2,1,50.45,NULL,'2022-02-28',0),(3,4,98.75,NULL,'2022-03-15',0),
+(4,3,100.75,1234567890901234,'2022-03-01',0),(5,4,45.77,NULL,'2022-02-21',1);
 UNLOCK TABLES;
