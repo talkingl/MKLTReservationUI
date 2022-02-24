@@ -9,7 +9,7 @@ CREATE TABLE `Employees` (
   `firstName`varchar(255) NOT NULL,
   `lastName`varchar(255) NOT NULL,
   `shiftWorked` int(11) DEFAULT NULL,
-  `payRate` float(11) DEFAULT NULL,
+  `payRate` decimal(13,2) DEFAULT NULL,
   PRIMARY KEY (`employeeID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
@@ -55,7 +55,7 @@ CREATE TABLE `Rooms` (
   `roomFloor` int(11) NOT NULL,
   `roomNumber` char(4) NOT NULL,
   `roomType` varchar(255) NOT NULL,
-  `roomPrice` float(11) NOT NULL,
+  `roomPrice` decimal(13,2) NOT NULL,
   PRIMARY KEY (`roomID`),
   UNIQUE KEY `roomNumber` (`roomNumber`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
@@ -82,8 +82,8 @@ CREATE TABLE `Reservations` (
   `checkInDate` date NOT NULL,
   `stayLength` int(11) NOT NULL,
   `specialRequests` longtext DEFAULT NULL,
-  `checkedIn` tinyint DEFAULT 0,
-  `checkedOut` tinyint DEFAULT 0,
+  `checkedIn` boolean DEFAULT false,
+  `checkedOut` boolean DEFAULT false,
   PRIMARY KEY (`reservationID`),
   CONSTRAINT `Reservations_Cust` FOREIGN KEY (`customerID`)
     REFERENCES `Customers` (`customerID`),
@@ -95,9 +95,9 @@ CREATE TABLE `Reservations` (
 -- Dumping data for table `Reservations`
 --
 LOCK TABLES `Reservations` WRITE;
-INSERT INTO `Reservations` VALUES (1,6,NULL,'2022-02-15',3,NULL,1,1),
-(2,9,1,'2022-03-01',7,'Honeymoon',0,0),(3,121,2,'2022-02-28',1,NULL,0,0),
-(4,6,1,'2022-02-22',4,NULL,1,0);
+INSERT INTO `Reservations` VALUES (1,6,NULL,'2022-02-15',3,NULL,true,true),
+(2,9,1,'2022-03-01',7,'Honeymoon',false,false),(3,121,2,'2022-02-28',1,NULL,false,false),
+(4,6,1,'2022-02-22',4,NULL,true,false);
 UNLOCK TABLES;
 
 --
@@ -127,10 +127,10 @@ DROP TABLE IF EXISTS `Invoices`;
 CREATE TABLE `Invoices` (
   `invoiceID` int(11) NOT NULL AUTO_INCREMENT,
   `reservationID` int(11) NOT NULL,
-  `invoiceAmount` float(11) NOT NULL,
+  `invoiceAmount` decimal(13,2) NOT NULL,
   `creditCard` bigint DEFAULT NULL,
   `dueDate` date NOT NULL,
-  `invoicePaid` tinyint DEFAULT 0,
+  `invoicePaid` boolean DEFAULT false,
   PRIMARY KEY (`invoiceID`),
   CONSTRAINT `Invoices` FOREIGN KEY (`reservationID`)
     REFERENCES `Reservations` (`reservationID`)
@@ -140,7 +140,8 @@ CREATE TABLE `Invoices` (
 -- Sample data for table `Invoices`
 --
 LOCK TABLES `Invoices` WRITE;
-INSERT INTO `Invoices` VALUES (1,1,2.22,NULL,'2022-02-22',1),
-(2,1,50.45,NULL,'2022-02-28',0),(3,4,98.75,NULL,'2022-03-15',0),
-(4,3,100.75,1234567890901234,'2022-03-01',0),(5,4,45.77,NULL,'2022-02-21',1);
+INSERT INTO `Invoices` VALUES (1,1,2.22,NULL,'2022-02-22',true),
+(2,1,50.45,NULL,'2022-02-28',false),(3,4,98.75,NULL,'2022-03-15',false),
+(4,3,100.75,1234567890901234,'2022-03-01',false),
+(5,4,45.77,NULL,'2022-02-21',true);
 UNLOCK TABLES;
