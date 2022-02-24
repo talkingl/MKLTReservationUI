@@ -3,6 +3,52 @@
 -- Your submission should contain ALL the queries required to implement ALL the
 -- functionalities listed in the Project Specs.
 
+--Select alls for each of the tables to display
+SELECT * from Employees
+
+SELECT * from Customers
+
+SELECT * from Rooms
+
+SELECT * from Reservations
+
+SELECT * from RoomReservations
+
+-- inserts into tables
+INSERT INTO Employees (firstName, lastName, shiftWorked, payRate) VALUES (:firstNameInput, :lastNameInput, :shiftWorkedInput, :payRateInput)
+
+INSERT INTO Customers (firstName, lastName, emailAddress, phoneNumber) VALUES (:firstNameInput, :lastNameInput, :emailAddressInput, :phoneNumberInput)
+
+INSERT INTO Rooms (roomFloor, roomNumber, roomType, roomPrice) VALUES (:roomFloorInput, :roomNumberInput, :roomTypeInput, :roomPriceInput)
+
+INSERT INTO Reservations (customerID, employeeID, checkInDate, stayLength, specialRequests, checkedIn, checkedOut) VALUES (:customerIDInput, :employeeIDInput, :checkedInInput, :stayLengthInput,  :specialRequestsInput,  :checkedInInput,  :checkedOutInput)
+
+INSERT INTO RoomsReservations (roomID, reservationID ) VALUES (:roomIDInput, :reservationIDInput)
+
+-- updates for each table
+UPDATE Employees SET firstName = :firstNameInput, lastName= :lastNameInput, shiftWorked = :shiftWorkedInput, payRate= :payRateInput WHERE id= :employeeIDInput
+
+UPDATE Customers SET firstName = :firstNameInput, lastName= :lastNameInput, emailAddress = :emailAddressInput, phoneNumber= :phoneNumberInput WHERE id= :customerIDInput
+
+UPDATE Rooms SET roomFloor = :roomFloorInput, roomNumber= :roomNumberInput, roomType = :roomTypeInput, roomPrice= :roomPriceInput WHERE id= :roomIDInput
+
+UPDATE Reservations SET customerID = :customerIDInput, employeeID= :employeeIDInput, checkInDate = :checkInDateInput, stayLength= :stayLengthInput, specialRequests= :specialRequestsInput, checkedIn= :checkedInInput, checkedOut= :checkedOutInput WHERE id= :reservationIDInput
+
+--delete each table
+DELETE FROM Employees WHERE id = :employeeID_from_form
+
+DELETE FROM Customers WHERE id = :customerID_from_form
+
+DELETE FROM Rooms WHERE id = :roomID_from_form
+
+DELETE FROM Reservations WHERE id = :reservationID_from_form
+
+--search functionality
+SELECT *
+FROM :tableName
+WHERE :columnName LIKE '%:searchQuery%';
+
+-------------------------------------------------------------
 -- get all Planet IDs and Names to populate the Homeworld dropdown
 SELECT planet_id, name FROM bsg_planets
 
@@ -38,3 +84,4 @@ DELETE FROM bsg_people WHERE id = :character_ID_selected_from_browse_character_p
 
 -- dis-associate a certificate from a person (M-to-M relationship deletion)
 DELETE FROM bsg_cert_people WHERE pid = :character_ID_selected_from_certificate_and_character_list AND cid = :certification_ID_selected_from-certificate_and_character_list
+
