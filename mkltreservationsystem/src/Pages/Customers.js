@@ -25,7 +25,7 @@ function AddModal(props) {
         <input></input>
         <h4>Email Address</h4>
         <input></input>
-        <h4>Phone Number</h4>
+        <h4>Phone Number (XXX-XXX-XXXX)</h4>
         <input></input>
       </Modal.Body>
       <Modal.Footer>
@@ -57,7 +57,7 @@ function SearchModal(props) {
         <input></input>
         <h4>Email Address</h4>
         <input></input>
-        <h4>Phone Number</h4>
+        <h4>Phone Number (XXX-XXX-XXXX)</h4>
         <input></input>
       </Modal.Body>
       <Modal.Footer>
