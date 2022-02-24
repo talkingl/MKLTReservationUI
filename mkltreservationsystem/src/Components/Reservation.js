@@ -16,21 +16,21 @@ function UpdateModal(props) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h4>customerID</h4>
+        <h4>Customer ID</h4>
         <input></input>
-        <h4>employeeID</h4>
+        <h4>Employee ID</h4>
         <input></input>
-        <h4>checkInDate</h4>
+        <h4>Check-In Date</h4>
         <input></input>
-        <h4>stayLength</h4>
+        <h4>Stay Length</h4>
         <input></input>
-        <h4>roomID</h4>
+        <h4>Room Number</h4>
         <input></input>
-        <h4>checkedIn</h4>
+        <h4>Checked In</h4>
         <input></input>
-        <h4>checkedOut</h4>
+        <h4>Checked Out</h4>
         <input></input>
-        <h4>specialRequest</h4>
+        <h4>Special Request(s)</h4>
         <input></input>
       </Modal.Body>
       <Modal.Footer>

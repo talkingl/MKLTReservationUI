@@ -17,13 +17,13 @@ function AddModal(props) {
         <Modal.Title id="contained-modal-title-vcenter">Add Rooms</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h4>roomFloor</h4>
+        <h4>Room Floor</h4>
         <input></input>
-        <h4>roomNumber</h4>
+        <h4>Room Number</h4>
         <input></input>
-        <h4>roomType</h4>
+        <h4>Room Type</h4>
         <input></input>
-        <h4>roomPrice</h4>
+        <h4>Room Price</h4>
         <input></input>
       </Modal.Body>
       <Modal.Footer>

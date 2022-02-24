@@ -20,7 +20,7 @@ function SearchModal(props) {
       </Modal.Header>
       <Modal.Body>
         <h2>Choose a Date for filtering reservations</h2>
-        <h4>checkInDate</h4>
+        <h4>Check In Date</h4>
         <input></input>
       </Modal.Body>
       <Modal.Footer>

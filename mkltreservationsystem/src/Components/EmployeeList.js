@@ -16,11 +16,11 @@ function EmployeeList({
       <h1> Employees</h1>
       <Table id="Employees" className="borderless">
         <thead>
-          <th>employeeID</th>
-          <th>firstName</th>
-          <th> lastName</th>
-          <th>shiftWorked</th>
-          <th> payRate</th>
+          <th>Employee ID</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Shift Worked</th>
+          <th>Pay Rate</th>
           <th>Edit Employee</th>
           <th>Delete Employee</th>
         </thead>

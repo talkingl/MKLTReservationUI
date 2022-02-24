@@ -42,7 +42,7 @@ function App() {
                 element={<Invoices></Invoices>}
               ></Route>
               <Route
-                path="/roomsreservations"
+                path="/guestcheckinout"
                 exact
                 element={<RoomsReservations></RoomsReservations>}
               ></Route>

@@ -20,15 +20,15 @@ function AddModal(props) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h4>reservationID</h4>
+        <h4>Reservation ID</h4>
         <input></input>
-        <h4>invoiceAmount</h4>
+        <h4>Invoice Amount</h4>
         <input></input>
-        <h4>creditCard</h4>
+        <h4>Credit Card</h4>
         <input></input>
-        <h4>dueDate</h4>
+        <h4>Due Date</h4>
         <input></input>
-        <h4> invoicePaid </h4>
+        <h4>Invoice Paid </h4>
         <input></input>
       </Modal.Body>
       <Modal.Footer>

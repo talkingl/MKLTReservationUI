@@ -44,7 +44,7 @@ function Rooms() {
       <br></br>
       <Link to="/roomsreservations" className="App-link">
         {" "}
-        Rooms Reservations
+        Guest Check-In / Check-Out
       </Link>
       <p>Use this page to check guests in and out of their rooms</p>
       <br></br>

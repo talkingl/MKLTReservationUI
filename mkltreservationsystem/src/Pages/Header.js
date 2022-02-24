@@ -23,7 +23,7 @@ function Header() {
               <Nav.Link href="/employees">Employees</Nav.Link>
               <Nav.Link href="/reservations">Reservations</Nav.Link>
               <Nav.Link href="/invoices">Invoices</Nav.Link>
-              <Nav.Link href="/roomsreservations">Room Reservations</Nav.Link>
+              <Nav.Link href="/guestcheckinout">Check-In / Check-Out</Nav.Link>
             </Nav>
           </Navbar.Collapse>
           <Navbar.Collapse className="justify-content-end">

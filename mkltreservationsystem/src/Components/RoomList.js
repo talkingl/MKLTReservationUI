@@ -16,11 +16,11 @@ function RoomList({
       <h1> Rooms</h1>
       <Table id="Rooms" className="borderless">
         <thead>
-          <th>roomID</th>
-          <th>roomFloor</th>
-          <th> roomNumber</th>
-          <th>roomType</th>
-          <th> roomPrice</th>
+          <th>Room ID</th>
+          <th>Room Floor</th>
+          <th>Room Number</th>
+          <th>Room Type</th>
+          <th>Room Price</th>
           <th>Edit Room</th>
           <th>Delete Room</th>
         </thead>

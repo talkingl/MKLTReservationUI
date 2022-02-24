@@ -16,14 +16,14 @@ function InvoiceList({
       <h1> Invoices</h1>
       <Table id="Invoices" className="borderless">
         <thead>
-          <th>invoiceID</th>
-          <th>reservationID</th>
-          <th> invoiceAmount</th>
-          <th> creditCard </th>
-          <th> dueDate</th>
-          <th> invoicePaid</th>
-          <th> Edit Invoice </th>
-          <th> Delete Invoice </th>
+          <th>Invoice ID</th>
+          <th>Reservation ID</th>
+          <th>Invoice Amount</th>
+          <th>Credit Card on File</th>
+          <th>Due Date</th>
+          <th>Invoice Paid</th>
+          <th>Edit Invoice </th>
+          <th>Delete Invoice </th>
         </thead>
         <tbody>
           <Invoice

@@ -13,7 +13,7 @@ function RRList({
 }) {
   return (
     <div>
-      <h1> Room Reservations</h1>
+      <h1>Guest Check-In / Check-Out</h1>
       <Table id="RoomsReservations" className="borderless">
         <thead>
           <th>Room Number</th>
