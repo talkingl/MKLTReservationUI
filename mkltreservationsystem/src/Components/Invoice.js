@@ -66,12 +66,12 @@ function Invoice({
 }) {
   return (
     <tr>
-      <td>1</td>
-      <td>1</td>
-      <td> 855.52</td>
-      <td>123456789</td>
-      <td> 3/1/22</td>
-      <td> No</td>
+      <td>{invoice.invoiceID}</td>
+      <td>{invoice.reservationID}</td>
+      <td> {invoice.invoiceAmount}</td>
+      <td>{invoice.creditCard}</td>
+      <td> {invoice.dueDate}</td>
+      <td>{invoice.invoicePaid}</td>
       <td>
         <MdEdit onClick={() => setModalShowUpdate(true)} />
         <UpdateModal

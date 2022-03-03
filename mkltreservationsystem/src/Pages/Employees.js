@@ -4,6 +4,7 @@ import "../App.css";
 import { Link } from "react-router-dom";
 import React from "react";
 import EmployeeList from "../Components/EmployeeList";
+import { useState, useEffect } from "react";
 
 function AddModal(props) {
   return (
@@ -72,7 +73,15 @@ function Employees() {
   const [modalShowRemove, setModalShowRemove] = React.useState(false);
   const [modalShowUpdate, setModalShowUpdate] = React.useState(false);
   const [modalShowSearch, setModalShowSearch] = React.useState(false);
-
+  const [employees, setEmployees] = useState();
+  const loadEmployees = async () => {
+    const response = await fetch("http://localhost:8000/displayemployees");
+    const employees = await response.json();
+    setEmployees(employees);
+  };
+  useEffect(() => {
+    loadEmployees();
+  }, []);
   return (
     <div>
       <EmployeeList
@@ -80,6 +89,7 @@ function Employees() {
         setModalShowUpdate={setModalShowUpdate}
         modalShowRemove={modalShowRemove}
         setModalShowRemove={setModalShowRemove}
+        employees={employees}
       ></EmployeeList>
       <button className="crud-buttons" onClick={() => setModalShowAdd(true)}>
         Add

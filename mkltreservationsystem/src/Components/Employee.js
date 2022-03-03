@@ -56,7 +56,7 @@ function RemoveModal(props) {
 }
 
 function Employee({
-  employees,
+  employee,
   onDelete,
   onEdit,
   modalShowUpdate,
@@ -66,11 +66,11 @@ function Employee({
 }) {
   return (
     <tr>
-      <td>1</td>
-      <td>Logan</td>
-      <td> Talkington</td>
-      <td>Night</td>
-      <td> $42.22</td>
+      <td>{employee.employeeID}</td>
+      <td>{employee.firstName}</td>
+      <td> {employee.lastName}</td>
+      <td>{employee.shiftWorked}</td>
+      <td> {employee.payRate}</td>
       <td>
         <MdEdit onClick={() => setModalShowUpdate(true)} />
         <UpdateModal

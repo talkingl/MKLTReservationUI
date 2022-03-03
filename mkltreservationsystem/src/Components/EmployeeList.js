@@ -25,12 +25,15 @@ function EmployeeList({
           <th>Delete Employee</th>
         </thead>
         <tbody>
-          <Employee
-            modalShowUpdate={modalShowUpdate}
-            setModalShowUpdate={setModalShowUpdate}
-            modalShowRemove={modalShowRemove}
-            setModalShowRemove={setModalShowRemove}
-          ></Employee>
+          {employees?.map((employee, i) => (
+            <Employee
+              modalShowUpdate={modalShowUpdate}
+              setModalShowUpdate={setModalShowUpdate}
+              modalShowRemove={modalShowRemove}
+              setModalShowRemove={setModalShowRemove}
+              employee={employee}
+            ></Employee>
+          ))}
         </tbody>
       </Table>{" "}
     </div>

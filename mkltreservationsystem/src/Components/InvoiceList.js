@@ -26,12 +26,15 @@ function InvoiceList({
           <th>Delete Invoice </th>
         </thead>
         <tbody>
-          <Invoice
-            modalShowUpdate={modalShowUpdate}
-            setModalShowUpdate={setModalShowUpdate}
-            modalShowRemove={modalShowRemove}
-            setModalShowRemove={setModalShowRemove}
-          ></Invoice>
+          {invoices?.map((invoice, i) => (
+            <Invoice
+              modalShowUpdate={modalShowUpdate}
+              setModalShowUpdate={setModalShowUpdate}
+              modalShowRemove={modalShowRemove}
+              setModalShowRemove={setModalShowRemove}
+              invoice={invoice}
+            ></Invoice>
+          ))}
         </tbody>
       </Table>
     </div>

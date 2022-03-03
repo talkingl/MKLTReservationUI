@@ -4,6 +4,7 @@ import "../App.css";
 import CustomerList from "../Components/CustomerList";
 import { Link } from "react-router-dom";
 import React from "react";
+import { useEffect, useState } from "react";
 
 function AddModal(props) {
   return (
@@ -74,15 +75,17 @@ function Customers() {
   const [modalShowUpdate, setModalShowUpdate] = React.useState(false);
   const [modalShowSearch, setModalShowSearch] = React.useState(false);
 
+  const loadCustomers = async () => {
+    const response = await fetch("http://localhost:8000/displaycustomers");
+    const customers = await response.json();
+    setCustomers(customers);
+  };
+  useEffect(() => {
+    loadCustomers();
+  }, []);
   const onDelete = (ID) => {
     // SQL delete the record
     setCustomers(customers.filter((e) => e.customerID !== ID));
-  };
-
-  const loadCustomers = async () => {
-    const response = await fetch("/exercises");
-    const resp_data = await response.json();
-    setCustomers(resp_data);
   };
 
   // SQL SELECT Statement to get customers
@@ -99,6 +102,7 @@ function Customers() {
         setModalShowUpdate={setModalShowUpdate}
         modalShowRemove={modalShowRemove}
         setModalShowRemove={setModalShowRemove}
+        customers={customers}
       ></CustomerList>
       <button className="crud-buttons" onClick={() => setModalShowAdd(true)}>
         Add

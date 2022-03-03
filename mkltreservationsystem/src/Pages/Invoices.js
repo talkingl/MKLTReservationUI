@@ -3,6 +3,7 @@ import { Container, Row, Col, Table, Modal, Button } from "react-bootstrap";
 import "../App.css";
 import { Link } from "react-router-dom";
 import InvoiceList from "../Components/InvoiceList";
+import { useEffect, useState } from "react";
 
 import React from "react";
 
@@ -102,7 +103,16 @@ function Invoices() {
   const [modalShowRemove, setModalShowRemove] = React.useState(false);
   const [modalShowUpdate, setModalShowUpdate] = React.useState(false);
   const [modalShowSearch, setModalShowSearch] = React.useState(false);
+  const [invoices, setInvoices] = useState();
 
+  const loadInvoices = async () => {
+    const response = await fetch("http://localhost:8000/displayinvoices");
+    const invoices = await response.json();
+    setInvoices(invoices);
+  };
+  useEffect(() => {
+    loadInvoices();
+  }, []);
   return (
     <div>
       <InvoiceList
@@ -110,6 +120,7 @@ function Invoices() {
         setModalShowUpdate={setModalShowUpdate}
         modalShowRemove={modalShowRemove}
         setModalShowRemove={setModalShowRemove}
+        invoices={invoices}
       ></InvoiceList>
       <button className="crud-buttons" onClick={() => setModalShowAdd(true)}>
         Add

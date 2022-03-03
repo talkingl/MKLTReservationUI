@@ -65,16 +65,12 @@ function Customer({
 }) {
   return (
     <tr>
-      {/* <td>{customer.customerID}</td>
-            <td>{customer.firstName}</td>
-            <td>{customer.lastName}</td>
-            <td>{customer.emailAddress}</td>
-            <td>{customer.phoneNumber}</td> */}
-      <td>1 </td>
-      <td>Logan</td>
-      <td>Talkington</td>
-      <td> ltalkington@email.com</td>
-      <td> 123456789</td>
+      <td>{customer.customerID}</td>
+      <td>{customer.firstName}</td>
+      <td>{customer.lastName}</td>
+      <td>{customer.emailAddress}</td>
+      <td>{customer.phoneNumber}</td>
+
       <td>
         <MdEdit onClick={() => setModalShowUpdate(true)} />
         <UpdateModal

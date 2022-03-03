@@ -24,12 +24,16 @@ function CustomerList({
         </tr>
       </thead>
       <tbody>
-        <Customer
-          modalShowUpdate={modalShowUpdate}
-          setModalShowUpdate={setModalShowUpdate}
-          modalShowRemove={modalShowRemove}
-          setModalShowRemove={setModalShowRemove}
-        ></Customer>
+        {customers?.map((customer, i) => (
+          <Customer
+            modalShowUpdate={modalShowUpdate}
+            setModalShowUpdate={setModalShowUpdate}
+            modalShowRemove={modalShowRemove}
+            setModalShowRemove={setModalShowRemove}
+            customer={customer}
+          ></Customer>
+        ))}
+
         {/* {customers.map((customer, i) => <Customer customer={customer}
                     onDelete={onDelete}
                     onEdit={onEdit}
