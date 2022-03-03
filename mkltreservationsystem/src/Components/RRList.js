@@ -3,7 +3,7 @@ import RR from "./RR";
 import { Table } from "react-bootstrap";
 
 function RRList({
-  rrs,
+  reservations,
   onDelete,
   onEdit,
   modalShowUpdate,
@@ -23,12 +23,15 @@ function RRList({
           <th>Guest Check Out</th>
         </thead>
         <tbody>
-          <RR
-            modalShowUpdate={modalShowUpdate}
-            setModalShowUpdate={setModalShowUpdate}
-            modalShowRemove={modalShowRemove}
-            setModalShowRemove={setModalShowRemove}
-          ></RR>
+          {reservations?.map((reservations, i) => (
+            <RR
+              modalShowUpdate={modalShowUpdate}
+              setModalShowUpdate={setModalShowUpdate}
+              modalShowRemove={modalShowRemove}
+              setModalShowRemove={setModalShowRemove}
+              reservations={reservations}
+            ></RR>
+          ))}
         </tbody>
       </Table>
     </div>

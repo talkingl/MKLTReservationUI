@@ -4,7 +4,7 @@ import "../App.css";
 import { Link } from "react-router-dom";
 import React from "react";
 import RoomList from "../Components/RoomList";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function SearchModal(props) {
   return (
@@ -43,6 +43,17 @@ function Rooms() {
   const [modalShowRemove, setModalShowRemove] = React.useState(false);
   const [modalShowUpdate, setModalShowUpdate] = React.useState(false);
   const [modalShowSearch, setModalShowSearch] = React.useState(false);
+  const [rooms, setRooms] = useState();
+
+  const loadRooms = async () => {
+    const response = await fetch("http://localhost:8000/displayrooms");
+    const rooms = await response.json();
+    setRooms(rooms);
+  };
+  useEffect(() => {
+    loadRooms();
+  }, []);
+
   function AddModal(props) {
     const [roomFloor, setRoomFloor] = useState();
     const [roomNumber, setRoomNumber] = useState();
@@ -53,32 +64,32 @@ function Rooms() {
       e.preventDefault();
       // On submit of the form, send a POST request with the data to the server.
 
-      let data = {
-        roomFloor: roomFloor,
-        roomNumber: roomNumber,
-        roomType: roomType,
-        roomPrice: roomPrice,
-      };
+      const formData = new FormData();
+      formData.append("roomFloor", roomFloor);
+      formData.append("roomNumber", roomNumber);
+      formData.append("roomType", roomType);
+      formData.append("roomPrice", roomPrice);
 
-      const response = await fetch("/createroom", {
+      const response = await fetch("http://localhost:8000/createroom", {
         method: "POST",
-        mode: "no-cors",
-        body: data,
+        mode: "cors",
+        body: formData,
+        contentType: "application/json",
       });
       if (response.status === 200) {
         // re-render table
         // const response = await fetch('https://writers-block-serve.herokuapp.com/posts');
         // const posts = await response.json();
         // setPosts(posts);
-
         // clear input values
-        setRoomFloor("");
-        setRoomNumber("");
-
-        setRoomType("");
-        setRoomPrice("");
+        // setRoomFloor("");
+        // setRoomNumber("");
+        // setRoomType("");
+        // setRoomPrice("");
+        console.log("yay");
       }
     };
+
     return (
       <Modal
         {...props}
@@ -133,6 +144,7 @@ function Rooms() {
         setModalShowUpdate={setModalShowUpdate}
         modalShowRemove={modalShowRemove}
         setModalShowRemove={setModalShowRemove}
+        rooms={rooms}
       ></RoomList>
       <button className="crud-buttons" onClick={() => setModalShowAdd(true)}>
         Add

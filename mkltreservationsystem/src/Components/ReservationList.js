@@ -21,7 +21,6 @@ function ReservationList({
           <th>Employee ID</th>
           <th>Check-In Date</th>
           <th>Stay Length(days)</th>
-          <th>Room Number</th>
           <th>Checked In? (Y/N)</th>
           <th>Checked Out? (Y/N)</th>
           <th>Special Request(s)</th>
@@ -29,12 +28,15 @@ function ReservationList({
           <th>Delete Reservation</th>
         </thead>
         <tbody>
-          <Reservation
-            modalShowUpdate={modalShowUpdate}
-            setModalShowUpdate={setModalShowUpdate}
-            modalShowRemove={modalShowRemove}
-            setModalShowRemove={setModalShowRemove}
-          ></Reservation>
+          {reservations?.map((reservations, i) => (
+            <Reservation
+              modalShowUpdate={modalShowUpdate}
+              setModalShowUpdate={setModalShowUpdate}
+              modalShowRemove={modalShowRemove}
+              setModalShowRemove={setModalShowRemove}
+              reservations={reservations}
+            ></Reservation>
+          ))}
         </tbody>
       </Table>
     </div>

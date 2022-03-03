@@ -66,11 +66,11 @@ function Room({
 }) {
   return (
     <tr>
-      <td>1</td>
-      <td>1</td>
-      <td> 1</td>
-      <td>King</td>
-      <td> $420.64</td>
+      <td>{rooms.roomId}</td>
+      <td>{rooms.roomFloor}</td>
+      <td> {rooms.roomNumber}</td>
+      <td>{rooms.roomType}</td>
+      <td> {rooms.roomPrice}</td>
       <td>
         <MdEdit onClick={() => setModalShowUpdate(true)} />
         <UpdateModal

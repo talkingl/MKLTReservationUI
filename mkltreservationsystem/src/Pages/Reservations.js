@@ -4,6 +4,7 @@ import "../App.css";
 import { Link } from "react-router-dom";
 import React from "react";
 import ReservationList from "../Components/ReservationList";
+import { useEffect, useState } from "react";
 
 function AddModal(props) {
   return (
@@ -89,7 +90,16 @@ function Reservations() {
   const [modalShowRemove, setModalShowRemove] = React.useState(false);
   const [modalShowUpdate, setModalShowUpdate] = React.useState(false);
   const [modalShowSearch, setModalShowSearch] = React.useState(false);
+  const [reservations, setReservation] = useState();
 
+  const loadReservations = async () => {
+    const response = await fetch("http://localhost:8000/displayreservations");
+    const reservations = await response.json();
+    setReservation(reservations);
+  };
+  useEffect(() => {
+    loadReservations();
+  }, []);
   return (
     <div>
       <ReservationList
@@ -97,6 +107,7 @@ function Reservations() {
         setModalShowUpdate={setModalShowUpdate}
         modalShowRemove={modalShowRemove}
         setModalShowRemove={setModalShowRemove}
+        reservations={reservations}
       ></ReservationList>
       <button className="crud-buttons" onClick={() => setModalShowAdd(true)}>
         Add

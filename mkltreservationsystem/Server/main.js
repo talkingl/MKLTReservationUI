@@ -1,16 +1,28 @@
 var express = require("express"); // We are using the express library for the web server
 var app = express(); // We need to instantiate an express object to interact with the server in our code
-PORT = 3000;
-
+PORT = 8000;
+var bodyParser = require("body-parser");
 var db = require("./dbcon");
 var router = express.Router();
+var cors = require("cors");
+app.use(bodyParser.json());
+app.use(cors());
 
 //creates a room
-router.post("/createroom", function (req, res) {
-  let room = req.body;
-  console.log(req, res);
-  query = "INSERT INTO Rooms SET ?";
-  db.pool.query(query, room, (err, result) => {
+app.post("/createroom", function (req, res) {
+  let roomNumber = req.body.roomNumber;
+  let roomFloor = req.body.roomFloor;
+  let roomType = req.body.roomType;
+  let roomPrice = req.body.roomPrice;
+  console.log("this is the", roomNumber, roomFloor, roomType, roomPrice);
+  (query =
+    "INSERT INTO Rooms (roomNumber, roomFloor, roomType, roomPrice) VALUES " +
+    "("`${roomFloor}`),
+    `${roomNumber}`,
+    `${roomType}`,
+    `${roomPrice}`,
+    ");";
+  db.pool.query(query, (err, result) => {
     if (err) throw err;
     console.log(result);
     res.send(result);
@@ -22,7 +34,6 @@ app.get("/displayrooms", function (req, res) {
   query = "SELECT * FROM Rooms";
   db.pool.query(query, (err, result) => {
     if (err) throw err;
-    console.log(result);
     res.send(result);
   });
 });

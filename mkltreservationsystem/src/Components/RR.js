@@ -52,7 +52,7 @@ function RemoveModal(props) {
 }
 
 function RR({
-  rr,
+  reservations,
   onDelete,
   onEdit,
   modalShowUpdate,
@@ -62,9 +62,9 @@ function RR({
 }) {
   return (
     <tr>
-      <td>304</td>
-      <td>Morgan Kandula</td>
-      <td>02/17/2021</td>
+      <td>{reservations.roomNumber}</td>
+      <td> {reservations.name}</td>
+      <td>{reservations.date}</td>
       <td>
         <AiOutlineCheckCircle onClick={() => setModalShowUpdate(true)} />
         <UpdateModal

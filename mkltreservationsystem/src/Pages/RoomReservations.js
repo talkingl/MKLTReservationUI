@@ -4,6 +4,7 @@ import "../App.css";
 import { Link } from "react-router-dom";
 import React from "react";
 import RRList from "../Components/RRList";
+import { useEffect, useState } from "react";
 
 function SearchModal(props) {
   return (
@@ -34,7 +35,18 @@ function RoomsReservations() {
   const [modalShowRemove, setModalShowRemove] = React.useState(false);
   const [modalShowUpdate, setModalShowUpdate] = React.useState(false);
   const [modalShowSearch, setModalShowSearch] = React.useState(false);
+  const [reservations, setReservation] = useState();
 
+  const loadReservations = async () => {
+    const response = await fetch(
+      "http://localhost:8000/displayroomreservations"
+    );
+    const reservations = await response.json();
+    setReservation(reservations);
+  };
+  useEffect(() => {
+    loadReservations();
+  }, []);
   return (
     <div>
       <RRList
@@ -42,6 +54,7 @@ function RoomsReservations() {
         setModalShowUpdate={setModalShowUpdate}
         modalShowRemove={modalShowRemove}
         setModalShowRemove={setModalShowRemove}
+        reservations={reservations}
       ></RRList>
       <button className="crud-buttons" onClick={() => setModalShowSearch(true)}>
         Search

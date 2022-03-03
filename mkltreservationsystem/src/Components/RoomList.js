@@ -25,12 +25,15 @@ function RoomList({
           <th>Delete Room</th>
         </thead>
         <tbody>
-          <Room
-            modalShowUpdate={modalShowUpdate}
-            setModalShowUpdate={setModalShowUpdate}
-            modalShowRemove={modalShowRemove}
-            setModalShowRemove={setModalShowRemove}
-          ></Room>
+          {rooms?.map((rooms, i) => (
+            <Room
+              modalShowUpdate={modalShowUpdate}
+              setModalShowUpdate={setModalShowUpdate}
+              modalShowRemove={modalShowRemove}
+              setModalShowRemove={setModalShowRemove}
+              rooms={rooms}
+            ></Room>
+          ))}
         </tbody>
       </Table>
     </div>

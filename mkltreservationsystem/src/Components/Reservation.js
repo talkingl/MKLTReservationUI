@@ -74,15 +74,15 @@ function Reservation({
 }) {
   return (
     <tr>
-      <td>1</td>
-      <td>1</td>
-      <td> 1</td>
-      <td> 2/1/2022</td>
-      <td> 3</td>
-      <td>3</td>
-      <td> Y</td>
-      <td>N</td>
-      <td> No </td>
+      <td>{reservations.reservationID}</td>
+      <td>{reservations.customerID}</td>
+      <td> {reservations.employeeID}</td>
+      <td> {reservations.checkInDate}</td>
+      <td> {reservations.stayLength}</td>
+
+      <td> {reservations.checkedIn}</td>
+      <td>{reservations.checkedOut}</td>
+      <td>{reservations.specialRequests}</td>
 
       <td>
         <MdEdit onClick={() => setModalShowUpdate(true)} />
