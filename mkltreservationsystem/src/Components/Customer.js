@@ -17,13 +17,13 @@ function UpdateModal(props) {
       </Modal.Header>
       <Modal.Body>
         <h4>First Name</h4>
-        <input></input>
+        <input type="text" id="fname" name="fname"></input>
         <h4>Last Name</h4>
-        <input></input>
+        <input type="text" id="lname" name="lname"></input>
         <h4>Email Address</h4>
-        <input></input>
+        <input type="text" id="address" name="address"></input>
         <h4>Phone Number (XXX-XXX-XXXX)</h4>
-        <input></input>
+        <input type="text" id="phone" name="phone"></input>
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={props.onHide}>Update</Button>

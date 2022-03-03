@@ -20,13 +20,13 @@ function AddModal(props) {
       </Modal.Header>
       <Modal.Body>
         <h4>First Name</h4>
-        <input></input>
+        <input type="text" id="fname" name="fname"></input>
         <h4>Last Name</h4>
-        <input></input>
+        <input type="text" id="lname" name="lname"></input>
         <h4>Email Address</h4>
-        <input></input>
+        <input type="text" id="address" name="address"></input>
         <h4>Phone Number (XXX-XXX-XXXX)</h4>
-        <input></input>
+        <input type="text" id="phone" name="phone"></input>
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={props.onHide}>Add</Button>
@@ -50,15 +50,15 @@ function SearchModal(props) {
       <Modal.Body>
         <h2> Enter any of the following to search for a Customer</h2>
         <h4>Customer ID</h4>
-        <input></input>
+        <input type="number" id="id" name="id"></input>
         <h4>First Name</h4>
-        <input></input>
+        <input type="text" id="fname" name="fname"></input>
         <h4>Last Name</h4>
-        <input></input>
+        <input type="text" id="lname" name="lname"></input>
         <h4>Email Address</h4>
-        <input></input>
+        <input type="text" id="address" name="address"></input>
         <h4>Phone Number (XXX-XXX-XXXX)</h4>
-        <input></input>
+        <input type="text" id="phone" name="phone"></input>
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={props.onHide}>Search</Button>
