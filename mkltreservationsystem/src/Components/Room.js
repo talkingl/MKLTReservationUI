@@ -66,7 +66,7 @@ function Room({
 }) {
   return (
     <tr>
-      <td>{rooms.roomId}</td>
+      <td>{rooms.roomID}</td>
       <td>{rooms.roomFloor}</td>
       <td> {rooms.roomNumber}</td>
       <td>{rooms.roomType}</td>

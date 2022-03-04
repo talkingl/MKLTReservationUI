@@ -44,6 +44,10 @@ function Rooms() {
   const [modalShowUpdate, setModalShowUpdate] = React.useState(false);
   const [modalShowSearch, setModalShowSearch] = React.useState(false);
   const [rooms, setRooms] = useState();
+  const [roomFloor, setRoomFloor] = useState();
+  const [roomNumber, setRoomNumber] = useState();
+  const [roomType, setRoomType] = useState();
+  const [roomPrice, setRoomPrice] = useState();
 
   const loadRooms = async () => {
     const response = await fetch("http://localhost:8000/displayrooms");
@@ -54,42 +58,34 @@ function Rooms() {
     loadRooms();
   }, []);
 
-  function AddModal(props) {
-    const [roomFloor, setRoomFloor] = useState();
-    const [roomNumber, setRoomNumber] = useState();
-    const [roomType, setRoomType] = useState();
-    const [roomPrice, setRoomPrice] = useState();
-    const submitButton = async (e) => {
-      console.log(roomFloor, roomNumber, roomType, roomPrice);
-      e.preventDefault();
-      // On submit of the form, send a POST request with the data to the server.
+  const submitButton = async (e) => {
+    e.preventDefault();
+    console.log(roomFloor, roomNumber, roomType, roomPrice);
 
-      const formData = new FormData();
-      formData.append("roomFloor", roomFloor);
-      formData.append("roomNumber", roomNumber);
-      formData.append("roomType", roomType);
-      formData.append("roomPrice", roomPrice);
+    // On submit of the form, send a POST request with the data to the server.
 
-      const response = await fetch("http://localhost:8000/createroom", {
-        method: "POST",
-        mode: "cors",
-        body: formData,
-        contentType: "application/json",
-      });
-      if (response.status === 200) {
-        // re-render table
-        // const response = await fetch('https://writers-block-serve.herokuapp.com/posts');
-        // const posts = await response.json();
-        // setPosts(posts);
-        // clear input values
-        // setRoomFloor("");
-        // setRoomNumber("");
-        // setRoomType("");
-        // setRoomPrice("");
-        console.log("yay");
-      }
+    let data = {
+      roomFloor: roomFloor,
+      roomNumber: roomNumber,
+      roomType: roomType,
+      roomPrice: roomPrice,
     };
 
+    const response = await fetch("http://localhost:8000/createroom", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (response.status === 201) {
+      alert("Successfully added the Room!");
+    } else {
+      alert(`Failed to add room, status code = ${response.status}`);
+    }
+  };
+
+  function AddModal(props) {
     return (
       <Modal
         {...props}
@@ -137,6 +133,7 @@ function Rooms() {
       </Modal>
     );
   }
+
   return (
     <div>
       <RoomList
