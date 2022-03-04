@@ -92,7 +92,6 @@ module.exports = function(){
 
     /* Adds a person, redirects to the people page after adding */
     router.post('/', function(req, res){
-        console.log(req.body.homeworld)
         console.log(req.body)
         var mysql = req.app.get('mysql');
         var sql = "INSERT INTO Customers (firstName, lastName, emailAddress, phoneNumber) VALUES (?,?,?,?)";

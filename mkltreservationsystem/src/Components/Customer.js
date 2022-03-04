@@ -2,6 +2,8 @@ import React from "react";
 import { MdDelete, MdEdit } from "react-icons/md";
 import { Modal, Button } from "react-bootstrap";
 
+let customerID, firstName, lastName, emailAddress, phoneNumber;
+
 function UpdateModal(props) {
   return (
     <Modal
@@ -67,11 +69,11 @@ function Customer({
 }) {
   return (
     <tr>
-      <td>{{customerID}}</td>
-      <td>{{firstName}}</td>
-      <td>{{lastName}}</td>
-      <td>{{emailAddress}}</td>
-      <td>{{phoneNumber}}</td>
+      <td>{customer.customerID}</td>
+      <td>{customer.firstName}</td>
+      <td>{customer.lastName}</td>
+      <td>{customer.emailAddress}</td>
+      <td>{customer.phoneNumber}</td>
       <td>
         <MdEdit onClick={() => setModalShowUpdate(true)} />
         <UpdateModal

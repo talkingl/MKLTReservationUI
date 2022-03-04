@@ -73,17 +73,16 @@ app.get("/displaycustomers", function (req, res) {
 });
 //creates a customer
 app.post('/createcustomer', function(req, res){
-    console.log(req.body)
+    console.log(req.body);
     var mysql = req.app.get('mysql');
     var sql = "INSERT INTO Customers (firstName, lastName, emailAddress, phoneNumber) VALUES (?,?,?,?)";
-    var inserts = [req.body.fname, req.body.lname, req.body.address, req.body.phone];
-    sql = mysql.pool.query(sql,inserts,function(error, results, fields){
+    var inserts = [req.body.firstName, req.body.lastName, req.body.emailAddress, req.body.phoneNumber];
+    db.pool.query(sql,inserts,function(error, results, fields){
         if(error){
             console.log(JSON.stringify(error))
             res.write(JSON.stringify(error));
-            res.end();
         }else{
-            res.redirect('/customers');
+            res.send(result);
         }
     });
   });
