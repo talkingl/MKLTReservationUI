@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import React from "react";
 import { useEffect, useState } from "react";
 
-
 function SearchModal(props) {
   return (
     <Modal
@@ -16,9 +15,7 @@ function SearchModal(props) {
       centered
     >
       <Modal.Header closeButton>
-        <Modal.Title id="search-customers">
-          Search Customers
-        </Modal.Title>
+        <Modal.Title id="search-customers">Search Customers</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <h2> Enter any of the following to search for a Customer</h2>
@@ -46,10 +43,6 @@ function Customers() {
   const [modalShowAdd, setModalShowAdd] = React.useState(false);
   const [modalShowUpdate, setModalShowUpdate] = React.useState(false);
   const [modalShowSearch, setModalShowSearch] = React.useState(false);
-  const [firstName, setFirstName] = useState();
-  const [lastName, setLastName] = useState();
-  const [emailAddress, setEmailAddress] = useState();
-  const [phoneNumber, setPhoneNumber] = useState();
 
   const loadCustomers = async () => {
     const response = await fetch("http://localhost:8000/displaycustomers");
@@ -60,32 +53,38 @@ function Customers() {
     loadCustomers();
   }, []);
 
-  const submitButton = async (e) => {
-    e.preventDefault();
-    console.log(firstName, lastName, emailAddress, phoneNumber);
-
-    let data = {
-      firstName: firstName,
-      lastName: lastName,
-      emailAddress: emailAddress,
-      phoneNumber: phoneNumber};
-
-    // On submit of the form, send a POST request with the data to the server.
-    const response = await fetch("http://localhost:8000/createcustomer", {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (response.status === 200) {
-      alert("Successfully added the Customer!");
-    } else {
-      alert(`Failed to add customer, status code = ${response.status}`);
-    }
-  };
-
   function AddModal(props) {
+    const [firstName, setFirstName] = useState();
+    const [lastName, setLastName] = useState();
+    const [emailAddress, setEmailAddress] = useState();
+    const [phoneNumber, setPhoneNumber] = useState();
+    const submitButton = async (e) => {
+      e.preventDefault();
+      console.log(firstName, lastName, emailAddress, phoneNumber);
+
+      let data = {
+        firstName: firstName,
+        lastName: lastName,
+        emailAddress: emailAddress,
+        phoneNumber: phoneNumber,
+      };
+
+      // On submit of the form, send a POST request with the data to the server.
+      const response = await fetch("http://localhost:8000/createcustomer", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.status === 200) {
+        alert("Successfully added the Customer!");
+        loadCustomers();
+      } else {
+        alert(`Failed to add customer, status code = ${response.status}`);
+        loadCustomers();
+      }
+    };
     return (
       <Modal
         {...props}
@@ -94,37 +93,39 @@ function Customers() {
         centered
       >
         <Modal.Header closeButton>
-          <Modal.Title id="add-customer">
-            Add Customer
-          </Modal.Title>
+          <Modal.Title id="add-customer">Add Customer</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <h4>First Name</h4>
           <input
-          value = {firstName}
-          onChange={(e) => setFirstName(e.target.value)}
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
           ></input>
           <h4>Last Name</h4>
           <input
-          value = {lastName}
-          onChange={(e) => setLastName(e.target.value)}
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
           ></input>
           <h4>Email Address</h4>
           <input
-          value = {emailAddress}
-          onChange={(e) => setEmailAddress(e.target.value)}
+            value={emailAddress}
+            onChange={(e) => setEmailAddress(e.target.value)}
           ></input>
           <h4>Phone Number (XXX-XXX-XXXX)</h4>
           <input
-          value = {phoneNumber}
-          onChange={(e) => setPhoneNumber(e.target.value)}
+            value={phoneNumber}
+            onChange={(e) => setPhoneNumber(e.target.value)}
           ></input>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={(e)=> {
-            props.onHide();
-            submitButton(e);
-          }}>Add</Button>
+          <Button
+            onClick={(e) => {
+              props.onHide();
+              submitButton(e);
+            }}
+          >
+            Add
+          </Button>
         </Modal.Footer>
       </Modal>
     );
@@ -154,7 +155,11 @@ function Customers() {
       <button className="crud-buttons" onClick={() => setModalShowAdd(true)}>
         Add
       </button>
-      <AddModal show={modalShowAdd} onHide={() => setModalShowAdd(false)} />
+      <AddModal
+        loadCustomers={loadCustomers}
+        show={modalShowAdd}
+        onHide={() => setModalShowAdd(false)}
+      />
       <button className="crud-buttons" onClick={() => setModalShowSearch(true)}>
         Search
       </button>

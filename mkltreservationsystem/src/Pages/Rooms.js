@@ -44,10 +44,6 @@ function Rooms() {
   const [modalShowUpdate, setModalShowUpdate] = React.useState(false);
   const [modalShowSearch, setModalShowSearch] = React.useState(false);
   const [rooms, setRooms] = useState();
-  const [roomFloor, setRoomFloor] = useState();
-  const [roomNumber, setRoomNumber] = useState();
-  const [roomType, setRoomType] = useState();
-  const [roomPrice, setRoomPrice] = useState();
 
   const loadRooms = async () => {
     const response = await fetch("http://localhost:8000/displayrooms");
@@ -58,34 +54,39 @@ function Rooms() {
     loadRooms();
   }, []);
 
-  const submitButton = async (e) => {
-    e.preventDefault();
-    console.log(roomFloor, roomNumber, roomType, roomPrice);
-
-    // On submit of the form, send a POST request with the data to the server.
-
-    let data = {
-      roomFloor: roomFloor,
-      roomNumber: roomNumber,
-      roomType: roomType,
-      roomPrice: roomPrice,
-    };
-
-    const response = await fetch("http://localhost:8000/createroom", {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (response.status === 201) {
-      alert("Successfully added the Room!");
-    } else {
-      alert(`Failed to add room, status code = ${response.status}`);
-    }
-  };
-
   function AddModal(props) {
+    const [roomFloor, setRoomFloor] = useState();
+    const [roomNumber, setRoomNumber] = useState();
+    const [roomType, setRoomType] = useState();
+    const [roomPrice, setRoomPrice] = useState();
+    const submitButton = async (e) => {
+      e.preventDefault();
+      console.log(roomFloor, roomNumber, roomType, roomPrice);
+
+      // On submit of the form, send a POST request with the data to the server.
+
+      let data = {
+        roomFloor: roomFloor,
+        roomNumber: roomNumber,
+        roomType: roomType,
+        roomPrice: roomPrice,
+      };
+
+      const response = await fetch("http://localhost:8000/createroom", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.status === 200) {
+        alert("Successfully added the Room!");
+        loadRooms();
+      } else {
+        alert(`Failed to add room, status code = ${response.status}`);
+        loadRooms();
+      }
+    };
     return (
       <Modal
         {...props}

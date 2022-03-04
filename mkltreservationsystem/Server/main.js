@@ -11,20 +11,22 @@ app.use(cors());
 
 //creates a room
 app.post("/createroom", function (req, res) {
-  let room = {
-    roomFloor: req.body.roomFloor,
-    roomNumber: req.body.roomNumber,
-    roomType: req.body.roomType,
-    roomPrice: req.body.roomPrice,
-  };
-  console.log("Got body:", req.body);
-  res.json({ ...req.body });
+  let inserts = [
+    req.body.roomFloor,
+    req.body.roomNumber,
+    req.body.roomType,
+    req.body.roomPrice,
+  ];
 
-  query = "INSERT INTO Rooms SET ?";
-  db.pool.query(query, room, (err, result) => {
-    if (err) throw err;
-    console.log(result);
-    res.send(result);
+  sql =
+    "INSERT INTO Rooms (roomFloor, roomNumber, roomType, roomPrice) VALUES (?,?,?,?)";
+  db.pool.query(sql, inserts, function (error, result, fields) {
+    if (error) {
+      console.log(JSON.stringify(error));
+      res.write(JSON.stringify(error));
+    } else {
+      res.send(result);
+    }
   });
 });
 
@@ -47,46 +49,58 @@ app.get("/displayemployees", function (req, res) {
   });
 });
 //adds an employee
-app.post('/createemployee', function(req, res){
-    console.log(req.body);
-    var mysql = req.app.get('mysql');
-    var sql = "INSERT INTO Employees (firstName, lastName, shiftWorked, payRate) VALUES (?,?,?,?)";
-    var inserts = [req.body.firstName, req.body.lastName, req.body.shiftWorked, req.body.payRate];
-    db.pool.query(sql,inserts,function(error, results, fields){
-        if(error){
-            console.log(JSON.stringify(error))
-            res.write(JSON.stringify(error));
-        }else{
-            res.send(result);
-        }
-    });
+app.post("/createemployee", function (req, res) {
+  console.log(req.body);
+  var mysql = req.app.get("mysql");
+  var sql =
+    "INSERT INTO Employees (firstName, lastName, shiftWorked, payRate) VALUES (?,?,?,?)";
+  var inserts = [
+    req.body.firstName,
+    req.body.lastName,
+    req.body.shiftWorked,
+    req.body.payRate,
+  ];
+  db.pool.query(sql, inserts, function (error, result, fields) {
+    if (error) {
+      console.log(JSON.stringify(error));
+      res.write(JSON.stringify(error));
+    } else {
+      res.send(result);
+    }
   });
+});
 
 //displays customers
 app.get("/displaycustomers", function (req, res) {
-  query = "SELECT customerID, firstName, lastName, emailAddress, phoneNumber FROM Customers";
+  query =
+    "SELECT customerID, firstName, lastName, emailAddress, phoneNumber FROM Customers";
   db.pool.query(query, (err, result) => {
     if (err) throw err;
-    // console.log(result);
+    // console.log(res);
     res.send(result);
   });
 });
 //creates a customer
-app.post('/createcustomer', function(req, res){
-    console.log(req.body);
-    var mysql = req.app.get('mysql');
-    var sql = "INSERT INTO Customers (firstName, lastName, emailAddress, phoneNumber) VALUES (?,?,?,?)";
-    var inserts = [req.body.firstName, req.body.lastName, req.body.emailAddress, req.body.phoneNumber];
-    db.pool.query(sql,inserts,function(error, results, fields){
-        if(error){
-            console.log(JSON.stringify(error))
-            res.write(JSON.stringify(error));
-        }else{
-            res.send(result);
-        }
-    });
+app.post("/createcustomer", function (req, res) {
+  console.log(req.body);
+  var mysql = req.app.get("mysql");
+  var sql =
+    "INSERT INTO Customers (firstName, lastName, emailAddress, phoneNumber) VALUES (?,?,?,?)";
+  var inserts = [
+    req.body.firstName,
+    req.body.lastName,
+    req.body.emailAddress,
+    req.body.phoneNumber,
+  ];
+  db.pool.query(sql, inserts, function (error, result, fields) {
+    if (error) {
+      console.log(JSON.stringify(error));
+      res.write(JSON.stringify(error));
+    } else {
+      res.send(result);
+    }
   });
-
+});
 
 //displays invoices
 app.get("/displayinvoices", function (req, res) {
@@ -98,37 +112,51 @@ app.get("/displayinvoices", function (req, res) {
   });
 });
 //creates an invoice
-app.post('/createinvoice', function(req, res){
-    console.log(req.body);
-    var mysql = req.app.get('mysql');
-    var sql = "INSERT INTO Invoices (reservationID, invoiceAmount, creditCard, dueDate, invoicePaid) VALUES (?,?,?,?,?)";
-    var inserts = [req.body.reservationID, req.body.invoiceAmount, req.body.creditCard, req.body.dueDate, req.body.invoicePaid];
-    db.pool.query(sql,inserts,function(error, results, fields){
-        if(error){
-            console.log(JSON.stringify(error))
-            res.write(JSON.stringify(error));
-        }else{
-            res.send(result);
-        }
-    });
+app.post("/createinvoice", function (req, res) {
+  console.log(req.body);
+  var mysql = req.app.get("mysql");
+  var sql =
+    "INSERT INTO Invoices (reservationID, invoiceAmount, creditCard, dueDate, invoicePaid) VALUES (?,?,?,?,?)";
+  var inserts = [
+    req.body.reservationID,
+    req.body.invoiceAmount,
+    req.body.creditCard,
+    req.body.dueDate,
+    req.body.invoicePaid,
+  ];
+  db.pool.query(sql, inserts, function (error, results, fields) {
+    if (error) {
+      console.log(JSON.stringify(error));
+      res.write(JSON.stringify(error));
+    } else {
+      res.send(results);
+    }
   });
+});
 
 //creates a reservation
-app.get("/createreservation", function (req, res) {
-  let reservation = {
-    customerID: 157,
-    employeeID: 4,
-    checkInDate: 2022 - 03 - 22,
-    stayLength: 5,
-    specialRequests: "want a taco bar",
-    checkedIn: 0,
-    checkedOut: 0,
-  };
-  query = "INSERT INTO Reservations SET ?";
-  db.pool.query(query, reservation, (err, result) => {
-    if (err) throw err;
-    console.log(result);
-    res.send(result);
+app.post("/createreservation", function (req, res) {
+  console.log(req.body);
+  var mysql = req.app.get("mysql");
+  let inserts = [
+    req.body.customerID,
+    req.body.employeeID,
+    req.body.checkInDate,
+    req.body.stayLength,
+    req.body.specialRequests,
+    req.body.checkedIn,
+    req.body.checkedOut,
+  ];
+
+  sql =
+    "INSERT INTO Reservations (customerID, employeeID, checkInDate, stayLength, specialRequests, checkedIn, checkedOut) VALUES (?,?,?,?,?,?,?)";
+  db.pool.query(sql, inserts, function (error, results, fields) {
+    if (error) {
+      console.log(JSON.stringify(error));
+      res.write(JSON.stringify(error));
+    } else {
+      res.send(results);
+    }
   });
 });
 
