@@ -78,8 +78,8 @@ function Customers() {
         "Content-Type": "application/json",
       },
     });
-    if (response.status === 201) {
-      alert("Successfully added the Room!");
+    if (response.status === 200) {
+      alert("Successfully added the Customer!");
     } else {
       alert(`Failed to add customer, status code = ${response.status}`);
     }

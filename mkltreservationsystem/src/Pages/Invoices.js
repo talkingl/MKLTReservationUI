@@ -7,38 +7,6 @@ import { useEffect, useState } from "react";
 
 import React from "react";
 
-function AddModal(props) {
-  return (
-    <Modal
-      {...props}
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Add Invoice
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <h4>Reservation ID</h4>
-        <input></input>
-        <h4>Invoice Amount</h4>
-        <input></input>
-        <h4>Credit Card</h4>
-        <input></input>
-        <h4>Due Date</h4>
-        <input></input>
-        <h4>Invoice Paid </h4>
-        <input></input>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button onClick={props.onHide}>Add</Button>
-      </Modal.Footer>
-    </Modal>
-  );
-}
-
 function RemoveModal(props) {
   return (
     <Modal

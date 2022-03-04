@@ -47,20 +47,20 @@ app.get("/displayemployees", function (req, res) {
   });
 });
 //adds an employee
-app.get("/createemployee", function (req, res) {
-  let employee = {
-    firstName: "Jon",
-    lastName: "Snow",
-    shiftWorked: "all",
-    payRate: 27.55,
-  };
-  query = "INSERT INTO Employees SET ?";
-  db.pool.query(query, employee, (err, result) => {
-    if (err) throw err;
-    console.log(result);
-    res.send(result);
+app.post('/createemployee', function(req, res){
+    console.log(req.body);
+    var mysql = req.app.get('mysql');
+    var sql = "INSERT INTO Employees (firstName, lastName, shiftWorked, payRate) VALUES (?,?,?,?)";
+    var inserts = [req.body.firstName, req.body.lastName, req.body.shiftWorked, req.body.payRate];
+    db.pool.query(sql,inserts,function(error, results, fields){
+        if(error){
+            console.log(JSON.stringify(error))
+            res.write(JSON.stringify(error));
+        }else{
+            res.send(result);
+        }
+    });
   });
-});
 
 //displays customers
 app.get("/displaycustomers", function (req, res) {
