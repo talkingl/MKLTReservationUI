@@ -72,7 +72,7 @@ app.get("/displaycustomers", function (req, res) {
   });
 });
 //creates a customer
-router.post('/createcustomer', function(req, res){
+app.post('/createcustomer', function(req, res){
     console.log(req.body)
     var mysql = req.app.get('mysql');
     var sql = "INSERT INTO Customers (firstName, lastName, emailAddress, phoneNumber) VALUES (?,?,?,?)";
