@@ -16,14 +16,16 @@ function UpdateModal(props) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
+        <h4>Customer ID</h4>
+        <p>{{customerID}}</p>
         <h4>First Name</h4>
-        <input type="text" id="fname" name="fname"></input>
+        <input type="text" id="fname" name="fname">{{firstName}}</input>
         <h4>Last Name</h4>
-        <input type="text" id="lname" name="lname"></input>
+        <input type="text" id="lname" name="lname">{{lastName}}</input>
         <h4>Email Address</h4>
-        <input type="text" id="address" name="address"></input>
+        <input type="text" id="address" name="address">{{emailAddress}}</input>
         <h4>Phone Number (XXX-XXX-XXXX)</h4>
-        <input type="text" id="phone" name="phone"></input>
+        <input type="text" id="phone" name="phone">{{phoneNumber}}</input>
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={props.onHide}>Update</Button>
@@ -65,12 +67,11 @@ function Customer({
 }) {
   return (
     <tr>
-      <td>{customer.customerID}</td>
-      <td>{customer.firstName}</td>
-      <td>{customer.lastName}</td>
-      <td>{customer.emailAddress}</td>
-      <td>{customer.phoneNumber}</td>
-
+      <td>{{customerID}}</td>
+      <td>{{firstName}}</td>
+      <td>{{lastName}}</td>
+      <td>{{emailAddress}}</td>
+      <td>{{phoneNumber}}</td>
       <td>
         <MdEdit onClick={() => setModalShowUpdate(true)} />
         <UpdateModal

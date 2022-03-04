@@ -37,6 +37,7 @@ app.get("/displayrooms", function (req, res) {
     res.send(result);
   });
 });
+
 //displays employees
 app.get("/displayemployees", function (req, res) {
   query = "SELECT * FROM Employees";
@@ -72,20 +73,23 @@ app.get("/displaycustomers", function (req, res) {
   });
 });
 //creates a customer
-app.get("/createcustomer", function (req, res) {
-  let customer = {
-    firstName: "Michael",
-    lastName: "Scott",
-    emailAddress: "lovepaper@dundermifflin.com",
-    phoneNumber: "1-737-867-5309",
-  };
-  query = "INSERT INTO Customers SET ?";
-  db.pool.query(query, customer, (err, result) => {
-    if (err) throw err;
-    console.log(result);
-    res.send(result);
+router.post('/createcustomer', function(req, res){
+    console.log(req.body)
+    var mysql = req.app.get('mysql');
+    var sql = "INSERT INTO Customers (firstName, lastName, emailAddress, phoneNumber) VALUES (?,?,?,?)";
+    var inserts = [req.body.fname, req.body.lname, req.body.address, req.body.phone];
+    sql = mysql.pool.query(sql,inserts,function(error, results, fields){
+        if(error){
+            console.log(JSON.stringify(error))
+            res.write(JSON.stringify(error));
+            res.end();
+        }else{
+            res.redirect('/customers');
+        }
+    });
   });
-});
+
+
 //displays invoices
 app.get("/displayinvoices", function (req, res) {
   query = "SELECT * FROM Invoices";
