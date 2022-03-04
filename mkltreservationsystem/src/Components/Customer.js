@@ -4,6 +4,31 @@ import { Modal, Button } from "react-bootstrap";
 
 let customerID, firstName, lastName, emailAddress, phoneNumber;
 
+const updateCustomer = async (e) => {
+  e.preventDefault();
+  console.log(firstName, lastName, emailAddress, phoneNumber);
+
+  let data = {
+    firstName: firstName,
+    lastName: lastName,
+    emailAddress: emailAddress,
+    phoneNumber: phoneNumber};
+
+  // On submit of the form, send a POST request with the data to the server.
+  const response = await fetch("http://localhost:8000/updatecustomer", {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (response.status === 201) {
+    alert("Successfully updated the Customer!");
+  } else {
+    alert(`Failed to add customer, status code = ${response.status}`);
+  }
+};
+
 function UpdateModal(props) {
   return (
     <Modal
@@ -13,24 +38,37 @@ function UpdateModal(props) {
       centered
     >
       <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
+        <Modal.Title id="update-customer">
           Update Customer
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h4>Customer ID</h4>
-        <p>{{customerID}}</p>
-        <h4>First Name</h4>
-        <input type="text" id="fname" name="fname">{{firstName}}</input>
-        <h4>Last Name</h4>
-        <input type="text" id="lname" name="lname">{{lastName}}</input>
-        <h4>Email Address</h4>
-        <input type="text" id="address" name="address">{{emailAddress}}</input>
-        <h4>Phone Number (XXX-XXX-XXXX)</h4>
-        <input type="text" id="phone" name="phone">{{phoneNumber}}</input>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button onClick={props.onHide}>Update</Button>
+      <h4>First Name</h4>
+      <input
+      value = {firstName}
+      // onChange={(e) => setFirstName(e.target.value)}
+      ></input>
+      <h4>Last Name</h4>
+      <input
+      value = {lastName}
+      // onChange={(e) => setLastName(e.target.value)}
+      ></input>
+      <h4>Email Address</h4>
+      <input
+      value = {emailAddress}
+      // onChange={(e) => setEmailAddress(e.target.value)}
+      ></input>
+      <h4>Phone Number (XXX-XXX-XXXX)</h4>
+      <input
+      value = {phoneNumber}
+      // onChange={(e) => setPhoneNumber(e.target.value)}
+      ></input>
+    </Modal.Body>
+    <Modal.Footer>
+      <Button onClick={(e)=> {
+        props.onHide();
+        updateCustomer(e);
+      }}>Update</Button>
       </Modal.Footer>
     </Modal>
   );
@@ -45,7 +83,7 @@ function RemoveModal(props) {
       centered
     >
       <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
+        <Modal.Title id="delete-customer">
           Delete Customer
         </Modal.Title>
       </Modal.Header>

@@ -64,10 +64,10 @@ app.get("/createemployee", function (req, res) {
 
 //displays customers
 app.get("/displaycustomers", function (req, res) {
-  query = "SELECT * FROM Customers";
+  query = "SELECT customerID, firstName, lastName, emailAddress, phoneNumber FROM Customers";
   db.pool.query(query, (err, result) => {
     if (err) throw err;
-    console.log(result);
+    // console.log(result);
     res.send(result);
   });
 });
@@ -93,26 +93,25 @@ app.get("/displayinvoices", function (req, res) {
   query = "SELECT * FROM Invoices";
   db.pool.query(query, (err, result) => {
     if (err) throw err;
-    console.log(result);
+    // console.log(result);
     res.send(result);
   });
 });
-//creates a customer
-app.get("/createinvoice", function (req, res) {
-  let invoice = {
-    reservationID: 4,
-    invoiceAmount: 155.53,
-    creditCard: 12349399192,
-    dueDate: 12 - 04 - 2022,
-    invoicePaid: 0,
-  };
-  query = "INSERT INTO Invoices SET ?";
-  db.pool.query(query, invoice, (err, result) => {
-    if (err) throw err;
-    console.log(result);
-    res.send(result);
+//creates an invoice
+app.post('/createinvoice', function(req, res){
+    console.log(req.body);
+    var mysql = req.app.get('mysql');
+    var sql = "INSERT INTO Invoices (reservationID, invoiceAmount, creditCard, dueDate, invoicePaid) VALUES (?,?,?,?,?)";
+    var inserts = [req.body.reservationID, req.body.invoiceAmount, req.body.creditCard, req.body.dueDate, req.body.invoicePaid];
+    db.pool.query(sql,inserts,function(error, results, fields){
+        if(error){
+            console.log(JSON.stringify(error))
+            res.write(JSON.stringify(error));
+        }else{
+            res.send(result);
+        }
+    });
   });
-});
 
 //creates a reservation
 app.get("/createreservation", function (req, res) {

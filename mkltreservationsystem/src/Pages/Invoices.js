@@ -104,6 +104,11 @@ function Invoices() {
   const [modalShowUpdate, setModalShowUpdate] = React.useState(false);
   const [modalShowSearch, setModalShowSearch] = React.useState(false);
   const [invoices, setInvoices] = useState();
+  const [reservationID, setReservationID] = useState();
+  const [invoiceAmount, setInvoiceAmount] = useState();
+  const [creditCard, setCreditCard] = useState();
+  const [dueDate, setDueDate] = useState();
+  const [invoicePaid, setInvoicePaid] = useState();
 
   const loadInvoices = async () => {
     const response = await fetch("http://localhost:8000/displayinvoices");
@@ -113,6 +118,83 @@ function Invoices() {
   useEffect(() => {
     loadInvoices();
   }, []);
+
+  const submitButton = async (e) => {
+    e.preventDefault();
+    console.log(reservationID, invoiceAmount, creditCard, dueDate, invoicePaid);
+
+    let data = {
+      reservationID: reservationID,
+      invoiceAmount: invoiceAmount,
+      creditCard: creditCard,
+      dueDate: dueDate,
+      invoicePaid: invoicePaid};
+
+    // On submit of the form, send a POST request with the data to the server.
+    const response = await fetch("http://localhost:8000/createinvoice", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (response.status === 201) {
+      alert("Successfully added the Invoice!");
+    } else {
+      alert(`Failed to add invoice, status code = ${response.status}`);
+    }
+  };
+
+  function AddModal(props) {
+    return (
+      <Modal
+        {...props}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="add-customer">
+            Add Customer
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <h4>Reservation ID</h4>
+          <input
+          value = {reservationID}
+          onChange={(e) => setReservationID(e.target.value)}
+          ></input>
+          <h4>Invoice Amount</h4>
+          <input
+          value = {invoiceAmount}
+          onChange={(e) => setInvoiceAmount(e.target.value)}
+          ></input>
+          <h4>Credit Card</h4>
+          <input
+          value = {creditCard}
+          onChange={(e) => setCreditCard(e.target.value)}
+          ></input>
+          <h4>Due Date</h4>
+          <input
+          value = {dueDate}
+          onChange={(e) => setDueDate(e.target.value)}
+          ></input>
+          <h4>Invoice Paid </h4>
+          <input
+          value = {invoicePaid}
+          onChange={(e) => setInvoicePaid(e.target.value)}
+          ></input>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={(e)=> {
+            props.onHide();
+            submitButton(e);
+          }}>Add</Button>
+        </Modal.Footer>
+      </Modal>
+    );
+  }
+
   return (
     <div>
       <InvoiceList
