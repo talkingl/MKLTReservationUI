@@ -120,7 +120,7 @@ function Invoices() {
         centered
       >
         <Modal.Header closeButton>
-          <Modal.Title id="add-customer">Add Customer</Modal.Title>
+          <Modal.Title id="add-customer">Add Invoice</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <h4>Reservation ID</h4>
@@ -144,10 +144,13 @@ function Invoices() {
             onChange={(e) => setDueDate(e.target.value)}
           ></input>
           <h4>Invoice Paid </h4>
-          <input
+          <select
             value={invoicePaid}
             onChange={(e) => setInvoicePaid(e.target.value)}
-          ></input>
+          >
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+          </select>
         </Modal.Body>
         <Modal.Footer>
           <Button

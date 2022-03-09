@@ -69,20 +69,31 @@ function Rooms() {
         </Modal.Header>
         <Modal.Body>
           <h4>Room Floor</h4>
-          <input
-            value={roomFloor}
+          <select value={roomFloor}
             onChange={(e) => setRoomFloor(e.target.value)}
-          ></input>
+          >
+            <option value="1">1st Floor</option>
+            <option value="2">2nd Floor</option>
+            <option value="3">3rd Floor</option>
+            <option value="4">4th Floor</option>
+            <option value="5">5th Floor</option>
+          </select>
           <h4>Room Number</h4>
           <input
             value={roomNumber}
             onChange={(e) => setRoomNumber(e.target.value)}
           ></input>
           <h4>Room Type</h4>
-          <input
+          <select
             value={roomType}
             onChange={(e) => setRoomType(e.target.value)}
-          ></input>
+          >
+            <option value="Queen">Two Queen Beds</option>
+            <option value="King">One King Bed</option>
+            <option value="JrSuite">Junior Suite</option>
+            <option value="KingSuite">King Suite</option>
+            <option value="HandicapQueen">Accessible with Two Queen Beds</option>
+          </select>
           <h4>Room Price</h4>
           <input
             value={roomPrice}

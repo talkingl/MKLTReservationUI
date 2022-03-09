@@ -113,15 +113,21 @@ function Reservations() {
           ></input>
 
           <h4>checkedIn</h4>
-          <input
+          <select
             value={checkedIn}
             onChange={(e) => setCheckedIn(e.target.value)}
-          ></input>
+          >
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+          </select>
           <h4>checkedOut</h4>
-          <input
+          <select
             value={checkedOut}
             onChange={(e) => setCheckedOut(e.target.value)}
-          ></input>
+          >
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+          </select>
           <h4>specialRequest</h4>
           <input
             value={specialRequests}
