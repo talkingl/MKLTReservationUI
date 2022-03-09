@@ -47,7 +47,7 @@ function SearchModal(props) {
       <Modal.Body>
         <h2>Enter a due date to search for invoices</h2>
         <h4>Due Date</h4>
-        <input></input>
+        <input type="date"></input>
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={props.onHide}>Search</Button>
@@ -124,22 +124,22 @@ function Invoices() {
         </Modal.Header>
         <Modal.Body>
           <h4>Reservation ID</h4>
-          <input
+          <input type="number"
             value={reservationID}
             onChange={(e) => setReservationID(e.target.value)}
           ></input>
           <h4>Invoice Amount</h4>
-          <input
+          <input type="number"
             value={invoiceAmount}
             onChange={(e) => setInvoiceAmount(e.target.value)}
           ></input>
           <h4>Credit Card</h4>
-          <input
+          <input type="text"
             value={creditCard}
             onChange={(e) => setCreditCard(e.target.value)}
           ></input>
           <h4>Due Date</h4>
-          <input
+          <input type="date"
             value={dueDate}
             onChange={(e) => setDueDate(e.target.value)}
           ></input>

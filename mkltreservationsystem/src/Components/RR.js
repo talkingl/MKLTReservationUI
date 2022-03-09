@@ -17,9 +17,9 @@ function UpdateModal(props) {
       </Modal.Header>
       <Modal.Body>
         <h4>Reservation ID</h4>
-        <input></input>
+        <input type="number"></input>
         <h4>Room ID</h4>
-        <input></input>
+        <input type="number"></input>
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={props.onHide}>Check In</Button>
@@ -63,7 +63,7 @@ function RR({
   return (
     <tr>
       <td>{reservations.roomNumber}</td>
-      <td> {reservations.name}</td>
+      <td>{reservations.name}</td>
       <td>{reservations.date}</td>
       <td>
         <AiOutlineCheckCircle onClick={() => setModalShowUpdate(true)} />

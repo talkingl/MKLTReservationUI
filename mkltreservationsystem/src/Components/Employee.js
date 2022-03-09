@@ -17,13 +17,19 @@ function UpdateModal(props) {
       </Modal.Header>
       <Modal.Body>
         <h4>First Name</h4>
-        <input></input>
+        <input type="text"></input>
         <h4>Last Name</h4>
-        <input></input>
+        <input type="text"></input>
         <h4>Shift Worked</h4>
-        <input></input>
+        <select
+          
+        >
+          <option value="1">First Shift</option>
+          <option value="2">Second Shift</option>
+          <option value="3">Third Shift</option>
+        </select>
         <h4>Pay Rate</h4>
-        <input></input>
+        <input type="number"></input>
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={props.onHide}>Update</Button>

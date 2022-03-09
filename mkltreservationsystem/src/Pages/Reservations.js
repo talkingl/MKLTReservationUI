@@ -22,9 +22,9 @@ function SearchModal(props) {
       <Modal.Body>
         <h2>Enter a customer name or room number to search for a Reservation</h2>
         <h4>Customer Name</h4>
-        <input></input>
+        <input type="text"></input>
         <h4>Room Number</h4>
-        <input></input>
+        <input type="number"></input>
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={props.onHide}>Search</Button>
@@ -92,22 +92,22 @@ function Reservations() {
         </Modal.Header>
         <Modal.Body>
           <h4>customerID</h4>
-          <input
+          <input type="number"
             value={customerID}
             onChange={(e) => setCustomerID(e.target.value)}
           ></input>
           <h4>employeeID</h4>
-          <input
+          <input type="number"
             value={employeeID}
             onChange={(e) => setEmployeeID(e.target.value)}
           ></input>
           <h4>checkInDate</h4>
-          <input
+          <input type="date"
             value={checkInDate}
             onChange={(e) => setCheckInDate(e.target.value)}
           ></input>
           <h4>stayLength</h4>
-          <input
+          <input type="number"
             value={stayLength}
             onChange={(e) => setStayLength(e.target.value)}
           ></input>
@@ -129,7 +129,7 @@ function Reservations() {
             <option value="1">Yes</option>
           </select>
           <h4>specialRequest</h4>
-          <input
+          <input type="text"
             value={specialRequests}
             onChange={(e) => setSpecialRequests(e.target.value)}
           ></input>

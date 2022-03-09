@@ -79,7 +79,7 @@ function Rooms() {
             <option value="5">5th Floor</option>
           </select>
           <h4>Room Number</h4>
-          <input
+          <input type="number"
             value={roomNumber}
             onChange={(e) => setRoomNumber(e.target.value)}
           ></input>
@@ -95,7 +95,7 @@ function Rooms() {
             <option value="HandicapQueen">Accessible with Two Queen Beds</option>
           </select>
           <h4>Room Price</h4>
-          <input
+          <input type="number"
             value={roomPrice}
             onChange={(e) => setRoomPrice(e.target.value)}
           ></input>

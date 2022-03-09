@@ -20,9 +20,9 @@ function SearchModal(props) {
       <Modal.Body>
         <h2>Enter either an ID or a name to search for a Customer</h2>
         <h4>Customer ID</h4>
-        <input></input>
+        <input type="number"></input>
         <h4>Customer Name</h4>
-        <input></input>
+        <input type="text"></input>
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={props.onHide}>Search</Button>
@@ -91,22 +91,22 @@ function Customers() {
         </Modal.Header>
         <Modal.Body>
           <h4>First Name</h4>
-          <input
+          <input type="text"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
           ></input>
           <h4>Last Name</h4>
-          <input
+          <input type="text"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
           ></input>
           <h4>Email Address</h4>
-          <input
+          <input type="email"
             value={emailAddress}
             onChange={(e) => setEmailAddress(e.target.value)}
           ></input>
           <h4>Phone Number (XXX-XXX-XXXX)</h4>
-          <input
+          <input type="tel"
             value={phoneNumber}
             onChange={(e) => setPhoneNumber(e.target.value)}
           ></input>
