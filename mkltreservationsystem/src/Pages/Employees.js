@@ -106,10 +106,14 @@ function Employees() {
             onChange={(e) => setLastName(e.target.value)}
           ></input>
           <h4>Shift Worked</h4>
-          <input
+          <select
             value={shiftWorked}
             onChange={(e) => setShiftWorked(e.target.value)}
-          ></input>
+          >
+            <option value="1">First Shift</option>
+            <option value="2">Second Shift</option>
+            <option value="3">Third Shift</option>
+          </select>
           <h4>Pay Rate</h4>
           <input
             value={payRate}
