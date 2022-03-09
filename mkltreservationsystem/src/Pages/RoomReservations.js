@@ -49,13 +49,6 @@ function RoomsReservations() {
   }, []);
   return (
     <div>
-      <RRList
-        modalShowUpdate={modalShowUpdate}
-        setModalShowUpdate={setModalShowUpdate}
-        modalShowRemove={modalShowRemove}
-        setModalShowRemove={setModalShowRemove}
-        reservations={reservations}
-      ></RRList>
       <button className="crud-buttons" onClick={() => setModalShowSearch(true)}>
         Search
       </button>
@@ -63,6 +56,13 @@ function RoomsReservations() {
         show={modalShowSearch}
         onHide={() => setModalShowSearch(false)}
       />
+      <RRList
+        modalShowUpdate={modalShowUpdate}
+        setModalShowUpdate={setModalShowUpdate}
+        modalShowRemove={modalShowRemove}
+        setModalShowRemove={setModalShowRemove}
+        reservations={reservations}
+      ></RRList>
     </div>
   );
 }

@@ -18,16 +18,10 @@ function SearchModal(props) {
         <Modal.Title id="search-customers">Search Customers</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h2> Enter any of the following to search for a Customer</h2>
+        <h2>Enter either an ID or a name to search for a Customer</h2>
         <h4>Customer ID</h4>
         <input></input>
-        <h4>First Name</h4>
-        <input></input>
-        <h4>Last Name</h4>
-        <input></input>
-        <h4>Email Address</h4>
-        <input></input>
-        <h4>Phone Number (XXX-XXX-XXXX)</h4>
+        <h4>Customer Name</h4>
         <input></input>
       </Modal.Body>
       <Modal.Footer>
@@ -143,15 +137,6 @@ function Customers() {
   return (
     <div>
       <h1> Customers</h1>
-      <CustomerList
-        customers={customers}
-        onDelete={onDelete}
-        modalShowUpdate={modalShowUpdate}
-        setModalShowUpdate={setModalShowUpdate}
-        modalShowRemove={modalShowRemove}
-        setModalShowRemove={setModalShowRemove}
-        customers={customers}
-      ></CustomerList>
       <button className="crud-buttons" onClick={() => setModalShowAdd(true)}>
         Add
       </button>
@@ -167,6 +152,15 @@ function Customers() {
         show={modalShowSearch}
         onHide={() => setModalShowSearch(false)}
       />
+      <CustomerList
+        customers={customers}
+        onDelete={onDelete}
+        modalShowUpdate={modalShowUpdate}
+        setModalShowUpdate={setModalShowUpdate}
+        modalShowRemove={modalShowRemove}
+        setModalShowRemove={setModalShowRemove}
+        customers={customers}
+      ></CustomerList>
     </div>
   );
 }

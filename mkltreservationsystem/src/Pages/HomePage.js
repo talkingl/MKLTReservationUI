@@ -42,7 +42,7 @@ function Rooms() {
       </Link>
       <p>Invoices can be found, created, updated or deleted on this page.</p>
       <br></br>
-      <Link to="/roomsreservations" className="App-link">
+      <Link to="/guestcheckinout" className="App-link">
         {" "}
         Guest Check-In / Check-Out
       </Link>

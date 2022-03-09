@@ -45,18 +45,8 @@ function SearchModal(props) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h2> Enter any of the following to search for an Invoice</h2>
-        <h4>Invoice ID</h4>
-        <input></input>
-        <h4>Reservation ID</h4>
-        <input></input>
-        <h4>Invoice Amount</h4>
-        <input></input>
-        <h4>Credit Card</h4>
-        <input></input>
+        <h2>Enter a due date to search for invoices</h2>
         <h4>Due Date</h4>
-        <input></input>
-        <h4> Invoice Paid </h4>
         <input></input>
       </Modal.Body>
       <Modal.Footer>
@@ -175,13 +165,6 @@ function Invoices() {
 
   return (
     <div>
-      <InvoiceList
-        modalShowUpdate={modalShowUpdate}
-        setModalShowUpdate={setModalShowUpdate}
-        modalShowRemove={modalShowRemove}
-        setModalShowRemove={setModalShowRemove}
-        invoices={invoices}
-      ></InvoiceList>
       <button className="crud-buttons" onClick={() => setModalShowAdd(true)}>
         Add
       </button>
@@ -193,6 +176,13 @@ function Invoices() {
         show={modalShowSearch}
         onHide={() => setModalShowSearch(false)}
       />
+      <InvoiceList
+        modalShowUpdate={modalShowUpdate}
+        setModalShowUpdate={setModalShowUpdate}
+        modalShowRemove={modalShowRemove}
+        setModalShowRemove={setModalShowRemove}
+        invoices={invoices}
+      ></InvoiceList>
     </div>
   );
 }

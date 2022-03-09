@@ -20,16 +20,10 @@ function SearchModal(props) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h2> Enter any of the following to search for an Employee</h2>
+        <h2>Enter an ID or a name to search for an Employee</h2>
         <h4>Employee ID</h4>
         <input></input>
-        <h4>First Name</h4>
-        <input></input>
-        <h4>Last Name</h4>
-        <input></input>
-        <h4>Shift Worked</h4>
-        <input></input>
-        <h4>Pay Rates</h4>
+        <h4>Employee Name</h4>
         <input></input>
       </Modal.Body>
       <Modal.Footer>
@@ -138,13 +132,6 @@ function Employees() {
 
   return (
     <div>
-      <EmployeeList
-        modalShowUpdate={modalShowUpdate}
-        setModalShowUpdate={setModalShowUpdate}
-        modalShowRemove={modalShowRemove}
-        setModalShowRemove={setModalShowRemove}
-        employees={employees}
-      ></EmployeeList>
       <button className="crud-buttons" onClick={() => setModalShowAdd(true)}>
         Add
       </button>
@@ -156,6 +143,13 @@ function Employees() {
         show={modalShowSearch}
         onHide={() => setModalShowSearch(false)}
       />
+      <EmployeeList
+        modalShowUpdate={modalShowUpdate}
+        setModalShowUpdate={setModalShowUpdate}
+        modalShowRemove={modalShowRemove}
+        setModalShowRemove={setModalShowRemove}
+        employees={employees}
+      ></EmployeeList>
     </div>
   );
 }

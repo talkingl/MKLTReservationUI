@@ -20,24 +20,10 @@ function SearchModal(props) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h2> Enter any of the following to search for a Reservation</h2>
-        <h4>Reservation ID</h4>
+        <h2>Enter a customer name or room number to search for a Reservation</h2>
+        <h4>Customer Name</h4>
         <input></input>
-        <h4>Customer ID</h4>
-        <input></input>
-        <h4>Employee ID</h4>
-        <input></input>
-        <h4>Check In Date</h4>
-        <input></input>
-        <h4>Stay Length</h4>
-        <input></input>
-        <h4>Room ID</h4>
-        <input></input>
-        <h4>Checked In</h4>
-        <input></input>
-        <h4>Checked Out</h4>
-        <input></input>
-        <h4>Special Request</h4>
+        <h4>Room Number</h4>
         <input></input>
       </Modal.Body>
       <Modal.Footer>
@@ -166,13 +152,6 @@ function Reservations() {
   }, []);
   return (
     <div>
-      <ReservationList
-        modalShowUpdate={modalShowUpdate}
-        setModalShowUpdate={setModalShowUpdate}
-        modalShowRemove={modalShowRemove}
-        setModalShowRemove={setModalShowRemove}
-        reservations={reservations}
-      ></ReservationList>
       <button className="crud-buttons" onClick={() => setModalShowAdd(true)}>
         Add
       </button>
@@ -184,6 +163,13 @@ function Reservations() {
         show={modalShowSearch}
         onHide={() => setModalShowSearch(false)}
       />
+      <ReservationList
+        modalShowUpdate={modalShowUpdate}
+        setModalShowUpdate={setModalShowUpdate}
+        modalShowRemove={modalShowRemove}
+        setModalShowRemove={setModalShowRemove}
+        reservations={reservations}
+      ></ReservationList>
     </div>
   );
 }

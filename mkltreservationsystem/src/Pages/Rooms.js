@@ -6,43 +6,11 @@ import React from "react";
 import RoomList from "../Components/RoomList";
 import { useState, useEffect } from "react";
 
-function SearchModal(props) {
-  return (
-    <Modal
-      {...props}
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Search Rooma
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <h2> Enter any of the following to search for a Room</h2>
-        <h4>Room ID</h4>
-        <input></input>
-        <h4>Room Floor</h4>
-        <input></input>
-        <h4>Room Number</h4>
-        <input></input>
-        <h4>Room Type</h4>
-        <input></input>
-        <h4>Room Price</h4>
-        <input></input>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button onClick={props.onHide}>Search</Button>
-      </Modal.Footer>
-    </Modal>
-  );
-}
+
 function Rooms() {
   const [modalShowAdd, setModalShowAdd] = React.useState(false);
   const [modalShowRemove, setModalShowRemove] = React.useState(false);
   const [modalShowUpdate, setModalShowUpdate] = React.useState(false);
-  const [modalShowSearch, setModalShowSearch] = React.useState(false);
   const [rooms, setRooms] = useState();
 
   const loadRooms = async () => {
@@ -137,13 +105,6 @@ function Rooms() {
 
   return (
     <div>
-      <RoomList
-        modalShowUpdate={modalShowUpdate}
-        setModalShowUpdate={setModalShowUpdate}
-        modalShowRemove={modalShowRemove}
-        setModalShowRemove={setModalShowRemove}
-        rooms={rooms}
-      ></RoomList>
       <button className="crud-buttons" onClick={() => setModalShowAdd(true)}>
         Add
       </button>
@@ -152,13 +113,13 @@ function Rooms() {
         onHide={() => setModalShowAdd(false)}
         setModalShowAdd={setModalShowAdd}
       />
-      <button className="crud-buttons" onClick={() => setModalShowSearch(true)}>
-        Search
-      </button>
-      <SearchModal
-        show={modalShowSearch}
-        onHide={() => setModalShowSearch(false)}
-      />
+      <RoomList
+        modalShowUpdate={modalShowUpdate}
+        setModalShowUpdate={setModalShowUpdate}
+        modalShowRemove={modalShowRemove}
+        setModalShowRemove={setModalShowRemove}
+        rooms={rooms}
+      ></RoomList>
     </div>
   );
 }
