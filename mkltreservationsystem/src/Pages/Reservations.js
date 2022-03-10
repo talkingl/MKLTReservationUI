@@ -40,6 +40,9 @@ function Reservations() {
   const [modalShowSearch, setModalShowSearch] = React.useState(false);
   const [reservations, setReservation] = useState();
 
+  const [reservationToEdit, setReservationToEdit] = useState(" ");
+  const [reservationToDelete, setReservationToDelete] = useState(" ");
+
   function AddModal(props) {
     const [customerID, setCustomerID] = useState();
     const [employeeID, setEmployeeID] = useState();
@@ -156,6 +159,130 @@ function Reservations() {
   useEffect(() => {
     loadReservations();
   }, []);
+
+  function UpdateModal(props) {
+    return (
+      <Modal
+        {...props}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            Update Reservation
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <h4>Customer ID</h4>
+          <input type="number"></input>
+          <h4>Employee ID</h4>
+          <input type="number"></input>
+          <h4>Check-In Date</h4>
+          <input type="date"></input>
+          <h4>Stay Length</h4>
+          <input type="number"></input>
+          <h4>Room Number</h4>
+          <input type="number"></input>
+          <h4>Checked In</h4>
+          <select
+
+          >
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+          </select>
+          <h4>Checked Out</h4>
+          <select
+
+          >
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+          </select>
+          <h4>Special Request(s)</h4>
+          <input type="text"></input>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={props.onHide}>Update</Button>
+        </Modal.Footer>
+      </Modal>
+    );
+  }
+
+  const onDelete = async (reservationToDelete) => {
+    setReservationToDelete(reservationToDelete);
+    console.log("this is reservationtodelete", reservationToDelete);
+    setModalShowRemove(true);
+    loadReservations();
+  };
+
+  function RemoveReservationModal(props) {
+    console.log(props.reservationToDelete.reservationID);
+    let reservationID = 0;
+    let customerID = 0;
+    let checkInDate = 0;
+    if (props.reservationToDelete) {
+      reservationID = props.reservationToDelete.reservationID;
+      customerID = props.reservationToDelete.customerID;
+      checkInDate = props.reservationToDelete.checkInDate;
+    }
+
+    const submitButton = async (e) => {
+      e.preventDefault();
+      console.log(reservationID);
+
+      // On submit of the form, send a DELETE request with the ID to the server.
+      let data = {
+        reservationID: reservationID,
+      };
+
+      const response = await fetch("http://localhost:8000/deletereservation", {
+        method: "DELETE",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.status === 200) {
+        alert("Successfully deleted the Reservation!");
+        console.log(props);
+        loadReservations();
+      } else {
+        alert(`Failed to delete the reservation, status code = ${response.status}`);
+        loadReservations();
+      }
+    };
+
+    return (
+      <Modal
+        {...props}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            Delete Reservation
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <h4>
+            {" "}
+            Are you sure you want to delete this reservation: ID #{reservationID},
+            Customer ID #{customerID}, checking in on {checkInDate}?{" "}
+          </h4>
+        </Modal.Body>
+        <Modal.Footer>
+        <Button
+          onClick={(e) => {
+            submitButton(e);
+            props.onHide();
+          }}
+        >Remove</Button>
+        </Modal.Footer>
+      </Modal>
+    );
+  };
+
   return (
     <div>
       <button className="crud-buttons" onClick={() => setModalShowAdd(true)}>
@@ -174,8 +301,15 @@ function Reservations() {
         setModalShowUpdate={setModalShowUpdate}
         modalShowRemove={modalShowRemove}
         setModalShowRemove={setModalShowRemove}
+        // onEdit={onEdit}
+        onDelete={onDelete}
         reservations={reservations}
       ></ReservationList>
+      <RemoveReservationModal
+        reservationToDelete={reservationToDelete}
+        show={modalShowRemove}
+        onHide={() => setModalShowRemove(false)}
+      />
     </div>
   );
 }

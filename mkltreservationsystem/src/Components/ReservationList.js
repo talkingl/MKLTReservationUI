@@ -3,13 +3,13 @@ import Reservation from "./Reservation";
 import { Table } from "react-bootstrap";
 
 function ReservationList({
-  reservations,
-  onDelete,
-  onEdit,
   modalShowUpdate,
   setModalShowUpdate,
   modalShowRemove,
   setModalShowRemove,
+  onEdit,
+  onDelete,
+  reservations,
 }) {
   return (
     <div>
@@ -34,6 +34,8 @@ function ReservationList({
               setModalShowUpdate={setModalShowUpdate}
               modalShowRemove={modalShowRemove}
               setModalShowRemove={setModalShowRemove}
+              onEdit={onEdit}
+              onDelete={onDelete}
               reservations={reservations}
             ></Reservation>
           ))}

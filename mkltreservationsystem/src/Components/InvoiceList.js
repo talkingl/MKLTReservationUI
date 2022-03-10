@@ -32,6 +32,8 @@ function InvoiceList({
               setModalShowUpdate={setModalShowUpdate}
               modalShowRemove={modalShowRemove}
               setModalShowRemove={setModalShowRemove}
+              onEdit={onEdit}
+              onDelete={onDelete}
               invoice={invoice}
             ></Invoice>
           ))}

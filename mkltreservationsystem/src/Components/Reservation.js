@@ -2,111 +2,38 @@ import React from "react";
 import { MdDelete, MdEdit } from "react-icons/md";
 import { Modal, Button } from "react-bootstrap";
 
-function UpdateModal(props) {
-  return (
-    <Modal
-      {...props}
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Update Reservation
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <h4>Customer ID</h4>
-        <input type="number"></input>
-        <h4>Employee ID</h4>
-        <input type="number"></input>
-        <h4>Check-In Date</h4>
-        <input type="date"></input>
-        <h4>Stay Length</h4>
-        <input type="number"></input>
-        <h4>Room Number</h4>
-        <input type="number"></input>
-        <h4>Checked In</h4>
-        <select
-          
-        >
-          <option value="0">No</option>
-          <option value="1">Yes</option>
-        </select>
-        <h4>Checked Out</h4>
-        <select
-
-        >
-          <option value="0">No</option>
-          <option value="1">Yes</option>
-        </select>
-        <h4>Special Request(s)</h4>
-        <input type="text"></input>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button onClick={props.onHide}>Update</Button>
-      </Modal.Footer>
-    </Modal>
-  );
-}
-
-function RemoveModal(props) {
-  return (
-    <Modal
-      {...props}
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Delete Reservation
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <h4> Are you sure you want to delete this reservation? </h4>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button onClick={props.onHide}>Remove</Button>
-      </Modal.Footer>
-    </Modal>
-  );
-}
-
 function Reservation({
-  reservations,
-  onDelete,
-  onEdit,
   modalShowUpdate,
   setModalShowUpdate,
   modalShowRemove,
   setModalShowRemove,
+  onEdit,
+  onDelete,
+  reservation,
 }) {
   return (
     <tr>
-      <td>{reservations.reservationID}</td>
-      <td>{reservations.customerID}</td>
-      <td> {reservations.employeeID}</td>
-      <td> {reservations.checkInDate}</td>
-      <td> {reservations.stayLength}</td>
+      <td>{reservation.reservationID}</td>
+      <td>{reservation.customerID}</td>
+      <td>{reservation.employeeID}</td>
+      <td>{reservation.checkInDate}</td>
+      <td>{reservation.stayLength}</td>
 
-      <td> {reservations.checkedIn}</td>
-      <td>{reservations.checkedOut}</td>
-      <td>{reservations.specialRequests}</td>
+      <td>{reservation.checkedIn}</td>
+      <td>{reservation.checkedOut}</td>
+      <td>{reservation.specialRequests}</td>
 
       <td>
-        <MdEdit onClick={() => setModalShowUpdate(true)} />
-        <UpdateModal
-          show={modalShowUpdate}
-          onHide={() => setModalShowUpdate(false)}
-        />
+        <MdEdit onClick={() => {
+          onEdit(reservation);
+          setModalShowUpdate(true)
+        }} />
       </td>
       <td>
-        <MdDelete onClick={() => setModalShowRemove(true)} />
-        <RemoveModal
-          show={modalShowRemove}
-          onHide={() => setModalShowRemove(false)}
-        />
+        <MdDelete onClick={() => {
+          onDelete(reservation);
+          setModalShowRemove(true)
+        }} />
       </td>
     </tr>
   );

@@ -356,17 +356,6 @@ function Rooms() {
 
   return (
     <div>
-      <RoomList
-        modalShowUpdate={modalShowUpdate}
-        setModalShowUpdate={setModalShowUpdate}
-        modalShowRemove={modalShowRemove}
-        setModalShowRemove={setModalShowRemove}
-        onEdit={onEdit}
-        onDelete={onDelete}
-        roomToEdit={roomToEdit}
-        roomToDelete={roomToDelete}
-        rooms={rooms}
-      ></RoomList>
       <button className="crud-buttons" onClick={() => setModalShowAdd(true)}>
         Add
       </button>
@@ -382,6 +371,17 @@ function Rooms() {
         show={modalShowSearch}
         onHide={() => setModalShowSearch(false)}
       />
+      <RoomList
+        modalShowUpdate={modalShowUpdate}
+        setModalShowUpdate={setModalShowUpdate}
+        modalShowRemove={modalShowRemove}
+        setModalShowRemove={setModalShowRemove}
+        onEdit={onEdit}
+        onDelete={onDelete}
+        roomToEdit={roomToEdit}
+        roomToDelete={roomToDelete}
+        rooms={rooms}
+      ></RoomList>
       <UpdateRoomModal
         roomToEdit={roomToEdit}
         show={modalShowUpdate}
@@ -390,7 +390,6 @@ function Rooms() {
       <RemoveRoomModal
         roomToDelete={roomToDelete}
         show={modalShowRemove}
-        // setshow={setModalShowRemove}
         onHide={() => setModalShowRemove(false)}
       />
     </div>

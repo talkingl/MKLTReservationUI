@@ -7,30 +7,6 @@ import { useEffect, useState } from "react";
 
 import React from "react";
 
-function RemoveModal(props) {
-  return (
-    <Modal
-      {...props}
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Delete Invoice
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <h4>Which invoice do you want to remove? </h4>
-        <input></input>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button onClick={props.onHide}>Remove</Button>
-      </Modal.Footer>
-    </Modal>
-  );
-}
-
 function SearchModal(props) {
   return (
     <Modal
@@ -63,6 +39,9 @@ function Invoices() {
   const [modalShowSearch, setModalShowSearch] = React.useState(false);
   const [invoices, setInvoices] = useState();
 
+  const [invoiceToEdit, setInvoiceToEdit] = useState(" ");
+  const [invoiceToDelete, setInvoiceToDelete] = useState(" ");
+
   const loadInvoices = async () => {
     const response = await fetch("http://localhost:8000/displayinvoices");
     const invoices = await response.json();
@@ -71,6 +50,114 @@ function Invoices() {
   useEffect(() => {
     loadInvoices();
   }, []);
+
+  function UpdateModal(props) {
+    return (
+      <Modal
+        {...props}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            Update Invoice
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <h4>Invoice Amount</h4>
+          <input type="number"></input>
+          <h4>Credit Card</h4>
+          <input type="text"></input>
+          <h4>Due Date</h4>
+          <input type="date"></input>
+          <h4> Invoice Paid </h4>
+          <select
+
+          >
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+          </select>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={props.onHide}>Update</Button>
+        </Modal.Footer>
+      </Modal>
+    );
+  }
+
+  const onDelete = async (invoiceToDelete) => {
+    setInvoiceToDelete(invoiceToDelete);
+    console.log("this is invoiceToDelete", invoiceToDelete);
+    setModalShowRemove(true);
+    loadInvoices();
+  };
+
+  function RemoveInvoiceModal(props) {
+    console.log(props.invoiceToDelete.invoiceID);
+    let invoiceID = 0;
+    let reservationID = 0;
+    let invoiceAmount = 0;
+    if (props.invoiceToDelete) {
+      invoiceID = props.invoiceToDelete.invoiceID;
+      reservationID = props.invoiceToDelete.reservationID;
+      invoiceAmount = props.invoiceToDelete.invoiceAmount;
+    }
+
+    const submitButton = async (e) => {
+      e.preventDefault();
+      console.log(invoiceID);
+
+      // On submit of the form, send a DELETE request with the ID to the server.
+      let data = {
+        invoiceID: invoiceID,
+      };
+
+      const response = await fetch("http://localhost:8000/deleteinvoice", {
+        method: "DELETE",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.status === 200) {
+        alert("Successfully deleted the Invoice!");
+        console.log(props);
+        loadInvoices();
+      } else {
+        alert(`Failed to delete the invoice, status code = ${response.status}`);
+        loadInvoices();
+      }
+    };
+
+    return (
+      <Modal
+        {...props}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            Delete Invoice
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+        {" "}
+        Are you sure you want to delete this invoice: ID #{invoiceID},
+        Reservation ID #{reservationID}, invoice amount ${invoiceAmount}?{" "}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            onClick={(e) => {
+              submitButton(e);
+              props.onHide();
+            }}
+          >Remove</Button>
+        </Modal.Footer>
+      </Modal>
+    );
+  }
 
   function AddModal(props) {
     const [reservationID, setReservationID] = useState();
@@ -184,8 +271,15 @@ function Invoices() {
         setModalShowUpdate={setModalShowUpdate}
         modalShowRemove={modalShowRemove}
         setModalShowRemove={setModalShowRemove}
+        // onEdit={onEdit}
+        onDelete={onDelete}
         invoices={invoices}
       ></InvoiceList>
+      <RemoveInvoiceModal
+        invoiceToDelete={invoiceToDelete}
+        show={modalShowRemove}
+        onHide={() => setModalShowRemove(false)}
+      />
     </div>
   );
 }

@@ -86,9 +86,11 @@ CREATE TABLE `Reservations` (
   `checkedOut` boolean DEFAULT false,
   PRIMARY KEY (`reservationID`),
   CONSTRAINT `Reservations_Cust` FOREIGN KEY (`customerID`)
-    REFERENCES `Customers` (`customerID`),
+    REFERENCES `Customers` (`customerID`)
+    ON DELETE CASCADE,
   CONSTRAINT `Reservations_Emp` FOREIGN KEY (`employeeID`)
     REFERENCES `Employees` (`employeeID`)
+    ON DELETE SET NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
 
 --
@@ -109,9 +111,11 @@ CREATE TABLE `RoomReservations` (
   `reservationID` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`roomID`,`reservationID`),
   CONSTRAINT `RoomReservations_Room` FOREIGN KEY (`roomID`)
-    REFERENCES `Rooms` (`roomID`),
+    REFERENCES `Rooms` (`roomID`)
+    ON DELETE CASCADE,
   CONSTRAINT `RoomReservations_Reservation` FOREIGN KEY (`reservationID`)
     REFERENCES `Reservations` (`reservationID`)
+    ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -134,6 +138,7 @@ CREATE TABLE `Invoices` (
   PRIMARY KEY (`invoiceID`),
   CONSTRAINT `Invoices` FOREIGN KEY (`reservationID`)
     REFERENCES `Reservations` (`reservationID`)
+    ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --

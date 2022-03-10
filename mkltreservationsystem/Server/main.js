@@ -102,6 +102,16 @@ app.post("/createemployee", function (req, res) {
   });
 });
 
+// deletes an employee
+app.delete("/deleteemployee", function (req, res) {
+  console.log("Deleting employee: ", req.body);
+  query = "DELETE FROM Employees WHERE employeeID = ?";
+  db.pool.query(query, req.body.employeeID, (err, result) => {
+    if (err) throw err;
+    res.send(result);
+  });
+});
+
 //displays customers
 app.get("/displaycustomers", function (req, res) {
   query =
@@ -134,6 +144,16 @@ app.post("/createcustomer", function (req, res) {
   });
 });
 
+// deletes a customer
+app.delete("/deletecustomer", function (req, res) {
+  console.log("Deleting customer: ", req.body);
+  query = "DELETE FROM Customers WHERE customerID = ?";
+  db.pool.query(query, req.body.customerID, (err, result) => {
+    if (err) throw err;
+    res.send(result);
+  });
+});
+
 //displays invoices
 app.get("/displayinvoices", function (req, res) {
   query = "SELECT * FROM Invoices";
@@ -163,6 +183,16 @@ app.post("/createinvoice", function (req, res) {
     } else {
       res.send(results);
     }
+  });
+});
+
+// deletes an invoice
+app.delete("/deleteinvoice", function (req, res) {
+  console.log("Deleting invoice: ", req.body);
+  query = "DELETE FROM Invoices WHERE invoiceID = ?";
+  db.pool.query(query, req.body.invoiceID, (err, result) => {
+    if (err) throw err;
+    res.send(result);
   });
 });
 
@@ -201,15 +231,31 @@ app.get("/displayreservations", function (req, res) {
     res.send(result);
   });
 });
+
+// deletes a reservation
+app.delete("/deletereservation", function (req, res) {
+  console.log("Deleting reservation: ", req.body);
+  query = "DELETE FROM Reservations WHERE reservationID = ?";
+  db.pool.query(query, req.body.reservationID, (err, result) => {
+    if (err) throw err;
+    res.send(result);
+  });
+});
+
 //displays room and reservations table
-app.get("/displayroomreservations", function (req, res) {
-  query = "SELECT * FROM RoomReservations";
+app.get("/displayguestcheckinout", function (req, res) {
+  query = "SELECT room.roomNumber, concat(cust.firstName, ' ', cust.lastName) AS customerName, res.checkInDate FROM Customers AS cust INNER JOIN Reservations AS res ON cust.customerID = res.customerID INNER JOIN RoomReservations AS rr ON res.reservationID = rr.reservationID INNER JOIN Rooms AS room ON rr.roomID = room.roomID;";
   db.pool.query(query, (err, result) => {
     if (err) throw err;
     console.log(result);
     res.send(result);
   });
 });
+
+// update guest's check-in status based on Check-In/Out Page
+
+// update guest's check-out status based on Check-In/Out Page
+
 
 app.listen(PORT, function () {
   // This is the basic syntax for what is called the 'listener' which receives incoming requests on the specified PORT.
