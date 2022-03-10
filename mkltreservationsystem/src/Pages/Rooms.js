@@ -6,7 +6,6 @@ import React from "react";
 import RoomList from "../Components/RoomList";
 import { useState, useEffect } from "react";
 // import UpdateRoomModal from "../Components/UpdateRooms";
-import RemoveRoomModal from "../Components/DeleteRoom";
 
 function SearchModal(props) {
   return (
@@ -189,6 +188,74 @@ function Rooms() {
     loadRooms();
   };
 
+  function RemoveRoomModal(props) {
+    console.log(props.roomToDelete.roomID);
+    let roomID = 0;
+    let roomNumber = 0;
+    let roomFloor = 0;
+    if (props.roomToDelete) {
+      roomID = props.roomToDelete.roomID;
+      roomNumber = props.roomToDelete.roomNumber;
+      roomFloor = props.roomToDelete.roomFloor;
+    }
+
+    const submitButton = async (e) => {
+      e.preventDefault();
+      console.log(roomID);
+
+      // On submit of the form, send a DELETE request with the ID to the server.
+      let data = {
+        roomID: roomID,
+      };
+
+      const response = await fetch("http://localhost:8000/deleteroom", {
+        method: "DELETE",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.status === 200) {
+        alert("Successfully deleted the Room!");
+        console.log(props);
+        loadRooms();
+      } else {
+        alert(`Failed to delete the room, status code = ${response.status}`);
+        loadRooms();
+      }
+    };
+
+    return (
+      <Modal
+        {...props}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            Delete Room
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <h4>
+            {" "}
+            Are you sure you want to delete this room: ID #{roomID}, Room Floor #
+            {roomFloor}, and Room Number {roomNumber}?{" "}
+          </h4>
+        </Modal.Body>
+        <Modal.Footer>
+        <Button
+          onClick={(e) => {
+            submitButton(e);
+            props.onHide();
+          }}
+        >Remove</Button>
+        </Modal.Footer>
+      </Modal>
+    );
+  };
+
   function AddModal(props) {
     const [roomFloor, setRoomFloor] = useState();
     const [roomNumber, setRoomNumber] = useState();
@@ -297,6 +364,7 @@ function Rooms() {
         onEdit={onEdit}
         onDelete={onDelete}
         roomToEdit={roomToEdit}
+        roomToDelete={roomToDelete}
         rooms={rooms}
       ></RoomList>
       <button className="crud-buttons" onClick={() => setModalShowAdd(true)}>
@@ -322,7 +390,7 @@ function Rooms() {
       <RemoveRoomModal
         roomToDelete={roomToDelete}
         show={modalShowRemove}
-        setshow={setModalShowRemove}
+        // setshow={setModalShowRemove}
         onHide={() => setModalShowRemove(false)}
       />
     </div>

@@ -61,6 +61,16 @@ app.put("/updaterooms", function (req, res) {
   });
 });
 
+// deletes a room
+app.delete("/deleteroom", function (req, res) {
+  console.log("Deleting room: ", req.body);
+  query = "DELETE FROM Rooms WHERE roomID = ?";
+  db.pool.query(query, req.body.roomID, (err, result) => {
+    if (err) throw err;
+    res.send(result);
+  });
+});
+
 //displays employees
 app.get("/displayemployees", function (req, res) {
   query = "SELECT * FROM Employees";

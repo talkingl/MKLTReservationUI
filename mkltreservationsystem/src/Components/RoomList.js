@@ -3,14 +3,15 @@ import Room from "./Room";
 import { Table } from "react-bootstrap";
 
 function RoomList({
-  rooms,
-  onDelete,
-  onEdit,
   modalShowUpdate,
   setModalShowUpdate,
   modalShowRemove,
   setModalShowRemove,
+  onEdit,
+  onDelete,
   roomToEdit,
+  roomToDelete,
+  rooms,
 }) {
   return (
     <div>
@@ -36,6 +37,7 @@ function RoomList({
               onDelete={onDelete}
               rooms={rooms}
               roomToEdit={roomToEdit}
+              roomToDelete={roomToDelete}
             ></Room>
           ))}
         </tbody>
