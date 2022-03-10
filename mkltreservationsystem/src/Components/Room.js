@@ -1,36 +1,8 @@
 import React from "react";
 import { MdDelete, MdEdit } from "react-icons/md";
 import { Modal, Button } from "react-bootstrap";
-
-function UpdateModal(props) {
-  return (
-    <Modal
-      {...props}
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Update Room
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <h4>Room Floor</h4>
-        <input></input>
-        <h4>Room Number</h4>
-        <input></input>
-        <h4>Room Type</h4>
-        <input></input>
-        <h4>Room Price</h4>
-        <input></input>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button onClick={props.onHide}>Update</Button>
-      </Modal.Footer>
-    </Modal>
-  );
-}
+import { useState, useEffect } from "react";
+import UpdateRoomModal from "./UpdateRooms";
 
 function RemoveModal(props) {
   return (
@@ -63,6 +35,7 @@ function Room({
   setModalShowUpdate,
   modalShowRemove,
   setModalShowRemove,
+  roomToEdit,
 }) {
   return (
     <tr>
@@ -72,15 +45,17 @@ function Room({
       <td>{rooms.roomType}</td>
       <td> {rooms.roomPrice}</td>
       <td>
-        <MdEdit onClick={() => setModalShowUpdate(true)} />
-        <UpdateModal
-          show={modalShowUpdate}
-          onHide={() => setModalShowUpdate(false)}
+        <MdEdit
+          onClick={() => {
+            onEdit(rooms);
+            setModalShowUpdate(true);
+          }}
         />
       </td>
       <td>
         <MdDelete onClick={() => setModalShowRemove(true)} />
         <RemoveModal
+          rooms={rooms}
           show={modalShowRemove}
           onHide={() => setModalShowRemove(false)}
         />

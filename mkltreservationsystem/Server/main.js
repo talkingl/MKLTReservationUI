@@ -39,6 +39,24 @@ app.get("/displayrooms", function (req, res) {
   });
 });
 
+// displays rooms with Id
+
+// displays rooms
+app.put("/updaterooms", function (req, res) {
+  let inserts = [
+    req.body.roomFloor,
+    req.body.roomNumber,
+    req.body.roomType,
+    req.body.roomPrice,
+  ];
+  query =
+    "UPDATE Rooms (roomFloor, roomNumber, roomType, roomPrice) VALUES (?,?,?,?) WHERE id= roomID;";
+  db.pool.query(query, inserts, (err, result) => {
+    if (err) throw err;
+    res.send(result);
+  });
+});
+
 //displays employees
 app.get("/displayemployees", function (req, res) {
   query = "SELECT * FROM Employees";

@@ -10,6 +10,7 @@ function RoomList({
   setModalShowUpdate,
   modalShowRemove,
   setModalShowRemove,
+  roomToEdit,
 }) {
   return (
     <div>
@@ -31,7 +32,9 @@ function RoomList({
               setModalShowUpdate={setModalShowUpdate}
               modalShowRemove={modalShowRemove}
               setModalShowRemove={setModalShowRemove}
+              onEdit={onEdit}
               rooms={rooms}
+              roomToEdit={roomToEdit}
             ></Room>
           ))}
         </tbody>

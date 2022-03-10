@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import React from "react";
 import RoomList from "../Components/RoomList";
 import { useState, useEffect } from "react";
+import UpdateRoomModal from "../Components/UpdateRooms";
 
 function SearchModal(props) {
   return (
@@ -38,12 +39,20 @@ function SearchModal(props) {
     </Modal>
   );
 }
+
 function Rooms() {
   const [modalShowAdd, setModalShowAdd] = React.useState(false);
   const [modalShowRemove, setModalShowRemove] = React.useState(false);
   const [modalShowUpdate, setModalShowUpdate] = React.useState(false);
   const [modalShowSearch, setModalShowSearch] = React.useState(false);
   const [rooms, setRooms] = useState();
+  const [roomToEdit, setRoomToEdit] = useState(" ");
+
+  const onEdit = async (roomToEdit) => {
+    setRoomToEdit(roomToEdit);
+    console.log(roomToEdit);
+    setModalShowUpdate(true);
+  };
 
   const loadRooms = async () => {
     const response = await fetch("http://localhost:8000/displayrooms");
@@ -59,6 +68,7 @@ function Rooms() {
     const [roomNumber, setRoomNumber] = useState();
     const [roomType, setRoomType] = useState();
     const [roomPrice, setRoomPrice] = useState();
+
     const submitButton = async (e) => {
       e.preventDefault();
       console.log(roomFloor, roomNumber, roomType, roomPrice);
@@ -142,6 +152,8 @@ function Rooms() {
         setModalShowUpdate={setModalShowUpdate}
         modalShowRemove={modalShowRemove}
         setModalShowRemove={setModalShowRemove}
+        onEdit={onEdit}
+        roomToEdit={roomToEdit}
         rooms={rooms}
       ></RoomList>
       <button className="crud-buttons" onClick={() => setModalShowAdd(true)}>
@@ -158,6 +170,11 @@ function Rooms() {
       <SearchModal
         show={modalShowSearch}
         onHide={() => setModalShowSearch(false)}
+      />
+      <UpdateRoomModal
+        roomToEdit={roomToEdit}
+        show={modalShowUpdate}
+        onHide={() => setModalShowUpdate(false)}
       />
     </div>
   );
