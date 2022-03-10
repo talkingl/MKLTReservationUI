@@ -7,7 +7,6 @@ import RoomList from "../Components/RoomList";
 import { useState, useEffect } from "react";
 import UpdateRoomModal from "../Components/UpdateRooms";
 
-<<<<<<< HEAD
 function SearchModal(props) {
   return (
     <Modal
@@ -40,8 +39,6 @@ function SearchModal(props) {
     </Modal>
   );
 }
-=======
->>>>>>> e958f863f7eca95eb3106fe383d79a1f279179bf
 
 function Rooms() {
   const [modalShowAdd, setModalShowAdd] = React.useState(false);
