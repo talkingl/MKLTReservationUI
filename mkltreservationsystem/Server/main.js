@@ -48,9 +48,13 @@ app.put("/updaterooms", function (req, res) {
     req.body.roomNumber,
     req.body.roomType,
     req.body.roomPrice,
+    req.body.roomID,
   ];
+  console.log(inserts, req.body);
   query =
-    "UPDATE Rooms (roomFloor, roomNumber, roomType, roomPrice) VALUES (?,?,?,?) WHERE id= roomID;";
+    "UPDATE Rooms SET roomFloor=?, roomNumber=?, roomType=?, roomPrice=? WHERE roomID=?;";
+  //   query =
+  //     "UPDATE Rooms (roomFloor, roomNumber, roomType, roomPrice) VALUES (?,?,?,?) WHERE (roomID) = values (?);";
   db.pool.query(query, inserts, (err, result) => {
     if (err) throw err;
     res.send(result);
