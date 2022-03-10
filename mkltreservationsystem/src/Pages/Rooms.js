@@ -7,6 +7,7 @@ import RoomList from "../Components/RoomList";
 import { useState, useEffect } from "react";
 import UpdateRoomModal from "../Components/UpdateRooms";
 
+<<<<<<< HEAD
 function SearchModal(props) {
   return (
     <Modal
@@ -39,12 +40,13 @@ function SearchModal(props) {
     </Modal>
   );
 }
+=======
+>>>>>>> e958f863f7eca95eb3106fe383d79a1f279179bf
 
 function Rooms() {
   const [modalShowAdd, setModalShowAdd] = React.useState(false);
   const [modalShowRemove, setModalShowRemove] = React.useState(false);
   const [modalShowUpdate, setModalShowUpdate] = React.useState(false);
-  const [modalShowSearch, setModalShowSearch] = React.useState(false);
   const [rooms, setRooms] = useState();
   const [roomToEdit, setRoomToEdit] = useState(" ");
   const [roomToDelete, setRoomToDelete] = useState(" ");
@@ -118,22 +120,33 @@ function Rooms() {
         </Modal.Header>
         <Modal.Body>
           <h4>Room Floor</h4>
-          <input
-            value={roomFloor}
+          <select value={roomFloor}
             onChange={(e) => setRoomFloor(e.target.value)}
-          ></input>
+          >
+            <option value="1">1st Floor</option>
+            <option value="2">2nd Floor</option>
+            <option value="3">3rd Floor</option>
+            <option value="4">4th Floor</option>
+            <option value="5">5th Floor</option>
+          </select>
           <h4>Room Number</h4>
-          <input
+          <input type="number"
             value={roomNumber}
             onChange={(e) => setRoomNumber(e.target.value)}
           ></input>
           <h4>Room Type</h4>
-          <input
+          <select
             value={roomType}
             onChange={(e) => setRoomType(e.target.value)}
-          ></input>
+          >
+            <option value="Queen">Two Queen Beds</option>
+            <option value="King">One King Bed</option>
+            <option value="JrSuite">Junior Suite</option>
+            <option value="KingSuite">King Suite</option>
+            <option value="HandicapQueen">Accessible with Two Queen Beds</option>
+          </select>
           <h4>Room Price</h4>
-          <input
+          <input type="number"
             value={roomPrice}
             onChange={(e) => setRoomPrice(e.target.value)}
           ></input>
@@ -154,6 +167,7 @@ function Rooms() {
 
   return (
     <div>
+<<<<<<< HEAD
       <RoomList
         modalShowUpdate={modalShowUpdate}
         setModalShowUpdate={setModalShowUpdate}
@@ -164,6 +178,8 @@ function Rooms() {
         roomToEdit={roomToEdit}
         rooms={rooms}
       ></RoomList>
+=======
+>>>>>>> e958f863f7eca95eb3106fe383d79a1f279179bf
       <button className="crud-buttons" onClick={() => setModalShowAdd(true)}>
         Add
       </button>
@@ -172,6 +188,7 @@ function Rooms() {
         onHide={() => setModalShowAdd(false)}
         setModalShowAdd={setModalShowAdd}
       />
+<<<<<<< HEAD
       <button className="crud-buttons" onClick={() => setModalShowSearch(true)}>
         Search
       </button>
@@ -184,6 +201,15 @@ function Rooms() {
         show={modalShowUpdate}
         onHide={() => setModalShowUpdate(false)}
       />
+=======
+      <RoomList
+        modalShowUpdate={modalShowUpdate}
+        setModalShowUpdate={setModalShowUpdate}
+        modalShowRemove={modalShowRemove}
+        setModalShowRemove={setModalShowRemove}
+        rooms={rooms}
+      ></RoomList>
+>>>>>>> e958f863f7eca95eb3106fe383d79a1f279179bf
     </div>
   );
 }

@@ -17,21 +17,31 @@ function UpdateModal(props) {
       </Modal.Header>
       <Modal.Body>
         <h4>Customer ID</h4>
-        <input></input>
+        <input type="number"></input>
         <h4>Employee ID</h4>
-        <input></input>
+        <input type="number"></input>
         <h4>Check-In Date</h4>
-        <input></input>
+        <input type="date"></input>
         <h4>Stay Length</h4>
-        <input></input>
+        <input type="number"></input>
         <h4>Room Number</h4>
-        <input></input>
+        <input type="number"></input>
         <h4>Checked In</h4>
-        <input></input>
+        <select
+          
+        >
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </select>
         <h4>Checked Out</h4>
-        <input></input>
+        <select
+
+        >
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </select>
         <h4>Special Request(s)</h4>
-        <input></input>
+        <input type="text"></input>
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={props.onHide}>Update</Button>

@@ -20,25 +20,11 @@ function SearchModal(props) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h2> Enter any of the following to search for a Reservation</h2>
-        <h4>Reservation ID</h4>
-        <input></input>
-        <h4>Customer ID</h4>
-        <input></input>
-        <h4>Employee ID</h4>
-        <input></input>
-        <h4>Check In Date</h4>
-        <input></input>
-        <h4>Stay Length</h4>
-        <input></input>
-        <h4>Room ID</h4>
-        <input></input>
-        <h4>Checked In</h4>
-        <input></input>
-        <h4>Checked Out</h4>
-        <input></input>
-        <h4>Special Request</h4>
-        <input></input>
+        <h2>Enter a customer name or room number to search for a Reservation</h2>
+        <h4>Customer Name</h4>
+        <input type="text"></input>
+        <h4>Room Number</h4>
+        <input type="number"></input>
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={props.onHide}>Search</Button>
@@ -106,38 +92,44 @@ function Reservations() {
         </Modal.Header>
         <Modal.Body>
           <h4>customerID</h4>
-          <input
+          <input type="number"
             value={customerID}
             onChange={(e) => setCustomerID(e.target.value)}
           ></input>
           <h4>employeeID</h4>
-          <input
+          <input type="number"
             value={employeeID}
             onChange={(e) => setEmployeeID(e.target.value)}
           ></input>
           <h4>checkInDate</h4>
-          <input
+          <input type="date"
             value={checkInDate}
             onChange={(e) => setCheckInDate(e.target.value)}
           ></input>
           <h4>stayLength</h4>
-          <input
+          <input type="number"
             value={stayLength}
             onChange={(e) => setStayLength(e.target.value)}
           ></input>
 
           <h4>checkedIn</h4>
-          <input
+          <select
             value={checkedIn}
             onChange={(e) => setCheckedIn(e.target.value)}
-          ></input>
+          >
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+          </select>
           <h4>checkedOut</h4>
-          <input
+          <select
             value={checkedOut}
             onChange={(e) => setCheckedOut(e.target.value)}
-          ></input>
+          >
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+          </select>
           <h4>specialRequest</h4>
-          <input
+          <input type="text"
             value={specialRequests}
             onChange={(e) => setSpecialRequests(e.target.value)}
           ></input>
@@ -166,13 +158,6 @@ function Reservations() {
   }, []);
   return (
     <div>
-      <ReservationList
-        modalShowUpdate={modalShowUpdate}
-        setModalShowUpdate={setModalShowUpdate}
-        modalShowRemove={modalShowRemove}
-        setModalShowRemove={setModalShowRemove}
-        reservations={reservations}
-      ></ReservationList>
       <button className="crud-buttons" onClick={() => setModalShowAdd(true)}>
         Add
       </button>
@@ -184,6 +169,13 @@ function Reservations() {
         show={modalShowSearch}
         onHide={() => setModalShowSearch(false)}
       />
+      <ReservationList
+        modalShowUpdate={modalShowUpdate}
+        setModalShowUpdate={setModalShowUpdate}
+        modalShowRemove={modalShowRemove}
+        setModalShowRemove={setModalShowRemove}
+        reservations={reservations}
+      ></ReservationList>
     </div>
   );
 }

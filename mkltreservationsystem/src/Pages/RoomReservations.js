@@ -22,7 +22,7 @@ function SearchModal(props) {
       <Modal.Body>
         <h2>Choose a Date for filtering reservations</h2>
         <h4>Check In Date</h4>
-        <input></input>
+        <input type="date"></input>
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={props.onHide}>Search</Button>
@@ -49,13 +49,6 @@ function RoomsReservations() {
   }, []);
   return (
     <div>
-      <RRList
-        modalShowUpdate={modalShowUpdate}
-        setModalShowUpdate={setModalShowUpdate}
-        modalShowRemove={modalShowRemove}
-        setModalShowRemove={setModalShowRemove}
-        reservations={reservations}
-      ></RRList>
       <button className="crud-buttons" onClick={() => setModalShowSearch(true)}>
         Search
       </button>
@@ -63,6 +56,13 @@ function RoomsReservations() {
         show={modalShowSearch}
         onHide={() => setModalShowSearch(false)}
       />
+      <RRList
+        modalShowUpdate={modalShowUpdate}
+        setModalShowUpdate={setModalShowUpdate}
+        modalShowRemove={modalShowRemove}
+        setModalShowRemove={setModalShowRemove}
+        reservations={reservations}
+      ></RRList>
     </div>
   );
 }

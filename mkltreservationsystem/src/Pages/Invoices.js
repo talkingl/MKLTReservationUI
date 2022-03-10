@@ -45,19 +45,9 @@ function SearchModal(props) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h2> Enter any of the following to search for an Invoice</h2>
-        <h4>Invoice ID</h4>
-        <input></input>
-        <h4>Reservation ID</h4>
-        <input></input>
-        <h4>Invoice Amount</h4>
-        <input></input>
-        <h4>Credit Card</h4>
-        <input></input>
+        <h2>Enter a due date to search for invoices</h2>
         <h4>Due Date</h4>
-        <input></input>
-        <h4> Invoice Paid </h4>
-        <input></input>
+        <input type="date"></input>
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={props.onHide}>Search</Button>
@@ -130,34 +120,37 @@ function Invoices() {
         centered
       >
         <Modal.Header closeButton>
-          <Modal.Title id="add-customer">Add Customer</Modal.Title>
+          <Modal.Title id="add-customer">Add Invoice</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <h4>Reservation ID</h4>
-          <input
+          <input type="number"
             value={reservationID}
             onChange={(e) => setReservationID(e.target.value)}
           ></input>
           <h4>Invoice Amount</h4>
-          <input
+          <input type="number"
             value={invoiceAmount}
             onChange={(e) => setInvoiceAmount(e.target.value)}
           ></input>
           <h4>Credit Card</h4>
-          <input
+          <input type="text"
             value={creditCard}
             onChange={(e) => setCreditCard(e.target.value)}
           ></input>
           <h4>Due Date</h4>
-          <input
+          <input type="date"
             value={dueDate}
             onChange={(e) => setDueDate(e.target.value)}
           ></input>
           <h4>Invoice Paid </h4>
-          <input
+          <select
             value={invoicePaid}
             onChange={(e) => setInvoicePaid(e.target.value)}
-          ></input>
+          >
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+          </select>
         </Modal.Body>
         <Modal.Footer>
           <Button
@@ -175,13 +168,6 @@ function Invoices() {
 
   return (
     <div>
-      <InvoiceList
-        modalShowUpdate={modalShowUpdate}
-        setModalShowUpdate={setModalShowUpdate}
-        modalShowRemove={modalShowRemove}
-        setModalShowRemove={setModalShowRemove}
-        invoices={invoices}
-      ></InvoiceList>
       <button className="crud-buttons" onClick={() => setModalShowAdd(true)}>
         Add
       </button>
@@ -193,6 +179,13 @@ function Invoices() {
         show={modalShowSearch}
         onHide={() => setModalShowSearch(false)}
       />
+      <InvoiceList
+        modalShowUpdate={modalShowUpdate}
+        setModalShowUpdate={setModalShowUpdate}
+        modalShowRemove={modalShowRemove}
+        setModalShowRemove={setModalShowRemove}
+        invoices={invoices}
+      ></InvoiceList>
     </div>
   );
 }

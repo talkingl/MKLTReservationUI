@@ -20,17 +20,11 @@ function SearchModal(props) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h2> Enter any of the following to search for an Employee</h2>
+        <h2>Enter an ID or a name to search for an Employee</h2>
         <h4>Employee ID</h4>
-        <input></input>
-        <h4>First Name</h4>
-        <input></input>
-        <h4>Last Name</h4>
-        <input></input>
-        <h4>Shift Worked</h4>
-        <input></input>
-        <h4>Pay Rates</h4>
-        <input></input>
+        <input type="number"></input>
+        <h4>Employee Name</h4>
+        <input type="text"></input>
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={props.onHide}>Search</Button>
@@ -102,22 +96,26 @@ function Employees() {
         </Modal.Header>
         <Modal.Body>
           <h4>First Name</h4>
-          <input
+          <input type="text"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
           ></input>
           <h4>Last Name</h4>
-          <input
+          <input type="text"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
           ></input>
           <h4>Shift Worked</h4>
-          <input
+          <select
             value={shiftWorked}
             onChange={(e) => setShiftWorked(e.target.value)}
-          ></input>
+          >
+            <option value="1">First Shift</option>
+            <option value="2">Second Shift</option>
+            <option value="3">Third Shift</option>
+          </select>
           <h4>Pay Rate</h4>
-          <input
+          <input type="number"
             value={payRate}
             onChange={(e) => setPayRate(e.target.value)}
           ></input>
@@ -138,13 +136,6 @@ function Employees() {
 
   return (
     <div>
-      <EmployeeList
-        modalShowUpdate={modalShowUpdate}
-        setModalShowUpdate={setModalShowUpdate}
-        modalShowRemove={modalShowRemove}
-        setModalShowRemove={setModalShowRemove}
-        employees={employees}
-      ></EmployeeList>
       <button className="crud-buttons" onClick={() => setModalShowAdd(true)}>
         Add
       </button>
@@ -156,6 +147,13 @@ function Employees() {
         show={modalShowSearch}
         onHide={() => setModalShowSearch(false)}
       />
+      <EmployeeList
+        modalShowUpdate={modalShowUpdate}
+        setModalShowUpdate={setModalShowUpdate}
+        modalShowRemove={modalShowRemove}
+        setModalShowRemove={setModalShowRemove}
+        employees={employees}
+      ></EmployeeList>
     </div>
   );
 }

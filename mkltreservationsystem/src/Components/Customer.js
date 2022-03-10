@@ -44,22 +44,22 @@ function UpdateModal(props) {
       </Modal.Header>
       <Modal.Body>
       <h4>First Name</h4>
-      <input
+      <input type="text"
       value = {firstName}
       // onChange={(e) => setFirstName(e.target.value)}
       ></input>
       <h4>Last Name</h4>
-      <input
+      <input type="text"
       value = {lastName}
       // onChange={(e) => setLastName(e.target.value)}
       ></input>
       <h4>Email Address</h4>
-      <input
+      <input type="email"
       value = {emailAddress}
       // onChange={(e) => setEmailAddress(e.target.value)}
       ></input>
       <h4>Phone Number (XXX-XXX-XXXX)</h4>
-      <input
+      <input type="text"
       value = {phoneNumber}
       // onChange={(e) => setPhoneNumber(e.target.value)}
       ></input>

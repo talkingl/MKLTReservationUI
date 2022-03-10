@@ -17,13 +17,18 @@ function UpdateModal(props) {
       </Modal.Header>
       <Modal.Body>
         <h4>Invoice Amount</h4>
-        <input></input>
+        <input type="number"></input>
         <h4>Credit Card</h4>
-        <input></input>
+        <input type="text"></input>
         <h4>Due Date</h4>
-        <input></input>
+        <input type="date"></input>
         <h4> Invoice Paid </h4>
-        <input></input>
+        <select
+          
+        >
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </select>
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={props.onHide}>Update</Button>
