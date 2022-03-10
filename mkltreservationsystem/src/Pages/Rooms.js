@@ -47,11 +47,18 @@ function Rooms() {
   const [modalShowSearch, setModalShowSearch] = React.useState(false);
   const [rooms, setRooms] = useState();
   const [roomToEdit, setRoomToEdit] = useState(" ");
+  const [roomToDelete, setRoomToDelete] = useState(" ");
 
   const onEdit = async (roomToEdit) => {
     setRoomToEdit(roomToEdit);
     console.log(roomToEdit);
     setModalShowUpdate(true);
+  };
+
+  const onDelete = async (roomToDelete) => {
+    setRoomToDelete(roomToDelete);
+    console.log("this is roomtodelete", roomToDelete);
+    setModalShowRemove(true);
   };
 
   const loadRooms = async () => {
@@ -153,6 +160,7 @@ function Rooms() {
         modalShowRemove={modalShowRemove}
         setModalShowRemove={setModalShowRemove}
         onEdit={onEdit}
+        onDelete={onDelete}
         roomToEdit={roomToEdit}
         rooms={rooms}
       ></RoomList>

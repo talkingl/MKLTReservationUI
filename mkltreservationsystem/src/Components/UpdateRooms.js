@@ -10,17 +10,24 @@ function UpdateRoomModal(props) {
   const [roomType, setRoomType] = useState(0);
   const [roomNumber, setRoomNumber] = useState(0);
   const [roomPrice, setRoomPrice] = useState(0);
-  //   let roomID = 0;
-  //   let roomFloor = 0;
-  //   let roomType = 0;
-  //   let roomNumber = 0;
-  //   let roomPrice = 0;
+  let roomID1 = 0;
+  let roomFloor1 = 0;
+  let roomType1 = 0;
+  let roomNumber1 = 0;
+  let roomPrice1 = 0;
+  if (props.roomToEdit) {
+    roomID1 = props.roomToEdit.roomID;
+    roomFloor1 = props.roomToEdit.roomFloor;
+    roomType1 = props.roomToEdit.roomType;
+    roomNumber1 = props.roomToEdit.roomNumber;
+    roomPrice1 = props.roomToEdit.roomPrice;
+  }
 
-  setRoomID(props.roomToEdit.roomID);
-  setRoomFloor(props.roomToEdit.roomFloor);
-  setRoomType(props.roomToEdit.roomType);
-  setRoomNumber(props.roomToEdit.roomNumber);
-  setRoomPrice(props.roomToEdit.roomPrice);
+  //   setRoomID(props.roomToEdit.roomID);
+  //   setRoomFloor(props.roomToEdit.roomFloor);
+  //   setRoomType(props.roomToEdit.roomType);
+  //   setRoomNumber(props.roomToEdit.roomNumber);
+  //   setRoomPrice(props.roomToEdit.roomPrice);
 
   const submitButton = async (e) => {
     e.preventDefault();
@@ -57,18 +64,40 @@ function UpdateRoomModal(props) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Update Room <h1>{roomID}</h1>
+          Update Room <h1>{roomID1}</h1>
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <h4>Room Floor</h4>
-        <input value={roomFloor}></input>
+        <input value={roomFloor1} className="greyedOut"></input>
+        <input
+          value={roomFloor}
+          onChange={(e) => setRoomFloor(e.target.value)}
+        ></input>
         <h4>Room Number</h4>
-        <input value={roomNumber}></input>
+        <input value={roomNumber1} className="greyedOut"></input>
+        <input
+          value={roomNumber}
+          onChange={(e) => {
+            setRoomNumber(e.target.value);
+          }}
+        ></input>
         <h4>Room Type</h4>
-        <input value={roomType}></input>
+        <input value={roomType1} className="greyedOut"></input>
+        <input
+          value={roomType}
+          onChange={(e) => {
+            setRoomType(e.target.value);
+          }}
+        ></input>
         <h4>Room Price</h4>
-        <input value={roomPrice}></input>
+        <input value={roomPrice1} className="greyedOut"></input>
+        <input
+          value={roomPrice}
+          onChange={(e) => {
+            setRoomPrice(e.target.value);
+          }}
+        ></input>
       </Modal.Body>
       <Modal.Footer>
         <Button

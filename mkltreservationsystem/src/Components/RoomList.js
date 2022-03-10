@@ -33,6 +33,7 @@ function RoomList({
               modalShowRemove={modalShowRemove}
               setModalShowRemove={setModalShowRemove}
               onEdit={onEdit}
+              onDelete={onDelete}
               rooms={rooms}
               roomToEdit={roomToEdit}
             ></Room>

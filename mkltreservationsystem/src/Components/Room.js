@@ -53,7 +53,12 @@ function Room({
         />
       </td>
       <td>
-        <MdDelete onClick={() => setModalShowRemove(true)} />
+        <MdDelete
+          onClick={() => {
+            onDelete(rooms);
+            setModalShowRemove(true);
+          }}
+        />
         <RemoveModal
           rooms={rooms}
           show={modalShowRemove}

@@ -68,3 +68,7 @@ thead {
 .crud-buttons {
   padding-right: 10px;
 }
+
+.greyedOut {
+  background-color: grey;
+}
