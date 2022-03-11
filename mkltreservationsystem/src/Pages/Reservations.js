@@ -68,13 +68,16 @@ function Reservations() {
       console.log(data);
 
       // On submit of the form, send a POST request with the data to the server.
-      const response = await fetch("http://localhost:9100/createreservation", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        "http://flip2.engr.oregonstate.edu:9100/createreservation",
+        {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       if (response.status === 201) {
         alert("Successfully added the Reservation!");
         loadReservations();
@@ -159,7 +162,9 @@ function Reservations() {
   }
 
   const loadReservations = async () => {
-    const response = await fetch("http://localhost:9100/displayreservations");
+    const response = await fetch(
+      "http://flip2.engr.oregonstate.edu:9100/displayreservations"
+    );
     const reservations = await response.json();
     setReservation(reservations);
   };
@@ -278,13 +283,16 @@ function Reservations() {
         reservationID: reservationID,
       };
 
-      const response = await fetch("http://localhost:9100/deletereservation", {
-        method: "DELETE",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        "http://flip2.engr.oregonstate.edu:9100/deletereservation",
+        {
+          method: "DELETE",
+          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       if (response.status === 200) {
         alert("Successfully deleted the Reservation!");
         console.log(props);

@@ -98,13 +98,16 @@ function Rooms() {
         roomPrice: roomPrice,
       };
 
-      const response = await fetch("http://localhost:9100/updaterooms", {
-        method: "PUT",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        "http://flip2.engr.oregonstate.edu:9100/updaterooms",
+        {
+          method: "PUT",
+          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       if (response.status === 200) {
         alert("Successfully updated the Room!");
         console.log(props);
@@ -173,7 +176,9 @@ function Rooms() {
   }
 
   const loadRooms = async () => {
-    const response = await fetch("http://localhost:9100/displayrooms");
+    const response = await fetch(
+      "http://flip2.engr.oregonstate.edu:9100/displayrooms"
+    );
     const rooms = await response.json();
     setRooms(rooms);
   };
@@ -208,13 +213,16 @@ function Rooms() {
         roomID: roomID,
       };
 
-      const response = await fetch("http://localhost:9100/deleteroom", {
-        method: "DELETE",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        "http://flip2.engr.oregonstate.edu:9100/deleteroom",
+        {
+          method: "DELETE",
+          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       if (response.status === 200) {
         alert("Successfully deleted the Room!");
         console.log(props);
@@ -277,13 +285,16 @@ function Rooms() {
         roomPrice: roomPrice,
       };
 
-      const response = await fetch("http://localhost:9100/createroom", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        "http://flip2.engr.oregonstate.edu:9100/createroom",
+        {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       if (response.status === 200) {
         alert("Successfully added the Room!");
         loadRooms();

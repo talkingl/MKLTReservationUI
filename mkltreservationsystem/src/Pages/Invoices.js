@@ -43,7 +43,9 @@ function Invoices() {
   const [invoiceToDelete, setInvoiceToDelete] = useState(" ");
 
   const loadInvoices = async () => {
-    const response = await fetch("http://localhost:9100/displayinvoices");
+    const response = await fetch(
+      "http://flip2.engr.oregonstate.edu:9100/displayinvoices"
+    );
     const invoices = await response.json();
     setInvoices(invoices);
   };
@@ -138,13 +140,16 @@ function Invoices() {
         invoiceID: invoiceID,
       };
 
-      const response = await fetch("http://localhost:9100/deleteinvoice", {
-        method: "DELETE",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        "http://flip2.engr.oregonstate.edu:9100/deleteinvoice",
+        {
+          method: "DELETE",
+          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       if (response.status === 200) {
         alert("Successfully deleted the Invoice!");
         console.log(props);
@@ -211,13 +216,16 @@ function Invoices() {
       };
 
       // On submit of the form, send a POST request with the data to the server.
-      const response = await fetch("http://localhost:9100/createinvoice", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        "http://flip2.engr.oregonstate.edu:9100/createinvoice",
+        {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       if (response.status === 201) {
         alert("Successfully added the Invoice!");
         loadInvoices();
