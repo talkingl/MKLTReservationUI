@@ -99,12 +99,14 @@ function Employees() {
         </Modal.Header>
         <Modal.Body>
           <h4>First Name</h4>
-          <input type="text"
+          <input
+            type="text"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
           ></input>
           <h4>Last Name</h4>
-          <input type="text"
+          <input
+            type="text"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
           ></input>
@@ -118,7 +120,8 @@ function Employees() {
             <option value="3">Third Shift</option>
           </select>
           <h4>Pay Rate</h4>
-          <input type="number"
+          <input
+            type="number"
             value={payRate}
             onChange={(e) => setPayRate(e.target.value)}
           ></input>
@@ -138,6 +141,24 @@ function Employees() {
   }
 
   function UpdateModal(props) {
+    const [employeeID, setEmployeeID] = useState(0);
+    const [firstName, setFirstName] = useState(0);
+    const [lastName, setLastName] = useState(0);
+    const [shiftWorked, setShiftWorked] = useState(0);
+    const [payRate, setPayRate] = useState(0);
+    let employeeID1 = 0;
+    let firstName1 = 0;
+    let lastName1 = 0;
+    let shiftWorked1 = 0;
+    let payRate1 = 0;
+
+    if (props.employeeToEdit) {
+      employeeID1 = props.employeeToEdit.employeeID;
+      firstName1 = props.employeeToEdit.firstName;
+      lastName1 = props.employeeToEdit.lastName;
+      shiftWorked1 = props.employeeToEdit.shiftWorked;
+      payRate1 = props.employeeToEdit.payRate;
+    }
     return (
       <Modal
         {...props}
@@ -147,23 +168,29 @@ function Employees() {
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            Update Employee
+            Update Employee {employeeID1}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <h4>First Name</h4>
+          <input value={firstName1} className="greyedOut"></input>
+
           <input type="text"></input>
           <h4>Last Name</h4>
+          <input value={lastName1} className="greyedOut"></input>
+
           <input type="text"></input>
           <h4>Shift Worked</h4>
-          <select
+          <input value={shiftWorked1} className="greyedOut"></input>
 
-          >
+          <select>
             <option value="1">First Shift</option>
             <option value="2">Second Shift</option>
             <option value="3">Third Shift</option>
           </select>
           <h4>Pay Rate</h4>
+          <input value={payRate1} className="greyedOut"></input>
+
           <input type="number"></input>
         </Modal.Body>
         <Modal.Footer>
@@ -172,7 +199,11 @@ function Employees() {
       </Modal>
     );
   }
-
+  const onEdit = async (employeeToEdit) => {
+    setEmployeeToEdit(employeeToEdit);
+    console.log(employeeToEdit);
+    setModalShowUpdate(true);
+  };
   const onDelete = async (employeeToDelete) => {
     setEmployeeToDelete(employeeToDelete);
     console.log("this is employeeToDelete", employeeToDelete);
@@ -212,7 +243,9 @@ function Employees() {
         console.log(props);
         loadEmployees();
       } else {
-        alert(`Failed to delete the employee, status code = ${response.status}`);
+        alert(
+          `Failed to delete the employee, status code = ${response.status}`
+        );
         loadEmployees();
       }
     };
@@ -231,8 +264,8 @@ function Employees() {
         </Modal.Header>
         <Modal.Body>
           {" "}
-          Are you sure you want to delete this employee: ID #{employeeID},
-          Name: {firstName} {lastName}?{" "}
+          Are you sure you want to delete this employee: ID #{employeeID}, Name:{" "}
+          {firstName} {lastName}?{" "}
         </Modal.Body>
         <Modal.Footer>
           <Button
@@ -240,7 +273,9 @@ function Employees() {
               submitButton(e);
               props.onHide();
             }}
-          >Remove</Button>
+          >
+            Remove
+          </Button>
         </Modal.Footer>
       </Modal>
     );
@@ -264,10 +299,15 @@ function Employees() {
         setModalShowUpdate={setModalShowUpdate}
         modalShowRemove={modalShowRemove}
         setModalShowRemove={setModalShowRemove}
-        // onEdit={onEdit}
+        onEdit={onEdit}
         onDelete={onDelete}
         employees={employees}
       ></EmployeeList>
+      <UpdateModal
+        employeeToEdit={employeeToEdit}
+        show={modalShowUpdate}
+        onHide={() => setModalShowUpdate(false)}
+      />
       <RemoveModal
         employeeToDelete={employeeToDelete}
         show={modalShowRemove}

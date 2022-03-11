@@ -20,7 +20,9 @@ function SearchModal(props) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h2>Enter a customer name or room number to search for a Reservation</h2>
+        <h2>
+          Enter a customer name or room number to search for a Reservation
+        </h2>
         <h4>Customer Name</h4>
         <input type="text"></input>
         <h4>Room Number</h4>
@@ -95,22 +97,26 @@ function Reservations() {
         </Modal.Header>
         <Modal.Body>
           <h4>customerID</h4>
-          <input type="number"
+          <input
+            type="number"
             value={customerID}
             onChange={(e) => setCustomerID(e.target.value)}
           ></input>
           <h4>employeeID</h4>
-          <input type="number"
+          <input
+            type="number"
             value={employeeID}
             onChange={(e) => setEmployeeID(e.target.value)}
           ></input>
           <h4>checkInDate</h4>
-          <input type="date"
+          <input
+            type="date"
             value={checkInDate}
             onChange={(e) => setCheckInDate(e.target.value)}
           ></input>
           <h4>stayLength</h4>
-          <input type="number"
+          <input
+            type="number"
             value={stayLength}
             onChange={(e) => setStayLength(e.target.value)}
           ></input>
@@ -132,7 +138,8 @@ function Reservations() {
             <option value="1">Yes</option>
           </select>
           <h4>specialRequest</h4>
-          <input type="text"
+          <input
+            type="text"
             value={specialRequests}
             onChange={(e) => setSpecialRequests(e.target.value)}
           ></input>
@@ -161,6 +168,35 @@ function Reservations() {
   }, []);
 
   function UpdateModal(props) {
+    const [employeeID, setEmployeeID] = useState(0);
+    const [customerID, setCustomerID] = useState(0);
+    const [reservationID, setReservationID] = useState(0);
+    const [checkInDate, setCheckInDate] = useState(0);
+    const [stayLength, setStayLength] = useState(0);
+    const [specialRequests, setSpecialRequests] = useState(0);
+    const [checkedIn, setCheckedIn] = useState(0);
+    const [checkedOut, setCheckedOut] = useState(0);
+
+    let employeeID1 = 0;
+    let customerID1 = 0;
+    let reservationID1 = 0;
+    let checkInDate1 = 0;
+    let stayLength1 = 0;
+    let specialRequests1 = 0;
+    let checkedIn1 = 0;
+    let checkedOut1 = 0;
+
+    if (props.reservationToEdit) {
+      employeeID1 = props.reservationToEdit.employeeID;
+      customerID1 = props.reservationToEdit.customerID;
+      reservationID1 = props.reservationToEdit.reservationID;
+
+      checkInDate1 = props.reservationToEdit.checkInDate;
+      stayLength1 = props.reservationToEdit.stayLength;
+      specialRequests1 = props.reservationToEdit.specialRequests;
+      checkedIn1 = props.reservationToEdit.checkedIn;
+      checkedOut1 = props.reservationToEdit.checkedOut;
+    }
     return (
       <Modal
         {...props}
@@ -170,35 +206,42 @@ function Reservations() {
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            Update Reservation
+            Update Reservation {reservationID1}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <h4>Customer ID</h4>
+          <input value={customerID1} className="greyedOut"></input>
           <input type="number"></input>
           <h4>Employee ID</h4>
+          <input value={employeeID1} className="greyedOut"></input>
           <input type="number"></input>
           <h4>Check-In Date</h4>
+          <input value={checkInDate1} className="greyedOut"></input>
           <input type="date"></input>
           <h4>Stay Length</h4>
+          <input value={stayLength1} className="greyedOut"></input>
           <input type="number"></input>
-          <h4>Room Number</h4>
-          <input type="number"></input>
+          {/* <h4>Room Number</h4>
+          <input value={roomNumber1} className="greyedOut"></input> */}
+          {/* <input type="number"></input> */}
           <h4>Checked In</h4>
-          <select
+          <input value={checkedIn1} className="greyedOut"></input>
 
-          >
+          <select>
             <option value="0">No</option>
             <option value="1">Yes</option>
           </select>
           <h4>Checked Out</h4>
-          <select
+          <input value={checkedOut1} className="greyedOut"></input>
 
-          >
+          <select>
             <option value="0">No</option>
             <option value="1">Yes</option>
           </select>
           <h4>Special Request(s)</h4>
+          <input value={specialRequests1} className="greyedOut"></input>
+
           <input type="text"></input>
         </Modal.Body>
         <Modal.Footer>
@@ -247,7 +290,9 @@ function Reservations() {
         console.log(props);
         loadReservations();
       } else {
-        alert(`Failed to delete the reservation, status code = ${response.status}`);
+        alert(
+          `Failed to delete the reservation, status code = ${response.status}`
+        );
         loadReservations();
       }
     };
@@ -267,20 +312,28 @@ function Reservations() {
         <Modal.Body>
           <h4>
             {" "}
-            Are you sure you want to delete this reservation: ID #{reservationID},
-            Customer ID #{customerID}, checking in on {checkInDate}?{" "}
+            Are you sure you want to delete this reservation: ID #
+            {reservationID}, Customer ID #{customerID}, checking in on{" "}
+            {checkInDate}?{" "}
           </h4>
         </Modal.Body>
         <Modal.Footer>
-        <Button
-          onClick={(e) => {
-            submitButton(e);
-            props.onHide();
-          }}
-        >Remove</Button>
+          <Button
+            onClick={(e) => {
+              submitButton(e);
+              props.onHide();
+            }}
+          >
+            Remove
+          </Button>
         </Modal.Footer>
       </Modal>
     );
+  }
+  const onEdit = async (reservationToEdit) => {
+    setReservationToEdit(reservationToEdit);
+    console.log(reservationToEdit);
+    setModalShowUpdate(true);
   };
 
   return (
@@ -296,12 +349,17 @@ function Reservations() {
         show={modalShowSearch}
         onHide={() => setModalShowSearch(false)}
       />
+      <UpdateModal
+        reservationToEdit={reservationToEdit}
+        show={modalShowUpdate}
+        onHide={() => setModalShowUpdate(false)}
+      />
       <ReservationList
         modalShowUpdate={modalShowUpdate}
         setModalShowUpdate={setModalShowUpdate}
         modalShowRemove={modalShowRemove}
         setModalShowRemove={setModalShowRemove}
-        // onEdit={onEdit}
+        onEdit={onEdit}
         onDelete={onDelete}
         reservations={reservations}
       ></ReservationList>

@@ -123,7 +123,7 @@ function Rooms() {
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            Update Room <h1>{roomID1}</h1>
+            Update Room {roomID1}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -240,21 +240,23 @@ function Rooms() {
         <Modal.Body>
           <h4>
             {" "}
-            Are you sure you want to delete this room: ID #{roomID}, Room Floor #
-            {roomFloor}, and Room Number {roomNumber}?{" "}
+            Are you sure you want to delete this room: ID #{roomID}, Room Floor
+            #{roomFloor}, and Room Number {roomNumber}?{" "}
           </h4>
         </Modal.Body>
         <Modal.Footer>
-        <Button
-          onClick={(e) => {
-            submitButton(e);
-            props.onHide();
-          }}
-        >Remove</Button>
+          <Button
+            onClick={(e) => {
+              submitButton(e);
+              props.onHide();
+            }}
+          >
+            Remove
+          </Button>
         </Modal.Footer>
       </Modal>
     );
-  };
+  }
 
   function AddModal(props) {
     const [roomFloor, setRoomFloor] = useState();

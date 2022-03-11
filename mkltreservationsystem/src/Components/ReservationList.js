@@ -28,7 +28,7 @@ function ReservationList({
           <th>Delete Reservation</th>
         </thead>
         <tbody>
-          {reservations?.map((reservations, i) => (
+          {reservations?.map((reservation, i) => (
             <Reservation
               modalShowUpdate={modalShowUpdate}
               setModalShowUpdate={setModalShowUpdate}
@@ -36,7 +36,7 @@ function ReservationList({
               setModalShowRemove={setModalShowRemove}
               onEdit={onEdit}
               onDelete={onDelete}
-              reservations={reservations}
+              reservation={reservation}
             ></Reservation>
           ))}
         </tbody>

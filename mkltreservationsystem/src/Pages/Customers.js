@@ -94,22 +94,26 @@ function Customers() {
         </Modal.Header>
         <Modal.Body>
           <h4>First Name</h4>
-          <input type="text"
+          <input
+            type="text"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
           ></input>
           <h4>Last Name</h4>
-          <input type="text"
+          <input
+            type="text"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
           ></input>
           <h4>Email Address</h4>
-          <input type="email"
+          <input
+            type="email"
             value={emailAddress}
             onChange={(e) => setEmailAddress(e.target.value)}
           ></input>
           <h4>Phone Number (XXX-XXX-XXXX)</h4>
-          <input type="tel"
+          <input
+            type="tel"
             value={phoneNumber}
             onChange={(e) => setPhoneNumber(e.target.value)}
           ></input>
@@ -127,34 +131,57 @@ function Customers() {
       </Modal>
     );
   }
-
-  let customerID, firstName, lastName, emailAddress, phoneNumber;
-  const onEdit = async (e) => {
-    e.preventDefault();
-    console.log(firstName, lastName, emailAddress, phoneNumber);
-
-    let data = {
-      firstName: firstName,
-      lastName: lastName,
-      emailAddress: emailAddress,
-      phoneNumber: phoneNumber};
-
-    // On submit of the form, send a POST request with the data to the server.
-    const response = await fetch("http://localhost:8000/updatecustomer", {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (response.status === 201) {
-      alert("Successfully updated the Customer!");
-    } else {
-      alert(`Failed to add customer, status code = ${response.status}`);
-    }
+  const onEdit = async (customerToEdit) => {
+    setCustomerToEdit(customerToEdit);
+    console.log(customerToEdit);
+    setModalShowUpdate(true);
   };
+  // const onEdit = async (e) => {
+  //   console.log(firstName, lastName, emailAddress, phoneNumber);
+
+  //   let data = {
+  //     firstName: firstName,
+  //     lastName: lastName,
+  //     emailAddress: emailAddress,
+  //     phoneNumber: phoneNumber,
+  //   };
+
+  //   // On submit of the form, send a POST request with the data to the server.
+  //   const response = await fetch("http://localhost:8000/updatecustomer", {
+  //     method: "PUT",
+  //     body: JSON.stringify(data),
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   });
+  //   if (response.status === 201) {
+  //     alert("Successfully updated the Customer!");
+  //   } else {
+  //     alert(`Failed to add customer, status code = ${response.status}`);
+  //   }
+  // };
 
   function UpdateModal(props) {
+    console.log("this is updateModa", props);
+
+    const [customerID, setCustomerID] = useState(0);
+    const [firstName, setFirstName] = useState(0);
+    const [lastName, setLastName] = useState(0);
+    const [emailAddress, setEmailAddress] = useState(0);
+    const [phoneNumber, setPhoneNumber] = useState(0);
+    let customerID1 = 0;
+    let firstName1 = 0;
+    let lastName1 = 0;
+    let emailAddress1 = 0;
+    let phoneNumber1 = 0;
+
+    if (props.customerToEdit) {
+      customerID1 = props.customerToEdit.customerID;
+      firstName1 = props.customerToEdit.firstName;
+      lastName1 = props.customerToEdit.lastName;
+      emailAddress1 = props.customerToEdit.emailAddress;
+      phoneNumber1 = props.customerToEdit.phoneNumber;
+    }
     return (
       <Modal
         {...props}
@@ -163,37 +190,53 @@ function Customers() {
         centered
       >
         <Modal.Header closeButton>
-          <Modal.Title id="update-customer">
-            Update Customer
-          </Modal.Title>
+          <Modal.Title id="update-customer">Update Customer </Modal.Title>
+          <h1> #{customerID1}</h1>
         </Modal.Header>
+
         <Modal.Body>
-        <h4>First Name</h4>
-        <input type="text"
-        value = {firstName}
-        // onChange={(e) => setFirstName(e.target.value)}
-        ></input>
-        <h4>Last Name</h4>
-        <input type="text"
-        value = {lastName}
-        // onChange={(e) => setLastName(e.target.value)}
-        ></input>
-        <h4>Email Address</h4>
-        <input type="email"
-        value = {emailAddress}
-        // onChange={(e) => setEmailAddress(e.target.value)}
-        ></input>
-        <h4>Phone Number (XXX-XXX-XXXX)</h4>
-        <input type="text"
-        value = {phoneNumber}
-        // onChange={(e) => setPhoneNumber(e.target.value)}
-        ></input>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button onClick={(e)=> {
-          // submitButton(e);
-          props.onHide();
-        }}>Update</Button>
+          <h4>First Name</h4>
+          <input value={firstName1} className="greyedOut"></input>
+
+          <input
+            type="text"
+            value={firstName}
+            // onChange={(e) => setFirstName(e.target.value)}
+          ></input>
+          <h4>Last Name</h4>
+          <input value={lastName1} className="greyedOut"></input>
+
+          <input
+            type="text"
+            value={lastName}
+            // onChange={(e) => setLastName(e.target.value)}
+          ></input>
+          <h4>Email Address</h4>
+          <input value={emailAddress1} className="greyedOut"></input>
+
+          <input
+            type="email"
+            value={emailAddress}
+            // onChange={(e) => setEmailAddress(e.target.value)}
+          ></input>
+          <h4>Phone Number (XXX-XXX-XXXX)</h4>
+          <input value={phoneNumber1} className="greyedOut"></input>
+
+          <input
+            type="text"
+            value={phoneNumber}
+            // onChange={(e) => setPhoneNumber(e.target.value)}
+          ></input>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            onClick={(e) => {
+              // submitButton(e);
+              props.onHide();
+            }}
+          >
+            Update
+          </Button>
         </Modal.Footer>
       </Modal>
     );
@@ -238,7 +281,9 @@ function Customers() {
         console.log(props);
         loadCustomers();
       } else {
-        alert(`Failed to delete the customer, status code = ${response.status}`);
+        alert(
+          `Failed to delete the customer, status code = ${response.status}`
+        );
         loadCustomers();
       }
     };
@@ -250,14 +295,12 @@ function Customers() {
         centered
       >
         <Modal.Header closeButton>
-          <Modal.Title id="delete-customer">
-            Delete Customer
-          </Modal.Title>
+          <Modal.Title id="delete-customer">Delete Customer</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {" "}
-          Are you sure you want to delete this customer: ID #{customerID},
-          Name: {firstName} {lastName}?{" "}
+          Are you sure you want to delete this customer: ID #{customerID}, Name:{" "}
+          {firstName} {lastName}?{" "}
         </Modal.Body>
         <Modal.Footer>
           <Button
@@ -265,12 +308,13 @@ function Customers() {
               submitButton(e);
               props.onHide();
             }}
-          >Remove</Button>
+          >
+            Remove
+          </Button>
         </Modal.Footer>
       </Modal>
     );
   }
-
 
   // Add a search function
   return (
@@ -300,6 +344,11 @@ function Customers() {
         onDelete={onDelete}
         customers={customers}
       ></CustomerList>
+      <UpdateModal
+        customerToEdit={customerToEdit}
+        show={modalShowUpdate}
+        onHide={() => setModalShowUpdate(false)}
+      />
       <RemoveModal
         customerToDelete={customerToDelete}
         show={modalShowRemove}

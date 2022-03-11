@@ -24,16 +24,20 @@ function Reservation({
       <td>{reservation.specialRequests}</td>
 
       <td>
-        <MdEdit onClick={() => {
-          onEdit(reservation);
-          setModalShowUpdate(true)
-        }} />
+        <MdEdit
+          onClick={() => {
+            onEdit(reservation);
+            setModalShowUpdate(true);
+          }}
+        />
       </td>
       <td>
-        <MdDelete onClick={() => {
-          onDelete(reservation);
-          setModalShowRemove(true)
-        }} />
+        <MdDelete
+          onClick={() => {
+            onDelete(reservation);
+            setModalShowRemove(true);
+          }}
+        />
       </td>
     </tr>
   );

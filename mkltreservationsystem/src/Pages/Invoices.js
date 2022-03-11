@@ -52,6 +52,28 @@ function Invoices() {
   }, []);
 
   function UpdateModal(props) {
+    const [invoiceID, setInvoiceID] = useState(0);
+    const [reservationID, setReservationID] = useState(0);
+    const [invoiceAmount, setInvoiceAmount] = useState(0);
+    const [creditCard, setCreditCard] = useState(0);
+    const [dueDate, setDueDate] = useState(0);
+    const [invoicePaid, setInvoicePaid] = useState(0);
+
+    let invoiceID1 = 0;
+    let reservationID1 = 0;
+    let invoiceAmount1 = 0;
+    let creditCard1 = 0;
+    let dueDate1 = 0;
+    let invoicePaid1 = 0;
+
+    if (props.invoiceToEdit) {
+      invoiceID1 = props.invoiceToEdit.invoiceID;
+      reservationID1 = props.invoiceToEdit.reservationID;
+      invoiceAmount1 = props.invoiceToEdit.invoiceAmount;
+      creditCard1 = props.invoiceToEdit.creditCard;
+      dueDate1 = props.invoiceToEdit.dueDate;
+      invoicePaid1 = props.invoiceToEdit.invoicePaid;
+    }
     return (
       <Modal
         {...props}
@@ -61,20 +83,23 @@ function Invoices() {
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            Update Invoice
+            Update Invoice {invoiceID1}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <h4>Invoice Amount</h4>
+          <input value={invoiceAmount1} className="greyedOut"></input>
           <input type="number"></input>
           <h4>Credit Card</h4>
+          <input value={creditCard1} className="greyedOut"></input>
           <input type="text"></input>
           <h4>Due Date</h4>
+          <input value={dueDate1} className="greyedOut"></input>
           <input type="date"></input>
           <h4> Invoice Paid </h4>
-          <select
+          <input value={invoicePaid1} className="greyedOut"></input>
 
-          >
+          <select>
             <option value="0">No</option>
             <option value="1">Yes</option>
           </select>
@@ -143,9 +168,9 @@ function Invoices() {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        {" "}
-        Are you sure you want to delete this invoice: ID #{invoiceID},
-        Reservation ID #{reservationID}, invoice amount ${invoiceAmount}?{" "}
+          {" "}
+          Are you sure you want to delete this invoice: ID #{invoiceID},
+          Reservation ID #{reservationID}, invoice amount ${invoiceAmount}?{" "}
         </Modal.Body>
         <Modal.Footer>
           <Button
@@ -153,7 +178,9 @@ function Invoices() {
               submitButton(e);
               props.onHide();
             }}
-          >Remove</Button>
+          >
+            Remove
+          </Button>
         </Modal.Footer>
       </Modal>
     );
@@ -211,22 +238,26 @@ function Invoices() {
         </Modal.Header>
         <Modal.Body>
           <h4>Reservation ID</h4>
-          <input type="number"
+          <input
+            type="number"
             value={reservationID}
             onChange={(e) => setReservationID(e.target.value)}
           ></input>
           <h4>Invoice Amount</h4>
-          <input type="number"
+          <input
+            type="number"
             value={invoiceAmount}
             onChange={(e) => setInvoiceAmount(e.target.value)}
           ></input>
           <h4>Credit Card</h4>
-          <input type="text"
+          <input
+            type="text"
             value={creditCard}
             onChange={(e) => setCreditCard(e.target.value)}
           ></input>
           <h4>Due Date</h4>
-          <input type="date"
+          <input
+            type="date"
             value={dueDate}
             onChange={(e) => setDueDate(e.target.value)}
           ></input>
@@ -252,6 +283,11 @@ function Invoices() {
       </Modal>
     );
   }
+  const onEdit = async (invoiceToEdit) => {
+    setInvoiceToEdit(invoiceToEdit);
+    console.log(invoiceToEdit);
+    setModalShowUpdate(true);
+  };
 
   return (
     <div>
@@ -271,7 +307,7 @@ function Invoices() {
         setModalShowUpdate={setModalShowUpdate}
         modalShowRemove={modalShowRemove}
         setModalShowRemove={setModalShowRemove}
-        // onEdit={onEdit}
+        onEdit={onEdit}
         onDelete={onDelete}
         invoices={invoices}
       ></InvoiceList>
@@ -279,6 +315,11 @@ function Invoices() {
         invoiceToDelete={invoiceToDelete}
         show={modalShowRemove}
         onHide={() => setModalShowRemove(false)}
+      />
+      <UpdateModal
+        invoiceToEdit={invoiceToEdit}
+        show={modalShowUpdate}
+        onHide={() => setModalShowUpdate(false)}
       />
     </div>
   );
