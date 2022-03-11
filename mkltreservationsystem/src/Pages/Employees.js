@@ -44,7 +44,7 @@ function Employees() {
   const [employeeToDelete, setEmployeeToDelete] = useState(" ");
 
   const loadEmployees = async () => {
-    const response = await fetch("http://localhost:8000/displayemployees");
+    const response = await fetch("http://localhost:9100/displayemployees");
     const employees = await response.json();
     setEmployees(employees);
   };
@@ -70,7 +70,7 @@ function Employees() {
       };
 
       // On submit of the form, send a POST request with the data to the server.
-      const response = await fetch("http://localhost:8000/createemployee", {
+      const response = await fetch("http://localhost:9100/createemployee", {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
@@ -231,7 +231,7 @@ function Employees() {
         employeeID: employeeID,
       };
 
-      const response = await fetch("http://localhost:8000/deleteemployee", {
+      const response = await fetch("http://localhost:9100/deleteemployee", {
         method: "DELETE",
         body: JSON.stringify(data),
         headers: {

@@ -39,7 +39,7 @@ function RoomsReservations() {
 
   const loadReservations = async () => {
     const response = await fetch(
-      "http://localhost:8000/displayroomreservations"
+      "http://localhost:9100/displayroomreservations"
     );
     const reservations = await response.json();
     setReservation(reservations);

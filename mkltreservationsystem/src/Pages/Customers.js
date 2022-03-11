@@ -42,7 +42,7 @@ function Customers() {
   const [customerToDelete, setCustomerToDelete] = useState(" ");
 
   const loadCustomers = async () => {
-    const response = await fetch("http://localhost:8000/displaycustomers");
+    const response = await fetch("http://localhost:9100/displaycustomers");
     const customers = await response.json();
     setCustomers(customers);
   };
@@ -67,7 +67,7 @@ function Customers() {
       };
 
       // On submit of the form, send a POST request with the data to the server.
-      const response = await fetch("http://localhost:8000/createcustomer", {
+      const response = await fetch("http://localhost:9100/createcustomer", {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
@@ -269,7 +269,7 @@ function Customers() {
         customerID: customerID,
       };
 
-      const response = await fetch("http://localhost:8000/deletecustomer", {
+      const response = await fetch("http://localhost:9100/deletecustomer", {
         method: "DELETE",
         body: JSON.stringify(data),
         headers: {

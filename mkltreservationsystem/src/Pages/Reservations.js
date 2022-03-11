@@ -68,7 +68,7 @@ function Reservations() {
       console.log(data);
 
       // On submit of the form, send a POST request with the data to the server.
-      const response = await fetch("http://localhost:8000/createreservation", {
+      const response = await fetch("http://localhost:9100/createreservation", {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
@@ -159,7 +159,7 @@ function Reservations() {
   }
 
   const loadReservations = async () => {
-    const response = await fetch("http://localhost:8000/displayreservations");
+    const response = await fetch("http://localhost:9100/displayreservations");
     const reservations = await response.json();
     setReservation(reservations);
   };
@@ -278,7 +278,7 @@ function Reservations() {
         reservationID: reservationID,
       };
 
-      const response = await fetch("http://localhost:8000/deletereservation", {
+      const response = await fetch("http://localhost:9100/deletereservation", {
         method: "DELETE",
         body: JSON.stringify(data),
         headers: {

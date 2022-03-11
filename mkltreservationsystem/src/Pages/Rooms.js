@@ -98,7 +98,7 @@ function Rooms() {
         roomPrice: roomPrice,
       };
 
-      const response = await fetch("http://localhost:8000/updaterooms", {
+      const response = await fetch("http://localhost:9100/updaterooms", {
         method: "PUT",
         body: JSON.stringify(data),
         headers: {
@@ -173,7 +173,7 @@ function Rooms() {
   }
 
   const loadRooms = async () => {
-    const response = await fetch("http://localhost:8000/displayrooms");
+    const response = await fetch("http://localhost:9100/displayrooms");
     const rooms = await response.json();
     setRooms(rooms);
   };
@@ -208,7 +208,7 @@ function Rooms() {
         roomID: roomID,
       };
 
-      const response = await fetch("http://localhost:8000/deleteroom", {
+      const response = await fetch("http://localhost:9100/deleteroom", {
         method: "DELETE",
         body: JSON.stringify(data),
         headers: {
@@ -277,7 +277,7 @@ function Rooms() {
         roomPrice: roomPrice,
       };
 
-      const response = await fetch("http://localhost:8000/createroom", {
+      const response = await fetch("http://localhost:9100/createroom", {
         method: "POST",
         body: JSON.stringify(data),
         headers: {

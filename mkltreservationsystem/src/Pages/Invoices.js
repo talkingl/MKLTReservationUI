@@ -43,7 +43,7 @@ function Invoices() {
   const [invoiceToDelete, setInvoiceToDelete] = useState(" ");
 
   const loadInvoices = async () => {
-    const response = await fetch("http://localhost:8000/displayinvoices");
+    const response = await fetch("http://localhost:9100/displayinvoices");
     const invoices = await response.json();
     setInvoices(invoices);
   };
@@ -138,7 +138,7 @@ function Invoices() {
         invoiceID: invoiceID,
       };
 
-      const response = await fetch("http://localhost:8000/deleteinvoice", {
+      const response = await fetch("http://localhost:9100/deleteinvoice", {
         method: "DELETE",
         body: JSON.stringify(data),
         headers: {
@@ -211,7 +211,7 @@ function Invoices() {
       };
 
       // On submit of the form, send a POST request with the data to the server.
-      const response = await fetch("http://localhost:8000/createinvoice", {
+      const response = await fetch("http://localhost:9100/createinvoice", {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
