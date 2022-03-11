@@ -3,13 +3,13 @@ import { MdDelete, MdEdit } from "react-icons/md";
 import { Modal, Button } from "react-bootstrap";
 
 function Invoice({
-  invoice,
-  onDelete,
-  onEdit,
   modalShowUpdate,
   setModalShowUpdate,
   modalShowRemove,
   setModalShowRemove,
+  onEdit,
+  onDelete,
+  invoice,
 }) {
   return (
     <tr>
@@ -20,10 +20,10 @@ function Invoice({
       <td>{invoice.dueDate}</td>
       <td>{invoice.invoicePaid}</td>
       <td>
-      <MdEdit onClick={() => {
-        onEdit(invoice);
-        setModalShowUpdate(true)
-      }} />
+        <MdEdit onClick={() => {
+          onEdit(invoice);
+          setModalShowUpdate(true)
+        }} />
       </td>
       <td>
       <MdDelete onClick={() => {

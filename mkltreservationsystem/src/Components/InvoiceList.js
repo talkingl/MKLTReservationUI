@@ -3,13 +3,13 @@ import Invoice from "./Invoice";
 import { Table } from "react-bootstrap";
 
 function InvoiceList({
-  invoices,
-  onDelete,
-  onEdit,
   modalShowUpdate,
   setModalShowUpdate,
   modalShowRemove,
   setModalShowRemove,
+  onEdit,
+  onDelete,
+  invoices,
 }) {
   return (
     <div>

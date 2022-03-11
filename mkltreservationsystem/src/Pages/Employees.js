@@ -40,6 +40,9 @@ function Employees() {
   const [modalShowSearch, setModalShowSearch] = React.useState(false);
   const [employees, setEmployees] = useState();
 
+  const [employeeToEdit, setEmployeeToEdit] = useState(" ");
+  const [employeeToDelete, setEmployeeToDelete] = useState(" ");
+
   const loadEmployees = async () => {
     const response = await fetch("http://localhost:8000/displayemployees");
     const employees = await response.json();
@@ -134,6 +137,115 @@ function Employees() {
     );
   }
 
+  function UpdateModal(props) {
+    return (
+      <Modal
+        {...props}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            Update Employee
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <h4>First Name</h4>
+          <input type="text"></input>
+          <h4>Last Name</h4>
+          <input type="text"></input>
+          <h4>Shift Worked</h4>
+          <select
+
+          >
+            <option value="1">First Shift</option>
+            <option value="2">Second Shift</option>
+            <option value="3">Third Shift</option>
+          </select>
+          <h4>Pay Rate</h4>
+          <input type="number"></input>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={props.onHide}>Update</Button>
+        </Modal.Footer>
+      </Modal>
+    );
+  }
+
+  const onDelete = async (employeeToDelete) => {
+    setEmployeeToDelete(employeeToDelete);
+    console.log("this is employeeToDelete", employeeToDelete);
+    setModalShowRemove(true);
+    loadEmployees();
+  };
+
+  function RemoveModal(props) {
+    console.log(props.employeeToDelete.employeeID);
+    let employeeID = 0;
+    let firstName = 0;
+    let lastName = 0;
+    if (props.employeeToDelete) {
+      employeeID = props.employeeToDelete.employeeID;
+      firstName = props.employeeToDelete.firstName;
+      lastName = props.employeeToDelete.lastName;
+    }
+
+    const submitButton = async (e) => {
+      e.preventDefault();
+      console.log(employeeID);
+
+      // On submit of the form, send a DELETE request with the ID to the server.
+      let data = {
+        employeeID: employeeID,
+      };
+
+      const response = await fetch("http://localhost:8000/deleteemployee", {
+        method: "DELETE",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.status === 200) {
+        alert("Successfully deleted the Employee!");
+        console.log(props);
+        loadEmployees();
+      } else {
+        alert(`Failed to delete the employee, status code = ${response.status}`);
+        loadEmployees();
+      }
+    };
+
+    return (
+      <Modal
+        {...props}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            Delete Employee
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {" "}
+          Are you sure you want to delete this employee: ID #{employeeID},
+          Name: {firstName} {lastName}?{" "}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            onClick={(e) => {
+              submitButton(e);
+              props.onHide();
+            }}
+          >Remove</Button>
+        </Modal.Footer>
+      </Modal>
+    );
+  }
+
   return (
     <div>
       <button className="crud-buttons" onClick={() => setModalShowAdd(true)}>
@@ -152,8 +264,15 @@ function Employees() {
         setModalShowUpdate={setModalShowUpdate}
         modalShowRemove={modalShowRemove}
         setModalShowRemove={setModalShowRemove}
+        // onEdit={onEdit}
+        onDelete={onDelete}
         employees={employees}
       ></EmployeeList>
+      <RemoveModal
+        employeeToDelete={employeeToDelete}
+        show={modalShowRemove}
+        onHide={() => setModalShowRemove(false)}
+      />
     </div>
   );
 }

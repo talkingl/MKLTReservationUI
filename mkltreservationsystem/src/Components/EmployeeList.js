@@ -3,13 +3,13 @@ import Employee from "./Employee";
 import { Table } from "react-bootstrap";
 
 function EmployeeList({
-  employees,
-  onDelete,
-  onEdit,
   modalShowUpdate,
   setModalShowUpdate,
   modalShowRemove,
   setModalShowRemove,
+  onEdit,
+  onDelete,
+  employees,
 }) {
   return (
     <div>
@@ -31,6 +31,8 @@ function EmployeeList({
               setModalShowUpdate={setModalShowUpdate}
               modalShowRemove={modalShowRemove}
               setModalShowRemove={setModalShowRemove}
+              onEdit={onEdit}
+              onDelete={onDelete}
               employee={employee}
             ></Employee>
           ))}

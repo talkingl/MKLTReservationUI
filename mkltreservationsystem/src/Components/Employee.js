@@ -2,94 +2,34 @@ import React from "react";
 import { MdDelete, MdEdit } from "react-icons/md";
 import { Modal, Button } from "react-bootstrap";
 
-function UpdateModal(props) {
-  return (
-    <Modal
-      {...props}
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Update Employee
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <h4>First Name</h4>
-        <input type="text"></input>
-        <h4>Last Name</h4>
-        <input type="text"></input>
-        <h4>Shift Worked</h4>
-        <select
-          
-        >
-          <option value="1">First Shift</option>
-          <option value="2">Second Shift</option>
-          <option value="3">Third Shift</option>
-        </select>
-        <h4>Pay Rate</h4>
-        <input type="number"></input>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button onClick={props.onHide}>Update</Button>
-      </Modal.Footer>
-    </Modal>
-  );
-}
-
-function RemoveModal(props) {
-  return (
-    <Modal
-      {...props}
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Delete Employee
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <h4> Are you sure you want to delete this employee? </h4>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button onClick={props.onHide}>Remove</Button>
-      </Modal.Footer>
-    </Modal>
-  );
-}
 
 function Employee({
-  employee,
-  onDelete,
-  onEdit,
   modalShowUpdate,
   setModalShowUpdate,
   modalShowRemove,
   setModalShowRemove,
+  onEdit,
+  onDelete,
+  employee,
 }) {
   return (
     <tr>
       <td>{employee.employeeID}</td>
       <td>{employee.firstName}</td>
-      <td> {employee.lastName}</td>
+      <td>{employee.lastName}</td>
       <td>{employee.shiftWorked}</td>
-      <td> {employee.payRate}</td>
+      <td>{employee.payRate}</td>
       <td>
-        <MdEdit onClick={() => setModalShowUpdate(true)} />
-        <UpdateModal
-          show={modalShowUpdate}
-          onHide={() => setModalShowUpdate(false)}
-        />
+        <MdEdit onClick={() => {
+          onEdit(employee);
+          setModalShowUpdate(true)
+        }} />
       </td>
       <td>
-        <MdDelete onClick={() => setModalShowRemove(true)} />
-        <RemoveModal
-          show={modalShowRemove}
-          onHide={() => setModalShowRemove(false)}
-        />
+        <MdDelete onClick={() => {
+          onDelete(employee);
+          setModalShowRemove(true)
+        }} />
       </td>
     </tr>
   );

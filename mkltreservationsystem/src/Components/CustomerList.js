@@ -3,12 +3,13 @@ import Customer from "./Customer";
 import { Table } from "react-bootstrap";
 
 function CustomerList({
-  customers,
-  onDelete,
   modalShowUpdate,
   setModalShowUpdate,
   modalShowRemove,
   setModalShowRemove,
+  onEdit,
+  onDelete,
+  customers,
 }) {
   return (
     <Table id="Customers" className="borderless">
@@ -30,14 +31,11 @@ function CustomerList({
             setModalShowUpdate={setModalShowUpdate}
             modalShowRemove={modalShowRemove}
             setModalShowRemove={setModalShowRemove}
+            onEdit={onEdit}
+            onDelete={onDelete}
             customer={customer}
           ></Customer>
         ))}
-
-        {/* {customers.map((customer, i) => <Customer customer={customer}
-                    onDelete={onDelete}
-                    onEdit={onEdit}
-                    key={i} />)} */}
       </tbody>
     </Table>
   );
