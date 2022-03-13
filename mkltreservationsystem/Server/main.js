@@ -1,6 +1,6 @@
 var express = require("express"); // We are using the express library for the web server
 var app = express(); // We need to instantiate an express object to interact with the server in our code
-PORT = 8000;
+PORT = 9100;
 var bodyParser = require("body-parser");
 var db = require("./dbcon");
 var router = express.Router();
@@ -41,7 +41,7 @@ app.get("/displayrooms", function (req, res) {
 
 // displays rooms with Id
 
-// displays rooms
+// updates rooms
 app.put("/updaterooms", function (req, res) {
   let inserts = [
     req.body.roomFloor,
@@ -80,6 +80,24 @@ app.get("/displayemployees", function (req, res) {
     res.send(result);
   });
 });
+//updates employee
+app.put("/updateemployees", function (req, res) {
+  let inserts = [
+    req.body.firstName,
+    req.body.lastName,
+    req.body.shiftWorked,
+    req.body.payRate,
+    req.body.employeeID,
+  ];
+  console.log(inserts, req.body);
+  query =
+    "UPDATE Employees SET firstName=?, lastName=?, shiftWorked=?, payRate=? WHERE employeeID=?;";
+  db.pool.query(query, inserts, (err, result) => {
+    if (err) throw err;
+    res.send(result);
+  });
+});
+
 //adds an employee
 app.post("/createemployee", function (req, res) {
   console.log(req.body);
@@ -143,7 +161,23 @@ app.post("/createcustomer", function (req, res) {
     }
   });
 });
-
+//updates customers
+app.put("/updatecustomers", function (req, res) {
+  let inserts = [
+    req.body.firstName,
+    req.body.lastName,
+    req.body.emailAddress,
+    req.body.phoneNumber,
+    req.body.customerID,
+  ];
+  console.log(inserts, req.body);
+  query =
+    "UPDATE Customers SET firstName=?, lastName=?, emailAddress=?, phoneNumber=? WHERE customerID=?;";
+  db.pool.query(query, inserts, (err, result) => {
+    if (err) throw err;
+    res.send(result);
+  });
+});
 // deletes a customer
 app.delete("/deletecustomer", function (req, res) {
   console.log("Deleting customer: ", req.body);
@@ -183,6 +217,24 @@ app.post("/createinvoice", function (req, res) {
     } else {
       res.send(results);
     }
+  });
+});
+
+//updates invoices
+app.put("/updateinvoices", function (req, res) {
+  let inserts = [
+    req.body.invoiceAmount,
+    req.body.creditCard,
+    req.body.dueDate,
+    req.body.invoicePaid,
+    req.body.invoiceID,
+  ];
+  console.log(inserts, req.body);
+  query =
+    "UPDATE Invoices SET invoiceAmount=?, creditCard=?, dueDate=?, invoicePaid=?  WHERE invoiceID=?;";
+  db.pool.query(query, inserts, (err, result) => {
+    if (err) throw err;
+    res.send(result);
   });
 });
 
@@ -232,6 +284,27 @@ app.get("/displayreservations", function (req, res) {
   });
 });
 
+//updates invoices
+app.put("/updatereservation", function (req, res) {
+  let inserts = [
+    req.body.customerID,
+    req.body.employeeID,
+    req.body.checkInDate,
+    req.body.stayLength,
+    req.body.specialRequests,
+    req.body.checkedIn,
+    req.body.checkedOut,
+    req.body.reservationID,
+  ];
+  console.log(inserts, req.body);
+  query =
+    "UPDATE Reservations SET customerID=?, employeeID=?, checkInDate=?, stayLength=?, specialRequests=?, checkedIn=?, checkedOut=?   WHERE reservationID=?;";
+  db.pool.query(query, inserts, (err, result) => {
+    if (err) throw err;
+    res.send(result);
+  });
+});
+
 // deletes a reservation
 app.delete("/deletereservation", function (req, res) {
   console.log("Deleting reservation: ", req.body);
@@ -244,7 +317,8 @@ app.delete("/deletereservation", function (req, res) {
 
 //displays room and reservations table
 app.get("/displayguestcheckinout", function (req, res) {
-  query = "SELECT room.roomNumber, concat(cust.firstName, ' ', cust.lastName) AS customerName, res.checkInDate FROM Customers AS cust INNER JOIN Reservations AS res ON cust.customerID = res.customerID INNER JOIN RoomReservations AS rr ON res.reservationID = rr.reservationID INNER JOIN Rooms AS room ON rr.roomID = room.roomID;";
+  query = " Select * from Rooms"; // query =
+  //   "SELECT room.roomNumber, concat(cust.firstName, ' ', cust.lastName) AS customerName, res.checkInDate FROM Customers AS cust INNER JOIN Reservations AS res ON cust.customerID = res.customerID INNER JOIN RoomReservations AS rr ON res.reservationID = rr.reservationID INNER JOIN Rooms AS room ON rr.roomID = room.roomID;";
   db.pool.query(query, (err, result) => {
     if (err) throw err;
     console.log(result);
@@ -255,7 +329,6 @@ app.get("/displayguestcheckinout", function (req, res) {
 // update guest's check-in status based on Check-In/Out Page
 
 // update guest's check-out status based on Check-In/Out Page
-
 
 app.listen(PORT, function () {
   // This is the basic syntax for what is called the 'listener' which receives incoming requests on the specified PORT.

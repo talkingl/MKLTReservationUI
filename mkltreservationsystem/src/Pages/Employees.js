@@ -44,7 +44,9 @@ function Employees() {
   const [employeeToDelete, setEmployeeToDelete] = useState(" ");
 
   const loadEmployees = async () => {
-    const response = await fetch("http://flip2.engr.oregonstate.edu:9100/displayemployees");
+    const response = await fetch(
+      "http://flip2.engr.oregonstate.edu:9100/displayemployees"
+    );
     const employees = await response.json();
     setEmployees(employees);
   };
@@ -70,13 +72,16 @@ function Employees() {
       };
 
       // On submit of the form, send a POST request with the data to the server.
-      const response = await fetch("http://flip2.engr.oregonstate.edu:9100/createemployee", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        "http://flip2.engr.oregonstate.edu:9100/createemployee",
+        {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       if (response.status === 200) {
         alert("Successfully added the Employee!");
         loadEmployees();
@@ -146,6 +151,10 @@ function Employees() {
     const [lastName, setLastName] = useState(0);
     const [shiftWorked, setShiftWorked] = useState(0);
     const [payRate, setPayRate] = useState(0);
+    const [checkedFirstName, setCheckedFirstName] = useState(false);
+    const [checkedLastName, setCheckedLastName] = useState(false);
+    const [checkedShiftWorked, setCheckedShiftWorked] = useState(false);
+    const [checkedPayRate, setCheckedPayRate] = useState(false);
     let employeeID1 = 0;
     let firstName1 = 0;
     let lastName1 = 0;
@@ -159,6 +168,37 @@ function Employees() {
       shiftWorked1 = props.employeeToEdit.shiftWorked;
       payRate1 = props.employeeToEdit.payRate;
     }
+    const submitButton = async (e) => {
+      e.preventDefault();
+
+      // On submit of the form, send a POST request with the data to the server.
+
+      let data = {
+        employeeID: employeeID1,
+        firstName: firstName,
+        lastName: lastName,
+        shiftWorked: shiftWorked,
+        payRate: payRate,
+      };
+      console.log("this is data", data);
+      const response = await fetch("http://localhost:9100/updateemployees", {
+        method: "PUT",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.status === 200) {
+        alert("Successfully updated the Employee!");
+        console.log(props);
+        loadEmployees();
+      } else {
+        alert(
+          `Failed to update the employee, status code = ${response.status}`
+        );
+        loadEmployees();
+      }
+    };
     return (
       <Modal
         {...props}
@@ -175,26 +215,116 @@ function Employees() {
           <h4>First Name</h4>
           <input value={firstName1} className="greyedOut"></input>
 
-          <input type="text"></input>
+          <input
+            type="text"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+          ></input>
+
+          <input
+            type="checkbox"
+            className="checkbox-form"
+            onClick={() => {
+              if (checkedFirstName === false) {
+                setCheckedFirstName(true);
+                if (props.employeeToEdit) {
+                  setFirstName(firstName1);
+                }
+              } else {
+                setCheckedFirstName(false);
+                setFirstName(0);
+              }
+            }}
+          ></input>
           <h4>Last Name</h4>
           <input value={lastName1} className="greyedOut"></input>
 
-          <input type="text"></input>
+          <input
+            type="text"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+          ></input>
+          <input
+            type="checkbox"
+            className="checkbox-form"
+            onClick={() => {
+              if (checkedLastName === false) {
+                setCheckedLastName(true);
+                if (props.employeeToEdit) {
+                  setLastName(lastName1);
+                }
+              } else {
+                setCheckedLastName(false);
+                setLastName(0);
+              }
+            }}
+          ></input>
           <h4>Shift Worked</h4>
           <input value={shiftWorked1} className="greyedOut"></input>
 
-          <select>
+          <select onChange={(e) => setShiftWorked(e.target.value)}>
             <option value="1">First Shift</option>
             <option value="2">Second Shift</option>
             <option value="3">Third Shift</option>
           </select>
+          <input
+            type="checkbox"
+            className="checkbox-form"
+            onClick={() => {
+              if (checkedShiftWorked === false) {
+                setCheckedShiftWorked(true);
+                let newShift = 0;
+                if (props.employeeToEdit) {
+                  if (shiftWorked1 === 1) {
+                    newShift = "first shift";
+                  } else if (shiftWorked1 == 2) {
+                    newShift = "Second Shift";
+                  } else if (shiftWorked == 3) {
+                    newShift = "third shift";
+                  } else {
+                    newShift = "no shift";
+                  }
+                  setShiftWorked(newShift);
+                }
+              } else {
+                setCheckedShiftWorked(false);
+                setShiftWorked(0);
+              }
+            }}
+          ></input>
           <h4>Pay Rate</h4>
           <input value={payRate1} className="greyedOut"></input>
 
-          <input type="number"></input>
+          <input
+            type="number"
+            value={payRate}
+            onChange={(e) => setPayRate(e.target.value)}
+          ></input>
+          <input
+            type="checkbox"
+            className="checkbox-form"
+            onClick={() => {
+              if (checkedPayRate === false) {
+                setCheckedPayRate(true);
+                if (props.employeeToEdit) {
+                  setPayRate(payRate1);
+                }
+              } else {
+                setCheckedPayRate(false);
+                setPayRate(0);
+              }
+            }}
+          ></input>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={props.onHide}>Update</Button>
+          <Button
+            onClick={(e) => {
+              submitButton(e);
+              props.onHide();
+            }}
+          >
+            Update
+          </Button>
         </Modal.Footer>
       </Modal>
     );
@@ -231,13 +361,16 @@ function Employees() {
         employeeID: employeeID,
       };
 
-      const response = await fetch("http://flip2.engr.oregonstate.edu:9100/deleteemployee", {
-        method: "DELETE",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        "http://flip2.engr.oregonstate.edu:9100/deleteemployee",
+        {
+          method: "DELETE",
+          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       if (response.status === 200) {
         alert("Successfully deleted the Employee!");
         console.log(props);

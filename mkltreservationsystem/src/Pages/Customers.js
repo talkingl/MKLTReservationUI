@@ -174,6 +174,11 @@ function Customers() {
     const [lastName, setLastName] = useState(0);
     const [emailAddress, setEmailAddress] = useState(0);
     const [phoneNumber, setPhoneNumber] = useState(0);
+    const [checkedFirstName, setCheckedFirstName] = useState(false);
+    const [checkedLastName, setCheckedLastName] = useState(false);
+    const [checkedEmailAddress, setCheckedEmailAddress] = useState(false);
+    const [checkedPhoneNumber, setCheckedPhoneNumber] = useState(false);
+
     let customerID1 = 0;
     let firstName1 = 0;
     let lastName1 = 0;
@@ -187,6 +192,37 @@ function Customers() {
       emailAddress1 = props.customerToEdit.emailAddress;
       phoneNumber1 = props.customerToEdit.phoneNumber;
     }
+    const submitButton = async (e) => {
+      e.preventDefault();
+
+      // On submit of the form, send a POST request with the data to the server.
+
+      let data = {
+        customerID: customerID1,
+        firstName: firstName,
+        lastName: lastName,
+        emailAddress: emailAddress,
+        phoneNumber: phoneNumber,
+      };
+      console.log("this is data", data);
+      const response = await fetch("http://localhost:9100/updatecustomers", {
+        method: "PUT",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.status === 200) {
+        alert("Successfully updated the Customer!");
+        console.log(props);
+        loadCustomers();
+      } else {
+        alert(
+          `Failed to update the customer, status code = ${response.status}`
+        );
+        loadCustomers();
+      }
+    };
     return (
       <Modal
         {...props}
@@ -206,7 +242,22 @@ function Customers() {
           <input
             type="text"
             value={firstName}
-            // onChange={(e) => setFirstName(e.target.value)}
+            onChange={(e) => setFirstName(e.target.value)}
+          ></input>
+          <input
+            type="checkbox"
+            className="checkbox-form"
+            onClick={() => {
+              if (checkedFirstName === false) {
+                setCheckedFirstName(true);
+                if (props.customerToEdit) {
+                  setFirstName(firstName1);
+                }
+              } else {
+                setCheckedFirstName(false);
+                setFirstName(0);
+              }
+            }}
           ></input>
           <h4>Last Name</h4>
           <input value={lastName1} className="greyedOut"></input>
@@ -214,7 +265,22 @@ function Customers() {
           <input
             type="text"
             value={lastName}
-            // onChange={(e) => setLastName(e.target.value)}
+            onChange={(e) => setLastName(e.target.value)}
+          ></input>
+          <input
+            type="checkbox"
+            className="checkbox-form"
+            onClick={() => {
+              if (checkedLastName === false) {
+                setCheckedLastName(true);
+                if (props.customerToEdit) {
+                  setLastName(lastName1);
+                }
+              } else {
+                setCheckedLastName(false);
+                setLastName(0);
+              }
+            }}
           ></input>
           <h4>Email Address</h4>
           <input value={emailAddress1} className="greyedOut"></input>
@@ -222,7 +288,22 @@ function Customers() {
           <input
             type="email"
             value={emailAddress}
-            // onChange={(e) => setEmailAddress(e.target.value)}
+            onChange={(e) => setEmailAddress(e.target.value)}
+          ></input>
+          <input
+            type="checkbox"
+            className="checkbox-form"
+            onClick={() => {
+              if (checkedEmailAddress === false) {
+                setCheckedEmailAddress(true);
+                if (props.customerToEdit) {
+                  setEmailAddress(emailAddress1);
+                }
+              } else {
+                setCheckedEmailAddress(false);
+                setEmailAddress(0);
+              }
+            }}
           ></input>
           <h4>Phone Number (XXX-XXX-XXXX)</h4>
           <input value={phoneNumber1} className="greyedOut"></input>
@@ -230,13 +311,28 @@ function Customers() {
           <input
             type="text"
             value={phoneNumber}
-            // onChange={(e) => setPhoneNumber(e.target.value)}
+            onChange={(e) => setPhoneNumber(e.target.value)}
+          ></input>
+          <input
+            type="checkbox"
+            className="checkbox-form"
+            onClick={() => {
+              if (checkedPhoneNumber === false) {
+                setCheckedPhoneNumber(true);
+                if (props.customerToEdit) {
+                  setPhoneNumber(phoneNumber1);
+                }
+              } else {
+                setCheckedPhoneNumber(false);
+                setPhoneNumber(0);
+              }
+            }}
           ></input>
         </Modal.Body>
         <Modal.Footer>
           <Button
             onClick={(e) => {
-              // submitButton(e);
+              submitButton(e);
               props.onHide();
             }}
           >

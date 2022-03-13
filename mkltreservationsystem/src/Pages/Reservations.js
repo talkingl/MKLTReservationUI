@@ -181,6 +181,13 @@ function Reservations() {
     const [specialRequests, setSpecialRequests] = useState(0);
     const [checkedIn, setCheckedIn] = useState(0);
     const [checkedOut, setCheckedOut] = useState(0);
+    const [checkedEmployeeID, setCheckedEmployeeID] = useState(false);
+    const [checkedCustomerID, setCheckedCustomerID] = useState(false);
+    const [checkedCheckInDate, setCheckedCheckInDate] = useState(false);
+    const [checkedStayLength, setCheckedStayLength] = useState(false);
+    const [checkedSpecialRequests, setCheckedSpecialRequests] = useState(false);
+    const [checkedCheckedIn, setCheckedCheckedIn] = useState(false);
+    const [checkedCheckedOut, setCheckedCheckedOut] = useState(false);
 
     let employeeID1 = 0;
     let customerID1 = 0;
@@ -202,6 +209,40 @@ function Reservations() {
       checkedIn1 = props.reservationToEdit.checkedIn;
       checkedOut1 = props.reservationToEdit.checkedOut;
     }
+    const submitButton = async (e) => {
+      e.preventDefault();
+
+      // On submit of the form, send a POST request with the data to the server.
+
+      let data = {
+        reservationID: reservationID1,
+        employeeID: employeeID,
+        customerID: customerID,
+        checkInDate: checkInDate,
+        stayLength: stayLength,
+        specialRequests: specialRequests,
+        checkedIn: checkedIn,
+        checkedOut: checkedOut,
+      };
+      console.log("this is data", data);
+      const response = await fetch("http://localhost:9100/updatereservation", {
+        method: "PUT",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.status === 200) {
+        alert("Successfully updated the Reservation!");
+        console.log(props);
+        loadReservations();
+      } else {
+        alert(
+          `Failed to update the reservation, status code = ${response.status}`
+        );
+        loadReservations();
+      }
+    };
     return (
       <Modal
         {...props}
@@ -217,40 +258,145 @@ function Reservations() {
         <Modal.Body>
           <h4>Customer ID</h4>
           <input value={customerID1} className="greyedOut"></input>
-          <input type="number"></input>
+          <input
+            type="number"
+            value={customerID}
+            onChange={(e) => setCustomerID(e.target.value)}
+          ></input>
+
+          <input
+            type="checkbox"
+            className="checkbox-form"
+            onClick={() => {
+              if (checkedCustomerID === false) {
+                setCheckedCustomerID(true);
+                if (props.reservationToEdit) {
+                  setCustomerID(customerID1);
+                }
+              } else {
+                setCheckedCustomerID(false);
+                setCustomerID(0);
+              }
+            }}
+          ></input>
           <h4>Employee ID</h4>
           <input value={employeeID1} className="greyedOut"></input>
-          <input type="number"></input>
+          <input
+            type="number"
+            value={employeeID}
+            onChange={(e) => setEmployeeID(e.target.value)}
+          ></input>
+
+          <input
+            type="checkbox"
+            className="checkbox-form"
+            onClick={() => {
+              if (checkedEmployeeID === false) {
+                setCheckedEmployeeID(true);
+                if (props.reservationToEdit) {
+                  setEmployeeID(employeeID1);
+                }
+              } else {
+                setCheckedEmployeeID(false);
+                setEmployeeID(0);
+              }
+            }}
+          ></input>
           <h4>Check-In Date</h4>
           <input value={checkInDate1} className="greyedOut"></input>
-          <input type="date"></input>
+          <input
+            type="date"
+            value={checkInDate}
+            onChange={(e) => setCheckInDate(e.target.value)}
+          ></input>
+          <input
+            type="checkbox"
+            className="checkbox-form"
+            onClick={() => {
+              if (checkedCheckInDate === false) {
+                setCheckedCheckInDate(true);
+                if (props.reservationToEdit) {
+                  setCheckInDate(checkInDate1);
+                }
+              } else {
+                setCheckedCheckInDate(false);
+                setCheckInDate(0);
+              }
+            }}
+          ></input>
           <h4>Stay Length</h4>
           <input value={stayLength1} className="greyedOut"></input>
-          <input type="number"></input>
+          <input
+            type="number"
+            value={stayLength}
+            onChange={(e) => setStayLength(e.target.value)}
+          ></input>
+          <input
+            type="checkbox"
+            className="checkbox-form"
+            onClick={() => {
+              if (checkedStayLength === false) {
+                setCheckedStayLength(true);
+                if (props.reservationToEdit) {
+                  setStayLength(stayLength1);
+                }
+              } else {
+                setCheckedStayLength(false);
+                setStayLength(0);
+              }
+            }}
+          ></input>
           {/* <h4>Room Number</h4>
           <input value={roomNumber1} className="greyedOut"></input> */}
           {/* <input type="number"></input> */}
           <h4>Checked In</h4>
           <input value={checkedIn1} className="greyedOut"></input>
 
-          <select>
+          <select onChange={(e) => setCheckedIn(e.target.value)}>
             <option value="0">No</option>
             <option value="1">Yes</option>
           </select>
+
           <h4>Checked Out</h4>
           <input value={checkedOut1} className="greyedOut"></input>
 
-          <select>
+          <select onChange={(e) => setCheckedOut(e.target.value)}>
             <option value="0">No</option>
             <option value="1">Yes</option>
           </select>
           <h4>Special Request(s)</h4>
           <input value={specialRequests1} className="greyedOut"></input>
 
-          <input type="text"></input>
+          <input
+            type="text"
+            onChange={(e) => setSpecialRequests(e.target.value)}
+            value={specialRequests}
+          ></input>
+          <input
+            type="checkbox"
+            className="checkbox-form"
+            onClick={() => {
+              if (checkedSpecialRequests === false) {
+                setCheckedSpecialRequests(true);
+                if (props.reservationToEdit) {
+                  setSpecialRequests(specialRequests1);
+                }
+              } else {
+                setCheckedSpecialRequests(false);
+                setSpecialRequests(0);
+              }
+            }}
+          ></input>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={props.onHide}>Update</Button>
+          <Button
+            onClick={(e) => {
+              submitButton(e);
+              props.onHide();
+            }}
+          >
+            Update
+          </Button>
         </Modal.Footer>
       </Modal>
     );

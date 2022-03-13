@@ -32,7 +32,7 @@
   padding-top: 15px;
 }
 .App-link {
-  color: #61dafb;
+  color: white;
 }
 
 table,
@@ -71,4 +71,17 @@ thead {
 
 .greyedOut {
   background-color: grey;
+}
+
+.link-card {
+  background-color: #0dcaf0;
+  margin: 10px;
+  border-radius: 10px;
+}
+.image-home {
+  border-radius: 10px;
+}
+
+.checkbox-form {
+  margin-left: 10px;
 }

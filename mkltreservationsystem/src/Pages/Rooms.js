@@ -64,6 +64,11 @@ function Rooms() {
     const [roomType, setRoomType] = useState(0);
     const [roomNumber, setRoomNumber] = useState(0);
     const [roomPrice, setRoomPrice] = useState(0);
+    const [checkedRoomFloor, setCheckedRoomFloor] = useState(false);
+    const [checkedRoomType, setCheckedRoomType] = useState(false);
+    const [checkedRoomNumber, setCheckedRoomNumber] = useState(false);
+    const [checkedRoomPrice, setCheckedRoomPrice] = useState(false);
+
     let roomID1 = 0;
     let roomFloor1 = 0;
     let roomType1 = 0;
@@ -130,11 +135,27 @@ function Rooms() {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          <h2> For the row to be the same, please click the box</h2> <br></br>
           <h4>Room Floor</h4>
           <input value={roomFloor1} className="greyedOut"></input>
           <input
             value={roomFloor}
             onChange={(e) => setRoomFloor(e.target.value)}
+          ></input>
+          <input
+            type="checkbox"
+            className="checkbox-form"
+            onClick={() => {
+              if (checkedRoomFloor === false) {
+                setCheckedRoomFloor(true);
+                if (props.roomToEdit) {
+                  setRoomFloor(roomFloor1);
+                }
+              } else {
+                setCheckedRoomFloor(false);
+                setRoomFloor(0);
+              }
+            }}
           ></input>
           <h4>Room Number</h4>
           <input value={roomNumber1} className="greyedOut"></input>
@@ -142,6 +163,21 @@ function Rooms() {
             value={roomNumber}
             onChange={(e) => {
               setRoomNumber(e.target.value);
+            }}
+          ></input>
+          <input
+            type="checkbox"
+            className="checkbox-form"
+            onClick={() => {
+              if (checkedRoomNumber === false) {
+                setCheckedRoomNumber(true);
+                if (props.roomToEdit) {
+                  setRoomNumber(roomNumber1);
+                }
+              } else {
+                setCheckedRoomNumber(false);
+                setRoomNumber(0);
+              }
             }}
           ></input>
           <h4>Room Type</h4>
@@ -152,12 +188,42 @@ function Rooms() {
               setRoomType(e.target.value);
             }}
           ></input>
+          <input
+            type="checkbox"
+            className="checkbox-form"
+            onClick={() => {
+              if (checkedRoomType === false) {
+                setCheckedRoomType(true);
+                if (props.roomToEdit) {
+                  setRoomType(roomType1);
+                }
+              } else {
+                setCheckedRoomType(false);
+                setRoomType(0);
+              }
+            }}
+          ></input>
           <h4>Room Price</h4>
           <input value={roomPrice1} className="greyedOut"></input>
           <input
             value={roomPrice}
             onChange={(e) => {
               setRoomPrice(e.target.value);
+            }}
+          ></input>
+          <input
+            type="checkbox"
+            className="checkbox-form"
+            onClick={() => {
+              if (checkedRoomPrice === false) {
+                setCheckedRoomPrice(true);
+                if (props.roomToEdit) {
+                  setRoomPrice(roomPrice1);
+                }
+              } else {
+                setCheckedRoomPrice(false);
+                setRoomPrice(0);
+              }
             }}
           ></input>
         </Modal.Body>

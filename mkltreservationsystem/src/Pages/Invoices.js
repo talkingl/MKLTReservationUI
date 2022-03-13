@@ -60,6 +60,11 @@ function Invoices() {
     const [creditCard, setCreditCard] = useState(0);
     const [dueDate, setDueDate] = useState(0);
     const [invoicePaid, setInvoicePaid] = useState(0);
+    const [checkedReservationID, setCheckedReservationID] = useState(false);
+    const [checkedInvoiceAmount, setCheckedInvoiceAmount] = useState(false);
+    const [checkedCreditCard, setCheckedCreditCard] = useState(false);
+    const [checkedDueDate, setCheckedDueDate] = useState(false);
+    const [checkedInvoicePaid, setCheckedInvoicePaid] = useState(false);
 
     let invoiceID1 = 0;
     let reservationID1 = 0;
@@ -76,6 +81,35 @@ function Invoices() {
       dueDate1 = props.invoiceToEdit.dueDate;
       invoicePaid1 = props.invoiceToEdit.invoicePaid;
     }
+    const submitButton = async (e) => {
+      e.preventDefault();
+
+      // On submit of the form, send a POST request with the data to the server.
+
+      let data = {
+        invoiceID: invoiceID1,
+        invoiceAmount: invoiceAmount,
+        creditCard: creditCard,
+        dueDate: dueDate,
+        invoicePaid: invoicePaid,
+      };
+      console.log("this is data", data);
+      const response = await fetch("http://localhost:9100/updateinvoices", {
+        method: "PUT",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.status === 200) {
+        alert("Successfully updated the Invoice!");
+        console.log(props);
+        loadInvoices();
+      } else {
+        alert(`Failed to update the invoice, status code = ${response.status}`);
+        loadInvoices();
+      }
+    };
     return (
       <Modal
         {...props}
@@ -91,23 +125,87 @@ function Invoices() {
         <Modal.Body>
           <h4>Invoice Amount</h4>
           <input value={invoiceAmount1} className="greyedOut"></input>
-          <input type="number"></input>
+          <input
+            type="number"
+            value={invoiceAmount}
+            onChange={(e) => setInvoiceAmount(e.target.value)}
+          ></input>
+          <input
+            type="checkbox"
+            className="checkbox-form"
+            onClick={() => {
+              if (checkedInvoiceAmount === false) {
+                setCheckedInvoiceAmount(true);
+                if (props.invoiceToEdit) {
+                  setInvoiceAmount(invoiceAmount1);
+                }
+              } else {
+                setCheckedInvoiceAmount(false);
+                setInvoiceAmount(0);
+              }
+            }}
+          ></input>
           <h4>Credit Card</h4>
           <input value={creditCard1} className="greyedOut"></input>
-          <input type="text"></input>
+          <input
+            type="text"
+            value={creditCard}
+            onChange={(e) => setCreditCard(e.target.value)}
+          ></input>
+          <input
+            type="checkbox"
+            className="checkbox-form"
+            onClick={() => {
+              if (checkedCreditCard === false) {
+                setCheckedCreditCard(true);
+                if (props.invoiceToEdit) {
+                  setCreditCard(creditCard1);
+                }
+              } else {
+                setCheckedCreditCard(false);
+                setCreditCard(0);
+              }
+            }}
+          ></input>
           <h4>Due Date</h4>
           <input value={dueDate1} className="greyedOut"></input>
-          <input type="date"></input>
+          <input
+            type="date"
+            value={dueDate}
+            onChange={(e) => setDueDate(e.target.value)}
+          ></input>
+          <input
+            type="checkbox"
+            className="checkbox-form"
+            onClick={() => {
+              if (checkedDueDate === false) {
+                setCheckedDueDate(true);
+                if (props.invoiceToEdit) {
+                  setDueDate(dueDate1);
+                }
+              } else {
+                setCheckedDueDate(false);
+                setDueDate(0);
+              }
+            }}
+          ></input>
           <h4> Invoice Paid </h4>
           <input value={invoicePaid1} className="greyedOut"></input>
 
-          <select>
+          <select onChange={(e) => setInvoicePaid(e.target.value)}>
             <option value="0">No</option>
             <option value="1">Yes</option>
           </select>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={props.onHide}>Update</Button>
+          <Button
+            onClick={(e) => {
+              submitButton(e);
+              props.onHide();
+            }}
+          >
+            Update
+          </Button>
         </Modal.Footer>
       </Modal>
     );

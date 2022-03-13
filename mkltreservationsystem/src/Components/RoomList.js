@@ -16,8 +16,8 @@ function RoomList({
   return (
     <div>
       <h1> Rooms</h1>
-      <Table id="Rooms" className="borderless">
-        <thead>
+      <Table id="Rooms" className="borderless striped hover color-table">
+        <thead className="color-table">
           <th>Room ID</th>
           <th>Room Floor</th>
           <th>Room Number</th>
