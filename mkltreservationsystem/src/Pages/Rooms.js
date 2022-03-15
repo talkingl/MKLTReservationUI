@@ -5,9 +5,11 @@ import { Link } from "react-router-dom";
 import React from "react";
 import RoomList from "../Components/RoomList";
 import { useState, useEffect } from "react";
-// import UpdateRoomModal from "../Components/UpdateRooms";
 
 function SearchModal(props) {
+  const [roomFloor, setRoomFloor] = useState(0);
+  const [roomType, setRoomType] = useState(0);
+
   return (
     <Modal
       {...props}
@@ -17,21 +19,26 @@ function SearchModal(props) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Search Rooma
+          Search Rooms
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <h2> Enter any of the following to search for a Room</h2>
-        <h4>Room ID</h4>
-        <input></input>
         <h4>Room Floor</h4>
-        <input></input>
-        <h4>Room Number</h4>
-        <input></input>
-        <h4>Room Type</h4>
-        <input></input>
-        <h4>Room Price</h4>
-        <input></input>
+        <select
+          value={roomFloor}
+          onChange={(e) => setRoomFloor(e.target.value)}>
+          <option value="1">1st Floor</option>
+          <option value="2">2nd Floor</option>
+          <option value="3">3rd Floor</option>
+          <option value="4">4th Floor</option>
+          <option value="5">5th Floor</option>
+        </select>
+        <h4>Room Type Includes:</h4>
+        <input
+          value={roomType}
+          onChange={(e) => setRoomType(e.target.value)}
+        ></input>
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={props.onHide}>Search</Button>
@@ -138,10 +145,15 @@ function Rooms() {
           <h2> For the row to be the same, please click the box</h2> <br></br>
           <h4>Room Floor</h4>
           <input value={roomFloor1} className="greyedOut"></input>
-          <input
+          <select
             value={roomFloor}
-            onChange={(e) => setRoomFloor(e.target.value)}
-          ></input>
+            onChange={(e) => setRoomFloor(e.target.value)}>
+            <option value="1">1st Floor</option>
+            <option value="2">2nd Floor</option>
+            <option value="3">3rd Floor</option>
+            <option value="4">4th Floor</option>
+            <option value="5">5th Floor</option>
+          </select>
           <input
             type="checkbox"
             className="checkbox-form"
@@ -182,12 +194,18 @@ function Rooms() {
           ></input>
           <h4>Room Type</h4>
           <input value={roomType1} className="greyedOut"></input>
-          <input
+          <select
             value={roomType}
-            onChange={(e) => {
-              setRoomType(e.target.value);
-            }}
-          ></input>
+            onChange={(e) => setRoomType(e.target.value)}
+          >
+            <option value="Queen">Two Queen Beds</option>
+            <option value="King">One King Bed</option>
+            <option value="JrSuite">Junior Suite</option>
+            <option value="KingSuite">King Suite</option>
+            <option value="HandicapQueen">
+              Accessible with Two Queen Beds
+            </option>
+          </select>
           <input
             type="checkbox"
             className="checkbox-form"
