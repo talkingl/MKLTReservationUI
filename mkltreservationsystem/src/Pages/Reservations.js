@@ -41,20 +41,10 @@ function Reservations() {
   const [modalShowUpdate, setModalShowUpdate] = React.useState(false);
   const [modalShowSearch, setModalShowSearch] = React.useState(false);
   const [reservations, setReservation] = useState();
-  const [customerList, setCustomerList] = useState();
 
   const [reservationToEdit, setReservationToEdit] = useState(" ");
   const [reservationToDelete, setReservationToDelete] = useState(" ");
 
-  const loadCustomerList = async () =>{
-      const response = await fetch('http://localhost:9100/listcustomers', {
-          headers: {
-              'Content-Type': 'application/json',
-          }
-      });
-      const customers = await response.json();
-      setCustomerList(customers);
-  }
 
   function AddModal(props) {
     const [customerID, setCustomerID] = useState();
@@ -64,6 +54,21 @@ function Reservations() {
     const [checkedIn, setCheckedIn] = useState();
     const [checkedOut, setCheckedOut] = useState();
     const [specialRequests, setSpecialRequests] = useState();
+    const [customerList, setCustomerList] = useState();
+
+    const loadCustomerList = async () =>{
+        const response = await fetch('http://localhost:9100/listcustomers', {
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+        const customers = await response.json();
+        setCustomerList(customers);
+    }
+    useEffect(() => {
+      loadCustomerList();
+    }, []);
+
     const submitButton = async (e) => {
       e.preventDefault();
 

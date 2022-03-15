@@ -13,8 +13,13 @@ app.use(cors());
 app.get("/listcustomers", function (req, res) {
   db.pool.query("SELECT customerID, firstName, lastName FROM Customers",
   function (error, result, fields){
-    if (err) throw err;
-    res.send(result);
+    if(error){
+      console.log(JSON.stringify(error));
+      res.write(JSON.stringify(error));
+    } else{
+      console.log(result);
+      res.send(result);
+    }
   });
 })
 
@@ -43,8 +48,13 @@ app.post("/createroom", function (req, res) {
 app.get("/displayrooms", function (req, res) {
   query = "SELECT * FROM Rooms";
   db.pool.query(query, (err, result) => {
-    if (err) throw err;
-    res.send(result);
+    if(err){
+      console.log(JSON.stringify(err));
+      res.write(JSON.stringify(err));
+    } else{
+      console.log(result);
+      res.send(result);
+    }
   });
 });
 
@@ -65,8 +75,13 @@ app.put("/updaterooms", function (req, res) {
   //   query =
   //     "UPDATE Rooms (roomFloor, roomNumber, roomType, roomPrice) VALUES (?,?,?,?) WHERE (roomID) = values (?);";
   db.pool.query(query, inserts, (err, result) => {
-    if (err) throw err;
-    res.send(result);
+    if(err){
+      console.log(JSON.stringify(err));
+      res.write(JSON.stringify(err));
+    } else{
+      console.log(result);
+      res.send(result);
+    }
   });
 });
 
@@ -75,8 +90,13 @@ app.delete("/deleteroom", function (req, res) {
   console.log("Deleting room: ", req.body);
   query = "DELETE FROM Rooms WHERE roomID = ?";
   db.pool.query(query, req.body.roomID, (err, result) => {
-    if (err) throw err;
-    res.send(result);
+    if(err){
+      console.log(JSON.stringify(err));
+      res.write(JSON.stringify(err));
+    } else{
+      console.log(result);
+      res.send(result);
+    }
   });
 });
 
@@ -84,9 +104,13 @@ app.delete("/deleteroom", function (req, res) {
 app.get("/displayemployees", function (req, res) {
   query = "SELECT * FROM Employees";
   db.pool.query(query, (err, result) => {
-    if (err) throw err;
-    console.log(result);
-    res.send(result);
+    if(err){
+      console.log(JSON.stringify(err));
+      res.write(JSON.stringify(err));
+    } else{
+      console.log(result);
+      res.send(result);
+    }
   });
 });
 //updates employee
@@ -102,8 +126,13 @@ app.put("/updateemployees", function (req, res) {
   query =
     "UPDATE Employees SET firstName=?, lastName=?, shiftWorked=?, payRate=? WHERE employeeID=?;";
   db.pool.query(query, inserts, (err, result) => {
-    if (err) throw err;
-    res.send(result);
+    if(err){
+      console.log(JSON.stringify(err));
+      res.write(JSON.stringify(err));
+    } else{
+      console.log(result);
+      res.send(result);
+    }
   });
 });
 
@@ -134,8 +163,13 @@ app.delete("/deleteemployee", function (req, res) {
   console.log("Deleting employee: ", req.body);
   query = "DELETE FROM Employees WHERE employeeID = ?";
   db.pool.query(query, req.body.employeeID, (err, result) => {
-    if (err) throw err;
-    res.send(result);
+    if(err){
+      console.log(JSON.stringify(err));
+      res.write(JSON.stringify(err));
+    } else{
+      console.log(result);
+      res.send(result);
+    }
   });
 });
 
@@ -144,9 +178,13 @@ app.get("/displaycustomers", function (req, res) {
   query =
     "SELECT customerID, firstName, lastName, emailAddress, phoneNumber FROM Customers";
   db.pool.query(query, (err, result) => {
-    if (err) throw err;
-    // console.log(res);
-    res.send(result);
+    if(err){
+      console.log(JSON.stringify(err));
+      res.write(JSON.stringify(err));
+    } else{
+      console.log(result);
+      res.send(result);
+    }
   });
 });
 //creates a customer
@@ -183,8 +221,13 @@ app.put("/updatecustomers", function (req, res) {
   query =
     "UPDATE Customers SET firstName=?, lastName=?, emailAddress=?, phoneNumber=? WHERE customerID=?;";
   db.pool.query(query, inserts, (err, result) => {
-    if (err) throw err;
-    res.send(result);
+    if(err){
+      console.log(JSON.stringify(err));
+      res.write(JSON.stringify(err));
+    } else{
+      console.log(result);
+      res.send(result);
+    }
   });
 });
 // deletes a customer
@@ -192,8 +235,13 @@ app.delete("/deletecustomer", function (req, res) {
   console.log("Deleting customer: ", req.body);
   query = "DELETE FROM Customers WHERE customerID = ?";
   db.pool.query(query, req.body.customerID, (err, result) => {
-    if (err) throw err;
-    res.send(result);
+    if(err){
+      console.log(JSON.stringify(err));
+      res.write(JSON.stringify(err));
+    } else{
+      console.log(result);
+      res.send(result);
+    }
   });
 });
 
@@ -201,9 +249,13 @@ app.delete("/deletecustomer", function (req, res) {
 app.get("/displayinvoices", function (req, res) {
   query = "SELECT * FROM Invoices";
   db.pool.query(query, (err, result) => {
-    if (err) throw err;
-    // console.log(result);
-    res.send(result);
+    if(err){
+      console.log(JSON.stringify(err));
+      res.write(JSON.stringify(err));
+    } else{
+      console.log(result);
+      res.send(result);
+    }
   });
 });
 //creates an invoice
@@ -242,8 +294,13 @@ app.put("/updateinvoices", function (req, res) {
   query =
     "UPDATE Invoices SET invoiceAmount=?, creditCard=?, dueDate=?, invoicePaid=?  WHERE invoiceID=?;";
   db.pool.query(query, inserts, (err, result) => {
-    if (err) throw err;
-    res.send(result);
+    if(err){
+      console.log(JSON.stringify(err));
+      res.write(JSON.stringify(err));
+    } else{
+      console.log(result);
+      res.send(result);
+    }
   });
 });
 
@@ -252,8 +309,13 @@ app.delete("/deleteinvoice", function (req, res) {
   console.log("Deleting invoice: ", req.body);
   query = "DELETE FROM Invoices WHERE invoiceID = ?";
   db.pool.query(query, req.body.invoiceID, (err, result) => {
-    if (err) throw err;
-    res.send(result);
+    if(err){
+      console.log(JSON.stringify(err));
+      res.write(JSON.stringify(err));
+    } else{
+      console.log(result);
+      res.send(result);
+    }
   });
 });
 
@@ -287,9 +349,13 @@ app.post("/createreservation", function (req, res) {
 app.get("/displayreservations", function (req, res) {
   query = "SELECT * FROM Reservations";
   db.pool.query(query, (err, result) => {
-    if (err) throw err;
-    console.log(result);
-    res.send(result);
+    if(err){
+      console.log(JSON.stringify(err));
+      res.write(JSON.stringify(err));
+    } else{
+      console.log(result);
+      res.send(result);
+    }
   });
 });
 
@@ -309,8 +375,13 @@ app.put("/updatereservation", function (req, res) {
   query =
     "UPDATE Reservations SET customerID=?, employeeID=?, checkInDate=?, stayLength=?, specialRequests=?, checkedIn=?, checkedOut=?   WHERE reservationID=?;";
   db.pool.query(query, inserts, (err, result) => {
-    if (err) throw err;
-    res.send(result);
+    if(err){
+      console.log(JSON.stringify(err));
+      res.write(JSON.stringify(err));
+    } else{
+      console.log(result);
+      res.send(result);
+    }
   });
 });
 
@@ -319,8 +390,13 @@ app.delete("/deletereservation", function (req, res) {
   console.log("Deleting reservation: ", req.body);
   query = "DELETE FROM Reservations WHERE reservationID = ?";
   db.pool.query(query, req.body.reservationID, (err, result) => {
-    if (err) throw err;
-    res.send(result);
+    if(err){
+      console.log(JSON.stringify(err));
+      res.write(JSON.stringify(err));
+    } else{
+      console.log(result);
+      res.send(result);
+    }
   });
 });
 
@@ -329,9 +405,13 @@ app.get("/displayguestcheckinout", function (req, res) {
   query = " Select * from Rooms"; // query =
   //   "SELECT room.roomNumber, concat(cust.firstName, ' ', cust.lastName) AS customerName, res.checkInDate FROM Customers AS cust INNER JOIN Reservations AS res ON cust.customerID = res.customerID INNER JOIN RoomReservations AS rr ON res.reservationID = rr.reservationID INNER JOIN Rooms AS room ON rr.roomID = room.roomID;";
   db.pool.query(query, (err, result) => {
-    if (err) throw err;
-    console.log(result);
-    res.send(result);
+    if(err){
+      console.log(JSON.stringify(err));
+      res.write(JSON.stringify(err));
+    } else{
+      console.log(result);
+      res.send(result);
+    }
   });
 });
 
