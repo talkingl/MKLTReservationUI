@@ -11,7 +11,7 @@ function Header() {
     <div>
       <Navbar bg="light" expand="lg">
         <Container>
-          <Navbar.Brand href="/home">
+          <Navbar.Brand href="/">
             MKLT Hotel Reservation System
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
