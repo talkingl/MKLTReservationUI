@@ -41,9 +41,20 @@ function Reservations() {
   const [modalShowUpdate, setModalShowUpdate] = React.useState(false);
   const [modalShowSearch, setModalShowSearch] = React.useState(false);
   const [reservations, setReservation] = useState();
+  const [customerList, setCustomerList] = useState();
 
   const [reservationToEdit, setReservationToEdit] = useState(" ");
   const [reservationToDelete, setReservationToDelete] = useState(" ");
+
+  const loadCustomerList = async () =>{
+      const response = await fetch('http://localhost:9100/listcustomers', {
+          headers: {
+              'Content-Type': 'application/json',
+          }
+      });
+      const customers = await response.json();
+      setCustomerList(customers);
+  }
 
   function AddModal(props) {
     const [customerID, setCustomerID] = useState();
@@ -69,7 +80,7 @@ function Reservations() {
 
       // On submit of the form, send a POST request with the data to the server.
       const response = await fetch(
-        "http://flip2.engr.oregonstate.edu:9100/createreservation",
+        "http://localhost:9100/createreservation",
         {
           method: "POST",
           body: JSON.stringify(data),
@@ -99,12 +110,18 @@ function Reservations() {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h4>customerID</h4>
-          <input
-            type="number"
-            value={customerID}
-            onChange={(e) => setCustomerID(e.target.value)}
-          ></input>
+          <h4>Customer</h4>
+          <select onChange={(e) => setCustomerID(e.target.value)}>
+              {customerList?.map((item)=>{
+                return (
+                  <option
+                  value={item.customerID}
+                  selected={item.customerID === customerID}>
+                    {item.firstName} {item.lastName}
+                  </option>
+                )
+              })}
+          </select>
           <h4>employeeID</h4>
           <input
             type="number"
@@ -163,7 +180,7 @@ function Reservations() {
 
   const loadReservations = async () => {
     const response = await fetch(
-      "http://flip2.engr.oregonstate.edu:9100/displayreservations"
+      "http://localhost:9100/displayreservations"
     );
     const reservations = await response.json();
     setReservation(reservations);
@@ -430,7 +447,7 @@ function Reservations() {
       };
 
       const response = await fetch(
-        "http://flip2.engr.oregonstate.edu:9100/deletereservation",
+        "http://localhost:9100/deletereservation",
         {
           method: "DELETE",
           body: JSON.stringify(data),

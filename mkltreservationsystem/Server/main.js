@@ -9,6 +9,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
+// for customer name dropdown menus
+app.get("/listcustomers", function (req, res) {
+  db.pool.query("SELECT customerID, firstName, lastName FROM Customers",
+  function (error, result, fields){
+    if (err) throw err;
+    res.send(result);
+  });
+})
+
 //creates a room
 app.post("/createroom", function (req, res) {
   let inserts = [
@@ -258,8 +267,8 @@ app.post("/createreservation", function (req, res) {
     req.body.checkInDate,
     req.body.stayLength,
     req.body.specialRequests,
-    req.body.checkedIn,
-    req.body.checkedOut,
+    (req.body.checkedIn === NULL ? 0 : 1),
+    (req.body.checkedOut === NULL ? 0 : 1),
   ];
 
   sql =
