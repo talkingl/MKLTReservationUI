@@ -17,7 +17,7 @@ function Invoice({
       <td>{invoice.reservationID}</td>
       <td>{invoice.invoiceAmount}</td>
       <td>{invoice.creditCard}</td>
-      <td>{invoice.dueDate}</td>
+      <td>{(new Date(invoice.dueDate)).toLocaleDateString()}</td>
       <td>{invoice.invoicePaid}</td>
       <td>
         <MdEdit onClick={() => {

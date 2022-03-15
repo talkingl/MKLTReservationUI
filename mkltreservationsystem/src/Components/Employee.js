@@ -18,7 +18,7 @@ function Employee({
       <td>{employee.firstName}</td>
       <td>{employee.lastName}</td>
       <td>{employee.shiftWorked}</td>
-      <td>{employee.payRate}</td>
+      <td>${employee.payRate}</td>
       <td>
         <MdEdit onClick={() => {
           onEdit(employee);

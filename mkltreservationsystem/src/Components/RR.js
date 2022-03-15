@@ -64,7 +64,7 @@ function RR({
     <tr>
       <td>{reservations.roomNumber}</td>
       <td>{reservations.name}</td>
-      <td>{reservations.date}</td>
+      <td>{(new Date(reservations.date)).toLocaleDateString()}</td>
       <td>
         <AiOutlineCheckCircle onClick={() => setModalShowUpdate(true)} />
         <UpdateModal

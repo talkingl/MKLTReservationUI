@@ -16,9 +16,8 @@ function Reservation({
       <td>{reservation.reservationID}</td>
       <td>{reservation.customerID}</td>
       <td>{reservation.employeeID}</td>
-      <td>{reservation.checkInDate}</td>
+      <td>{(new Date(reservation.checkInDate)).toLocaleDateString()}</td>
       <td>{reservation.stayLength}</td>
-
       <td>{reservation.checkedIn}</td>
       <td>{reservation.checkedOut}</td>
       <td>{reservation.specialRequests}</td>
