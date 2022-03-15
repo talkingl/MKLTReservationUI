@@ -66,6 +66,8 @@ function RR({
       <td>{reservations.name}</td>
       <td>{(new Date(reservations.date)).toLocaleDateString()}</td>
       <td>
+        // {reservations.checkedIn === 1? "Yes": "No"}
+        // do on picture for not checked in yet, another one for checkedIn TRUE
         <AiOutlineCheckCircle onClick={() => setModalShowUpdate(true)} />
         <UpdateModal
           show={modalShowUpdate}

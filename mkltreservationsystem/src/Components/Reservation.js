@@ -18,8 +18,8 @@ function Reservation({
       <td>{reservation.employeeID}</td>
       <td>{(new Date(reservation.checkInDate)).toLocaleDateString()}</td>
       <td>{reservation.stayLength}</td>
-      <td>{reservation.checkedIn}</td>
-      <td>{reservation.checkedOut}</td>
+      <td>{reservation.checkedIn === 1? "Yes": "No"}</td>
+      <td>{reservation.checkedOut === 1? "Yes": "No"}</td>
       <td>{reservation.specialRequests}</td>
 
       <td>
