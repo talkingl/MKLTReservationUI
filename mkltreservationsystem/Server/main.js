@@ -17,7 +17,21 @@ app.get("/listcustomers", function (req, res) {
       console.log(JSON.stringify(error));
       res.write(JSON.stringify(error));
     } else{
-      console.log(result);
+      // console.log(result);
+      res.send(result);
+    }
+  });
+})
+
+// for employee name dropdown menus
+app.get("/listemployees", function (req, res) {
+  db.pool.query("SELECT employeeID, firstName, lastName FROM Employees",
+  function (error, result, fields){
+    if(error){
+      console.log(JSON.stringify(error));
+      res.write(JSON.stringify(error));
+    } else{
+      // console.log(result);
       res.send(result);
     }
   });
@@ -329,8 +343,8 @@ app.post("/createreservation", function (req, res) {
     req.body.checkInDate,
     req.body.stayLength,
     req.body.specialRequests,
-    (req.body.checkedIn === NULL ? 0 : 1),
-    (req.body.checkedOut === NULL ? 0 : 1),
+    req.body.checkedIn,
+    req.body.checkedOut,
   ];
 
   sql =

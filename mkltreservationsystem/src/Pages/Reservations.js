@@ -45,6 +45,37 @@ function Reservations() {
   const [reservationToEdit, setReservationToEdit] = useState(" ");
   const [reservationToDelete, setReservationToDelete] = useState(" ");
 
+  const [customerList, setCustomerList] = useState();
+
+  const loadCustomerList = async () =>{
+      const response = await fetch('http://localhost:9100/listcustomers', {
+          headers: {
+              'Content-Type': 'application/json',
+          }
+      });
+      const customers = await response.json();
+      setCustomerList(customers);
+  }
+  useEffect(() => {
+    loadCustomerList();
+  }, []);
+
+  const [employeeList, setEmployeeList] = useState();
+
+  const loadEmployeeList = async () =>{
+      const response = await fetch('http://localhost:9100/listemployees', {
+          headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+          }
+      });
+      const employees = await response.json();
+      setEmployeeList(employees);
+  }
+  useEffect(() => {
+    loadEmployeeList();
+  }, []);
+
 
   function AddModal(props) {
     const [customerID, setCustomerID] = useState();
@@ -54,20 +85,6 @@ function Reservations() {
     const [checkedIn, setCheckedIn] = useState();
     const [checkedOut, setCheckedOut] = useState();
     const [specialRequests, setSpecialRequests] = useState();
-    const [customerList, setCustomerList] = useState();
-
-    const loadCustomerList = async () =>{
-        const response = await fetch('http://localhost:9100/listcustomers', {
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        });
-        const customers = await response.json();
-        setCustomerList(customers);
-    }
-    useEffect(() => {
-      loadCustomerList();
-    }, []);
 
     const submitButton = async (e) => {
       e.preventDefault();
@@ -127,12 +144,18 @@ function Reservations() {
                 )
               })}
           </select>
-          <h4>employeeID</h4>
-          <input
-            type="number"
-            value={employeeID}
-            onChange={(e) => setEmployeeID(e.target.value)}
-          ></input>
+          <h4>Employee</h4>
+          <select onChange={(e) => setEmployeeID(e.target.value)}>
+              {employeeList?.map((item)=>{
+                return (
+                  <option
+                  value={item.employeeID}
+                  selected={item.employeeID === employeeID}>
+                    {item.firstName} {item.lastName}
+                  </option>
+                )
+              })}
+          </select>
           <h4>checkInDate</h4>
           <input
             type="date"
@@ -214,7 +237,7 @@ function Reservations() {
     let employeeID1 = 0;
     let customerID1 = 0;
     let reservationID1 = 0;
-    let checkInDate1 = 0;
+    let checkInDate1 = "1900-01-01T00:00:00.000Z";
     let stayLength1 = 0;
     let specialRequests1 = 0;
     let checkedIn1 = 0;
@@ -224,8 +247,7 @@ function Reservations() {
       employeeID1 = props.reservationToEdit.employeeID;
       customerID1 = props.reservationToEdit.customerID;
       reservationID1 = props.reservationToEdit.reservationID;
-
-      checkInDate1 = props.reservationToEdit.checkInDate;
+      checkInDate1 = props.reservationToEdit.checkInDate.split('T')[0];
       stayLength1 = props.reservationToEdit.stayLength;
       specialRequests1 = props.reservationToEdit.specialRequests;
       checkedIn1 = props.reservationToEdit.checkedIn;
@@ -278,14 +300,19 @@ function Reservations() {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h4>Customer ID</h4>
+          <h4>Customer</h4>
           <input value={customerID1} className="greyedOut"></input>
-          <input
-            type="number"
-            value={customerID}
-            onChange={(e) => setCustomerID(e.target.value)}
-          ></input>
-
+          <select onChange={(e) => setCustomerID(e.target.value)}>
+              {customerList?.map((item)=>{
+                return (
+                  <option
+                  value={item.customerID}
+                  selected={item.customerID === customerID}>
+                    {item.firstName} {item.lastName}
+                  </option>
+                )
+              })}
+          </select>
           <input
             type="checkbox"
             className="checkbox-form"
@@ -301,13 +328,19 @@ function Reservations() {
               }
             }}
           ></input>
-          <h4>Employee ID</h4>
+          <h4>Employee</h4>
           <input value={employeeID1} className="greyedOut"></input>
-          <input
-            type="number"
-            value={employeeID}
-            onChange={(e) => setEmployeeID(e.target.value)}
-          ></input>
+          <select onChange={(e) => setEmployeeID(e.target.value)}>
+              {employeeList?.map((item)=>{
+                return (
+                  <option
+                  value={item.employeeID}
+                  selected={item.employeeID === employeeID}>
+                    {item.firstName} {item.lastName}
+                  </option>
+                )
+              })}
+          </select>
 
           <input
             type="checkbox"
