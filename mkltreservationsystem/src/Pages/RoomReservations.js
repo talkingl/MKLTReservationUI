@@ -176,7 +176,7 @@ function RoomsReservations() {
 
       // On submit of the form, send a GET request with the date to the server
       const response = await fetch(
-        "http://localhost:9100//displayguestcheckinout/:filter/:date/${searchDate}",
+        `http://localhost:9100//displayguestcheckinout/:filter/:date/${searchDate}`,
         { headers: { "Content-Type": "application/json", }, }
       );
       const reservations = await response.json();
@@ -220,14 +220,13 @@ function RoomsReservations() {
 
     let reservationID = roomReservationToEdit.reservationID;
     let roomID = roomReservationToEdit.roomID;
-    let checkedIn = roomReservationToEdit.checkedIn;
-
+    let checkedIn = !roomReservationToEdit.checkedIn;
 
     // On submit of the form, send a POST request with the data to the server.
     let data = {
       reservationID: reservationID,
       roomID: roomID,
-      checkedIn: !checkedIn,
+      checkedIn: checkedIn,
     };
     console.log("this is data", data);
     const response = await fetch("http://localhost:9100/updatecheckin", {
@@ -256,13 +255,13 @@ function RoomsReservations() {
 
     let reservationID = roomReservationToEdit.reservationID;
     let roomID = roomReservationToEdit.roomID;
-    let checkedOut = roomReservationToEdit.checkedOut;
+    let checkedOut = !roomReservationToEdit.checkedOut;
 
     // On submit of the form, send a POST request with the data to the server.
     let data = {
       reservationID: reservationID,
       roomID: roomID,
-      checkedOut: !checkedOut,
+      checkedOut: checkedOut,
     };
     console.log("this is data", data);
     const response = await fetch("http://localhost:9100/updatecheckout", {

@@ -493,7 +493,6 @@ app.put("/updatecheckin", function (req, res) {
     req.body.checkedIn,
     req.body.reservationID,
     req.body.roomID,
-
   ];
   console.log(inserts, req.body);
   query =
@@ -515,7 +514,6 @@ app.put("/updatecheckout", function (req, res) {
     req.body.checkedOut,
     req.body.reservationID,
     req.body.roomID,
-
   ];
   console.log(inserts, req.body);
   query =
