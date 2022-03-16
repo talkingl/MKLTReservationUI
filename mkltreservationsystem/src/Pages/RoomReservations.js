@@ -49,19 +49,6 @@ function UpdateModal(props) {
         <input type="number"></input>
         <h4>Room ID</h4>
         <input type="number"></input>
-        <h4>Checked In</h4>
-        <input value="0" className="greyedOut"></input>
-        <select>
-          <option value="0">No</option>
-          <option value="1">Yes</option>
-        </select>
-        <h4>Checked Out</h4>
-        <input value="0" className="greyedOut"></input>
-        <select>
-          <option value="0">No</option>
-          <option value="1">Yes</option>
-        </select>
-        <h4>Special Request(s)</h4>
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={props.onHide}>Check In</Button>
@@ -75,6 +62,7 @@ function RoomsReservations() {
   const [modalShowUpdate, setModalShowUpdate] = React.useState(false);
   const [modalShowSearch, setModalShowSearch] = React.useState(false);
   const [roomReservations, setRoomReservation] = useState();
+  const [roomReservationToEdit, setRoomReservationToEdit] = useState(" ");
   const [roomList, setRoomList] = useState();
   const [reservationList, setReservationList] = useState();
 
@@ -203,37 +191,45 @@ function RoomsReservations() {
   }
 
   // onEditCheckIn
-  function onEditCheckIn(reservation) = async (e) => {
-    e.preventDefault();
+  const onEditCheckIn = async (roomReservationToEdit) => {
+    setRoomReservationToEdit(roomReservationToEdit);
+    console.log(roomReservationToEdit);
 
-    // On submit of the form, send a POST request with the data to the server.
-    let data = {
-      reservationID: reservation.reservationID,
-      roomID: reservation.roomID,
-      checkedIn: reservation.checkedIn,
-    };
-    console.log("this is data", data);
-    const response = await fetch("http://localhost:9100/updatecheckin", {
-      method: "PUT",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (response.status === 200) {
-      alert("Successfully updated the CheckIn Status!");
-      console.log(props);
-      loadRoomReservations();
-    } else {
-      alert(
-        `Failed to update the check-in status, status code = ${response.status}`
-      );
-      loadRoomReservations();
+    let reservationID = roomReservationToEdit.reservationID;
+    let roomID = roomReservationToEdit.roomID;
+    let checkedIn = roomReservationToEdit.checkedIn;
+
+    const submitUpdate = async (e) => {
+      e.preventDefault();
+      // On submit of the form, send a POST request with the data to the server.
+      let data = {
+        reservationID: reservationID,
+        roomID: roomID,
+        checkedIn: checkedIn,
+      };
+      console.log("this is data", data);
+      const response = await fetch("http://localhost:9100/updatecheckin", {
+        method: "PUT",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.status === 200) {
+        alert("Successfully updated the CheckIn Status!");
+        console.log(props);
+        loadRoomReservations();
+      } else {
+        alert(
+          `Failed to update the check-in status, status code = ${response.status}`
+        );
+        loadRoomReservations();
+      }
     }
-  };
+  }
 
   // onEditCheckOut
-  function onEditCheckIn(reservation) = async (e) => {
+  function onEditCheckOut(reservation) = async (e) => {
     e.preventDefault();
 
     // On submit of the form, send a POST request with the data to the server.
