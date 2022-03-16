@@ -37,6 +37,34 @@ app.get("/listemployees", function (req, res) {
   });
 })
 
+// for room dropdown menus
+app.get("/listrooms", function (req, res) {
+  db.pool.query("SELECT roomID, roomNumber, roomType FROM Rooms",
+  function (error, result, fields){
+    if(error){
+      console.log(JSON.stringify(error));
+      res.write(JSON.stringify(error));
+    } else{
+      // console.log(result);
+      res.send(result);
+    }
+  });
+})
+
+// for reservation dropdown menus
+app.get("/listreservations", function (req, res) {
+  db.pool.query("SELECT res.reservationID, cust.firstName, cust.lastName, res.checkedIn FROM Reservations AS res INNER JOIN Customers AS cust ON cust.customerID = res.customerID",
+  function (error, result, fields){
+    if(error){
+      console.log(JSON.stringify(error));
+      res.write(JSON.stringify(error));
+    } else{
+      // console.log(result);
+      res.send(result);
+    }
+  });
+})
+
 //creates a room
 app.post("/createroom", function (req, res) {
   let inserts = [
@@ -424,9 +452,71 @@ app.get("/displayguestcheckinout", function (req, res) {
   });
 });
 
+// add room-reservation
+app.post("/createroomreservation", function (req, res) {
+  console.log(req.body);
+  var mysql = req.app.get("mysql");
+  let inserts = [
+    req.body.roomID,
+    req.body.reservationID,
+  ];
+
+  sql =
+    "INSERT INTO RoomReservations (roomID, reservationID) VALUES (?,?)";
+  db.pool.query(sql, inserts, function (error, results, fields) {
+    if (error) {
+      console.log(JSON.stringify(error));
+      res.write(JSON.stringify(error));
+    } else {
+      res.send(results);
+    }
+  });
+});
+
 // update guest's check-in status based on Check-In/Out Page
+app.put("/updatecheckin", function (req, res) {
+  let inserts = [
+    !req.body.checkedIn,
+    req.body.reservationID,
+    req.body.roomID,
+
+  ];
+  console.log(inserts, req.body);
+  query =
+    "UPDATE RoomReservations SET checkedIn=? WHERE reservationID=? AND roomID=?;";
+  db.pool.query(query, inserts, (err, result) => {
+    if(err){
+      console.log(JSON.stringify(err));
+      res.write(JSON.stringify(err));
+    } else{
+      console.log(result);
+      res.send(result);
+    }
+  });
+});
 
 // update guest's check-out status based on Check-In/Out Page
+// update guest's check-in status based on Check-In/Out Page
+app.put("/updatecheckout", function (req, res) {
+  let inserts = [
+    !req.body.checkedOut,
+    req.body.reservationID,
+    req.body.roomID,
+
+  ];
+  console.log(inserts, req.body);
+  query =
+    "UPDATE RoomReservations SET checkedOut=? WHERE reservationID=? AND roomID=?;";
+  db.pool.query(query, inserts, (err, result) => {
+    if(err){
+      console.log(JSON.stringify(err));
+      res.write(JSON.stringify(err));
+    } else{
+      console.log(result);
+      res.send(result);
+    }
+  });
+});
 
 app.listen(PORT, function () {
   // This is the basic syntax for what is called the 'listener' which receives incoming requests on the specified PORT.
