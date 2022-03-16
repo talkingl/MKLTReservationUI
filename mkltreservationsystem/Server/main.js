@@ -343,12 +343,10 @@ app.post("/createreservation", function (req, res) {
     req.body.checkInDate,
     req.body.stayLength,
     req.body.specialRequests,
-    req.body.checkedIn,
-    req.body.checkedOut,
   ];
 
   sql =
-    "INSERT INTO Reservations (customerID, employeeID, checkInDate, stayLength, specialRequests, checkedIn, checkedOut) VALUES (?,?,?,?,?,?,?)";
+    "INSERT INTO Reservations (customerID, employeeID, checkInDate, stayLength, specialRequests) VALUES (?,?,?,?,?)";
   db.pool.query(sql, inserts, function (error, results, fields) {
     if (error) {
       console.log(JSON.stringify(error));
@@ -381,13 +379,11 @@ app.put("/updatereservation", function (req, res) {
     req.body.checkInDate,
     req.body.stayLength,
     req.body.specialRequests,
-    req.body.checkedIn,
-    req.body.checkedOut,
     req.body.reservationID,
   ];
   console.log(inserts, req.body);
   query =
-    "UPDATE Reservations SET customerID=?, employeeID=?, checkInDate=?, stayLength=?, specialRequests=?, checkedIn=?, checkedOut=?   WHERE reservationID=?;";
+    "UPDATE Reservations SET customerID=?, employeeID=?, checkInDate=?, stayLength=?, specialRequests=?   WHERE reservationID=?;";
   db.pool.query(query, inserts, (err, result) => {
     if(err){
       console.log(JSON.stringify(err));
@@ -416,8 +412,7 @@ app.delete("/deletereservation", function (req, res) {
 
 //displays room and reservations table
 app.get("/displayguestcheckinout", function (req, res) {
-  query = " Select * from Rooms"; // query =
-  //   "SELECT room.roomNumber, concat(cust.firstName, ' ', cust.lastName) AS customerName, res.checkInDate FROM Customers AS cust INNER JOIN Reservations AS res ON cust.customerID = res.customerID INNER JOIN RoomReservations AS rr ON res.reservationID = rr.reservationID INNER JOIN Rooms AS room ON rr.roomID = room.roomID;";
+  query = "SELECT room.roomNumber, concat(cust.firstName, ' ', cust.lastName) AS customerName, res.checkInDate, res.reservationID FROM Customers AS cust INNER JOIN Reservations AS res ON cust.customerID = res.customerID INNER JOIN RoomReservations AS rr ON res.reservationID = rr.reservationID INNER JOIN Rooms AS room ON rr.roomID = room.roomID;";
   db.pool.query(query, (err, result) => {
     if(err){
       console.log(JSON.stringify(err));

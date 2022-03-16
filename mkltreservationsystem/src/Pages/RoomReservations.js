@@ -35,18 +35,19 @@ function RoomsReservations() {
   const [modalShowRemove, setModalShowRemove] = React.useState(false);
   const [modalShowUpdate, setModalShowUpdate] = React.useState(false);
   const [modalShowSearch, setModalShowSearch] = React.useState(false);
-  const [reservations, setReservation] = useState();
+  const [roomReservations, setRoomReservation] = useState();
 
-  const loadReservations = async () => {
+  const loadRoomReservations = async () => {
     const response = await fetch(
       "http://localhost:9100/displayguestcheckinout"
     );
     const reservations = await response.json();
-    setReservation(reservations);
+    setRoomReservation(reservations);
   };
   useEffect(() => {
-    loadReservations();
+    loadRoomReservations();
   }, []);
+
   return (
     <div>
       <button className="crud-buttons" onClick={() => setModalShowSearch(true)}>
@@ -61,7 +62,7 @@ function RoomsReservations() {
         setModalShowUpdate={setModalShowUpdate}
         modalShowRemove={modalShowRemove}
         setModalShowRemove={setModalShowRemove}
-        reservations={reservations}
+        roomReservations={roomReservations}
       ></RRList>
     </div>
   );

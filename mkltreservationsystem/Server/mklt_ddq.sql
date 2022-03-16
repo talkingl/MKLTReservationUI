@@ -82,8 +82,6 @@ CREATE TABLE `Reservations` (
   `checkInDate` date NOT NULL,
   `stayLength` int(11) NOT NULL,
   `specialRequests` longtext DEFAULT NULL,
-  `checkedIn` boolean DEFAULT false,
-  `checkedOut` boolean DEFAULT false,
   PRIMARY KEY (`reservationID`),
   CONSTRAINT `Reservations_Cust` FOREIGN KEY (`customerID`)
     REFERENCES `Customers` (`customerID`)
@@ -97,9 +95,9 @@ CREATE TABLE `Reservations` (
 -- Dumping data for table `Reservations`
 --
 LOCK TABLES `Reservations` WRITE;
-INSERT INTO `Reservations` VALUES (1,6,NULL,'2022-02-15',3,NULL,true,true),
-(2,9,1,'2022-03-01',7,'Honeymoon',false,false),(3,121,2,'2022-02-28',1,NULL,false,false),
-(4,6,1,'2022-02-22',4,NULL,true,false);
+INSERT INTO `Reservations` VALUES (1,6,NULL,'2022-02-15',3,NULL),
+(2,9,1,'2022-03-01',7,'Honeymoon'),(3,121,2,'2022-02-28',1,NULL),
+(4,6,1,'2022-02-22',4,NULL);
 UNLOCK TABLES;
 
 --
@@ -109,6 +107,8 @@ DROP TABLE IF EXISTS `RoomReservations`;
 CREATE TABLE `RoomReservations` (
   `roomID` int(11) NOT NULL DEFAULT '0',
   `reservationID` int(11) NOT NULL DEFAULT '0',
+  `checkedIn` boolean DEFAULT false,
+  `checkedOut` boolean DEFAULT false,
   PRIMARY KEY (`roomID`,`reservationID`),
   CONSTRAINT `RoomReservations_Room` FOREIGN KEY (`roomID`)
     REFERENCES `Rooms` (`roomID`)
@@ -122,6 +122,7 @@ CREATE TABLE `RoomReservations` (
 -- Dumping data for table `RoomReservations`
 --
 LOCK TABLES `RoomReservations` WRITE;
+INSERT INTO `RoomReservations` VALUES (2,1), (3,1), (8,2), (6,3), (4,4);
 UNLOCK TABLES;
 
 --

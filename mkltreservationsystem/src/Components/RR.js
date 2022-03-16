@@ -20,6 +20,19 @@ function UpdateModal(props) {
         <input type="number"></input>
         <h4>Room ID</h4>
         <input type="number"></input>
+        <h4>Checked In</h4>
+        <input value="0" className="greyedOut"></input>
+        <select>
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </select>
+        <h4>Checked Out</h4>
+        <input value="0" className="greyedOut"></input>
+        <select>
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </select>
+        <h4>Special Request(s)</h4>
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={props.onHide}>Check In</Button>
@@ -52,7 +65,7 @@ function RemoveModal(props) {
 }
 
 function RR({
-  reservations,
+  roomReservation,
   onDelete,
   onEdit,
   modalShowUpdate,
@@ -62,12 +75,11 @@ function RR({
 }) {
   return (
     <tr>
-      <td>{reservations.roomNumber}</td>
-      <td>{reservations.name}</td>
-      <td>{(new Date(reservations.date)).toLocaleDateString()}</td>
+      <td>{roomReservation.roomNumber}</td>
+      <td>{roomReservation.reservationID}</td>
+      <td>{roomReservation.customerName}</td>
+      <td>{(new Date(roomReservation.checkInDate)).toLocaleDateString()}</td>
       <td>
-        // {reservations.checkedIn === 1? "Yes": "No"}
-        // do on picture for not checked in yet, another one for checkedIn TRUE
         <AiOutlineCheckCircle onClick={() => setModalShowUpdate(true)} />
         <UpdateModal
           show={modalShowUpdate}

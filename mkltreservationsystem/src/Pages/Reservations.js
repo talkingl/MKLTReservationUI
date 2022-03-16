@@ -82,8 +82,6 @@ function Reservations() {
     const [employeeID, setEmployeeID] = useState();
     const [checkInDate, setCheckInDate] = useState();
     const [stayLength, setStayLength] = useState();
-    const [checkedIn, setCheckedIn] = useState();
-    const [checkedOut, setCheckedOut] = useState();
     const [specialRequests, setSpecialRequests] = useState();
 
     const submitButton = async (e) => {
@@ -95,8 +93,6 @@ function Reservations() {
         checkInDate: checkInDate,
         stayLength: stayLength,
         specialRequests: specialRequests,
-        checkedIn: checkedIn,
-        checkedOut: checkedOut,
       };
       console.log(data);
 
@@ -168,23 +164,6 @@ function Reservations() {
             value={stayLength}
             onChange={(e) => setStayLength(e.target.value)}
           ></input>
-
-          <h4>checkedIn</h4>
-          <select
-            value={checkedIn}
-            onChange={(e) => setCheckedIn(e.target.value)}
-          >
-            <option value="0">No</option>
-            <option value="1">Yes</option>
-          </select>
-          <h4>checkedOut</h4>
-          <select
-            value={checkedOut}
-            onChange={(e) => setCheckedOut(e.target.value)}
-          >
-            <option value="0">No</option>
-            <option value="1">Yes</option>
-          </select>
           <h4>specialRequest</h4>
           <input
             type="text"
@@ -224,15 +203,11 @@ function Reservations() {
     const [checkInDate, setCheckInDate] = useState(0);
     const [stayLength, setStayLength] = useState(0);
     const [specialRequests, setSpecialRequests] = useState(0);
-    const [checkedIn, setCheckedIn] = useState(0);
-    const [checkedOut, setCheckedOut] = useState(0);
     const [checkedEmployeeID, setCheckedEmployeeID] = useState(false);
     const [checkedCustomerID, setCheckedCustomerID] = useState(false);
     const [checkedCheckInDate, setCheckedCheckInDate] = useState(false);
     const [checkedStayLength, setCheckedStayLength] = useState(false);
     const [checkedSpecialRequests, setCheckedSpecialRequests] = useState(false);
-    const [checkedCheckedIn, setCheckedCheckedIn] = useState(false);
-    const [checkedCheckedOut, setCheckedCheckedOut] = useState(false);
 
     let employeeID1 = 0;
     let customerID1 = 0;
@@ -240,8 +215,6 @@ function Reservations() {
     let checkInDate1 = 0;
     let stayLength1 = 0;
     let specialRequests1 = 0;
-    let checkedIn1 = 0;
-    let checkedOut1 = 0;
 
     if (props.reservationToEdit) {
       employeeID1 = props.reservationToEdit.employeeID;
@@ -250,8 +223,6 @@ function Reservations() {
       checkInDate1 = (props.reservationToEdit.checkInDate !== undefined ? props.reservationToEdit.checkInDate.split('T')[0] : props.reservationToEdit.checkInDate);
       stayLength1 = props.reservationToEdit.stayLength;
       specialRequests1 = props.reservationToEdit.specialRequests;
-      checkedIn1 = props.reservationToEdit.checkedIn;
-      checkedOut1 = props.reservationToEdit.checkedOut;
     }
     const submitButton = async (e) => {
       e.preventDefault();
@@ -265,8 +236,6 @@ function Reservations() {
         checkInDate: checkInDate,
         stayLength: stayLength,
         specialRequests: specialRequests,
-        checkedIn: checkedIn,
-        checkedOut: checkedOut,
       };
       console.log("this is data", data);
       const response = await fetch("http://localhost:9100/updatereservation", {
@@ -401,27 +370,7 @@ function Reservations() {
               }
             }}
           ></input>
-          {/* <h4>Room Number</h4>
-          <input value={roomNumber1} className="greyedOut"></input> */}
-          {/* <input type="number"></input> */}
-          <h4>Checked In</h4>
-          <input value={checkedIn1} className="greyedOut"></input>
-
-          <select onChange={(e) => setCheckedIn(e.target.value)}>
-            <option value="0">No</option>
-            <option value="1">Yes</option>
-          </select>
-
-          <h4>Checked Out</h4>
-          <input value={checkedOut1} className="greyedOut"></input>
-
-          <select onChange={(e) => setCheckedOut(e.target.value)}>
-            <option value="0">No</option>
-            <option value="1">Yes</option>
-          </select>
-          <h4>Special Request(s)</h4>
           <input value={specialRequests1} className="greyedOut"></input>
-
           <input
             type="text"
             onChange={(e) => setSpecialRequests(e.target.value)}
