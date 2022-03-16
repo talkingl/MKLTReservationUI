@@ -132,10 +132,10 @@ function RoomsReservations() {
       );
       if (response.status === 201) {
         alert("Successfully added the Room to the reservation!");
-        loadReservations();
+        loadRoomReservations();
       } else {
         alert(`Failed to add Room to the reservation, status code = ${response.status}`);
-        loadReservations();
+        loadRoomReservations();
       }
     };
     return (
@@ -165,7 +165,7 @@ function RoomsReservations() {
           </select>
           <h4>Choose a Room to Add</h4>
           <select onChange={(e) => setRoomID(e.target.value)}>
-              {employeeList?.map((item)=>{
+              {roomList?.map((item)=>{
                 return (
                   <option
                   value={item.roomID}
@@ -199,44 +199,47 @@ function RoomsReservations() {
     let roomID = roomReservationToEdit.roomID;
     let checkedIn = roomReservationToEdit.checkedIn;
 
-    const submitUpdate = async (e) => {
-      e.preventDefault();
-      // On submit of the form, send a POST request with the data to the server.
-      let data = {
-        reservationID: reservationID,
-        roomID: roomID,
-        checkedIn: checkedIn,
-      };
-      console.log("this is data", data);
-      const response = await fetch("http://localhost:9100/updatecheckin", {
-        method: "PUT",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      if (response.status === 200) {
-        alert("Successfully updated the CheckIn Status!");
-        console.log(props);
-        loadRoomReservations();
-      } else {
-        alert(
-          `Failed to update the check-in status, status code = ${response.status}`
-        );
-        loadRoomReservations();
-      }
+
+    // On submit of the form, send a POST request with the data to the server.
+    let data = {
+      reservationID: reservationID,
+      roomID: roomID,
+      checkedIn: !checkedIn,
+    };
+    console.log("this is data", data);
+    const response = await fetch("http://localhost:9100/updatecheckin", {
+      method: "PUT",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (response.status === 200) {
+      alert("Successfully updated the CheckIn Status!");
+      console.log(roomReservationToEdit);
+      loadRoomReservations();
+    } else {
+      alert(
+        `Failed to update the check-in status, status code = ${response.status}`
+      );
+      loadRoomReservations();
     }
   }
 
   // onEditCheckOut
-  function onEditCheckOut(reservation) = async (e) => {
-    e.preventDefault();
+  const onEditCheckOut = async (roomReservationToEdit) => {
+    setRoomReservationToEdit(roomReservationToEdit);
+    console.log(roomReservationToEdit);
+
+    let reservationID = roomReservationToEdit.reservationID;
+    let roomID = roomReservationToEdit.roomID;
+    let checkedOut = roomReservationToEdit.checkedOut;
 
     // On submit of the form, send a POST request with the data to the server.
     let data = {
-      reservationID: reservation.reservationID,
-      roomID: reservation.roomID,
-      checkedOut: reservation.checkedOut,
+      reservationID: reservationID,
+      roomID: roomID,
+      checkedOut: !checkedOut,
     };
     console.log("this is data", data);
     const response = await fetch("http://localhost:9100/updatecheckout", {
@@ -248,7 +251,7 @@ function RoomsReservations() {
     });
     if (response.status === 200) {
       alert("Successfully updated the CheckOut Status!");
-      console.log(props);
+      console.log(roomReservationToEdit);
       loadRoomReservations();
     } else {
       alert(
@@ -256,7 +259,7 @@ function RoomsReservations() {
       );
       loadRoomReservations();
     }
-  };
+  }
 
   return (
     <div>

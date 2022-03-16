@@ -53,7 +53,7 @@ app.get("/listrooms", function (req, res) {
 
 // for reservation dropdown menus
 app.get("/listreservations", function (req, res) {
-  db.pool.query("SELECT res.reservationID, cust.firstName, cust.lastName, res.checkedIn FROM Reservations AS res INNER JOIN Customers AS cust ON cust.customerID = res.customerID",
+  db.pool.query("SELECT res.reservationID, cust.firstName, cust.lastName, res.checkInDate FROM Reservations AS res INNER JOIN Customers AS cust ON cust.customerID = res.customerID",
   function (error, result, fields){
     if(error){
       console.log(JSON.stringify(error));
@@ -476,7 +476,7 @@ app.post("/createroomreservation", function (req, res) {
 // update guest's check-in status based on Check-In/Out Page
 app.put("/updatecheckin", function (req, res) {
   let inserts = [
-    !req.body.checkedIn,
+    req.body.checkedIn,
     req.body.reservationID,
     req.body.roomID,
 
@@ -499,7 +499,7 @@ app.put("/updatecheckin", function (req, res) {
 // update guest's check-in status based on Check-In/Out Page
 app.put("/updatecheckout", function (req, res) {
   let inserts = [
-    !req.body.checkedOut,
+    req.body.checkedOut,
     req.body.reservationID,
     req.body.roomID,
 
