@@ -6,31 +6,6 @@ import React from "react";
 import RRList from "../Components/RRList";
 import { useEffect, useState } from "react";
 
-function SearchModal(props) {
-  return (
-    <Modal
-      {...props}
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Search Reservations
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <h2>Choose a Date for filtering reservations</h2>
-        <h4>Check In Date</h4>
-        <input type="date"></input>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button onClick={props.onHide}>Search</Button>
-      </Modal.Footer>
-    </Modal>
-  );
-}
-
 function UpdateModal(props) {
   return (
     <Modal
@@ -59,7 +34,7 @@ function UpdateModal(props) {
 
 function RoomsReservations() {
   const [modalShowRemove, setModalShowRemove] = React.useState(false);
-  const [modalShowUpdate, setModalShowUpdate] = React.useState(false);
+  const [modalShowAdd, setModalShowAdd] = React.useState(false);
   const [modalShowSearch, setModalShowSearch] = React.useState(false);
   const [roomReservations, setRoomReservation] = useState();
   const [roomReservationToEdit, setRoomReservationToEdit] = useState(" ");
@@ -190,6 +165,54 @@ function RoomsReservations() {
     );
   }
 
+  function SearchModal(props) {
+    const [searchDate, setSearchDate] = useState(" ");
+
+    const submitButton = async (e) => {
+      e.preventDefault();
+
+      let data = {searchDate: searchDate};
+      console.log(data);
+
+      // On submit of the form, send a GET request with the date to the server
+      const response = await fetch(
+        "http://localhost:9100//displayguestcheckinout/:filter/:date/${searchDate}",
+        { headers: { "Content-Type": "application/json", }, }
+      );
+      const reservations = await response.json();
+      setRoomReservation(reservations);
+    };
+
+    return (
+      <Modal
+        {...props}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            Search Reservations by Check-In Date
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <h2>Choose a Date for filtering reservations</h2>
+          <h4>Check In Date</h4>
+          <input type="date"
+          onChange={(e) => setSearchDate(e.target.value)}></input>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            onClick={(e) => {
+              props.onHide();
+              submitButton(e);
+            }}
+          >Search</Button>
+        </Modal.Footer>
+      </Modal>
+    );
+  }
+
   // onEditCheckIn
   const onEditCheckIn = async (roomReservationToEdit) => {
     setRoomReservationToEdit(roomReservationToEdit);
@@ -263,6 +286,13 @@ function RoomsReservations() {
 
   return (
     <div>
+      <button className="crud-buttons" onClick={() => setModalShowAdd(true)}>
+        Add
+      </button>
+      <AddModal
+        show={modalShowAdd}
+        onHide={() => setModalShowAdd(false)}
+      />
       <button className="crud-buttons" onClick={() => setModalShowSearch(true)}>
         Search
       </button>

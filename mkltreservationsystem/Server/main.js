@@ -438,9 +438,23 @@ app.delete("/deletereservation", function (req, res) {
   });
 });
 
-//displays room and reservations table
+//displays room reservations table
 app.get("/displayguestcheckinout", function (req, res) {
   query = "SELECT room.roomNumber, concat(cust.firstName, ' ', cust.lastName) AS customerName, res.checkInDate, res.reservationID FROM Customers AS cust INNER JOIN Reservations AS res ON cust.customerID = res.customerID INNER JOIN RoomReservations AS rr ON res.reservationID = rr.reservationID INNER JOIN Rooms AS room ON rr.roomID = room.roomID;";
+  db.pool.query(query, (err, result) => {
+    if(err){
+      console.log(JSON.stringify(err));
+      res.write(JSON.stringify(err));
+    } else{
+      console.log(result);
+      res.send(result);
+    }
+  });
+});
+
+//search for a specific checkInDate for roomReservations page
+app.get("/displayguestcheckinout/:filter/:date/:keyword", function (req, res) {
+  query = "SELECT room.roomNumber, concat(cust.firstName, ' ', cust.lastName) AS customerName, res.checkInDate, res.reservationID FROM Customers AS cust INNER JOIN Reservations AS res ON cust.customerID = res.customerID INNER JOIN RoomReservations AS rr ON res.reservationID = rr.reservationID INNER JOIN Rooms AS room ON rr.roomID = room.roomID WHERE res.checkInDate = '"+req.params.keyword+"';";
   db.pool.query(query, (err, result) => {
     if(err){
       console.log(JSON.stringify(err));
@@ -496,7 +510,6 @@ app.put("/updatecheckin", function (req, res) {
 });
 
 // update guest's check-out status based on Check-In/Out Page
-// update guest's check-in status based on Check-In/Out Page
 app.put("/updatecheckout", function (req, res) {
   let inserts = [
     req.body.checkedOut,
