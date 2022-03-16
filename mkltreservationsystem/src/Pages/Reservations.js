@@ -237,7 +237,7 @@ function Reservations() {
     let employeeID1 = 0;
     let customerID1 = 0;
     let reservationID1 = 0;
-    let checkInDate1 = "1900-01-01T00:00:00.000Z";
+    let checkInDate1 = 0;
     let stayLength1 = 0;
     let specialRequests1 = 0;
     let checkedIn1 = 0;
@@ -247,7 +247,7 @@ function Reservations() {
       employeeID1 = props.reservationToEdit.employeeID;
       customerID1 = props.reservationToEdit.customerID;
       reservationID1 = props.reservationToEdit.reservationID;
-      checkInDate1 = props.reservationToEdit.checkInDate.split('T')[0];
+      checkInDate1 = (props.reservationToEdit.checkInDate !== undefined ? props.reservationToEdit.checkInDate.split('T')[0] : props.reservationToEdit.checkInDate);
       stayLength1 = props.reservationToEdit.stayLength;
       specialRequests1 = props.reservationToEdit.specialRequests;
       checkedIn1 = props.reservationToEdit.checkedIn;
