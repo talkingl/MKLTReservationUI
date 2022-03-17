@@ -27,19 +27,6 @@ function RR({ onEditCheckIn, onEditCheckOut, roomReservation }) {
       <td>{roomReservation.customerName}</td>
       <td>{new Date(roomReservation.checkInDate).toLocaleDateString()}</td>
       <td>
-        {roomReservation.checkedIn === 1 ? (
-          <AiFillCheckCircle
-            onClick={() => {
-              onEditCheckIn(roomReservation);
-            }}
-          />
-        ) : (
-          <AiOutlineCheckCircle
-            onClick={() => {
-              onEditCheckIn(roomReservation);
-            }}
-          />
-        )}
         {roomReservation.checkedIn === 1 ? <AiFillCheckCircle
                 onClick={() => onEditCheckIn(roomReservation, roomReservation.roomID)} />
             : <AiOutlineCheckCircle
