@@ -28,7 +28,7 @@ function Reservations() {
 
       // On submit of the form, send a GET request with the date to the server
       const response = await fetch(
-        `http://localhost:9100/displayreservations/filter/${customerSearch}`,
+        `http://flip2.engr.oregonstate.edu:9100/displayreservations/filter/${customerSearch}`,
         { headers: { "Content-Type": "application/json" } }
       );
       const reservations = await response.json();
@@ -71,7 +71,7 @@ function Reservations() {
   }
 
   const loadCustomerList = async () => {
-    const response = await fetch("http://localhost:9100/listcustomers", {
+    const response = await fetch("http://flip2.engr.oregonstate.edu:9100/listcustomers", {
       headers: {
         "Content-Type": "application/json",
       },
@@ -85,7 +85,7 @@ function Reservations() {
 
   const [employeeList, setEmployeeList] = useState();
   const loadEmployeeList = async () => {
-    const response = await fetch("http://localhost:9100/listemployees", {
+    const response = await fetch("http://flip2.engr.oregonstate.edu:9100/listemployees", {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
@@ -127,7 +127,7 @@ function Reservations() {
 
         // On submit of the form, send a POST request with the data to the server.
         const response = await fetch(
-          "http://localhost:9100/createreservation",
+          "http://flip2.engr.oregonstate.edu:9100/createreservation",
           {
             method: "POST",
             body: JSON.stringify(data),
@@ -220,7 +220,7 @@ function Reservations() {
   }
 
   const loadReservations = async () => {
-    const response = await fetch("http://localhost:9100/displayreservations");
+    const response = await fetch("http://flip2.engr.oregonstate.edu:9100/displayreservations");
     const reservations = await response.json();
     setReservation(reservations);
   };
@@ -274,7 +274,7 @@ function Reservations() {
         specialRequests: specialRequests,
       };
       console.log("this is data", data);
-      const response = await fetch("http://localhost:9100/updatereservation", {
+      const response = await fetch("http://flip2.engr.oregonstate.edu:9100/updatereservation", {
         method: "PUT",
         body: JSON.stringify(data),
         headers: {
@@ -474,7 +474,7 @@ function Reservations() {
         reservationID: reservationID,
       };
 
-      const response = await fetch("http://localhost:9100/deletereservation", {
+      const response = await fetch("http://flip2.engr.oregonstate.edu:9100/deletereservation", {
         method: "DELETE",
         body: JSON.stringify(data),
         headers: {

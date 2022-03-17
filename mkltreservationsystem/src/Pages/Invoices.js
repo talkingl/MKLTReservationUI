@@ -31,7 +31,7 @@ function Invoices() {
   // Reservation List for dropdowns
   const [reservationList, setReservationList] = useState();
   const loadReservationList = async () => {
-    const response = await fetch("http://localhost:9100/listreservations", {
+    const response = await fetch("http://flip2.engr.oregonstate.edu:9100/listreservations", {
       headers: {
         "Content-Type": "application/json",
       },
@@ -84,7 +84,7 @@ function Invoices() {
         invoicePaid: invoicePaid,
       };
       console.log("this is data", data);
-      const response = await fetch("http://localhost:9100/updateinvoices", {
+      const response = await fetch("http://flip2.engr.oregonstate.edu:9100/updateinvoices", {
         method: "PUT",
         body: JSON.stringify(data),
         headers: {
@@ -290,7 +290,7 @@ function Invoices() {
 
       // On submit of the form, send a GET request with the date to the server
       const response = await fetch(
-        `http://localhost:9100/displayinvoices/filter/date/${searchDate}`,
+        `http://flip2.engr.oregonstate.edu:9100/displayinvoices/filter/date/${searchDate}`,
         { headers: { "Content-Type": "application/json" } }
       );
       const invoices = await response.json();

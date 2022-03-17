@@ -323,7 +323,7 @@ function Rooms() {
 
         // On submit of the form, send a GET request with the date to the server
         const response = await fetch(
-          `http://localhost:9100/displayroomsbyfloor/filter/${roomFloor}`,
+          `http://flip2.engr.oregonstate.edu:9100/displayroomsbyfloor/filter/${roomFloor}`,
           { headers: { "Content-Type": "application/json" } }
         );
         const rooms = await response.json();
@@ -334,7 +334,7 @@ function Rooms() {
 
         // On submit of the form, send a GET request with the date to the server
         const response = await fetch(
-          `http://localhost:9100/displayrooms/filter/${roomType}`,
+          `http://flip2.engr.oregonstate.edu:9100/displayrooms/filter/${roomType}`,
           { headers: { "Content-Type": "application/json" } }
         );
         const rooms = await response.json();

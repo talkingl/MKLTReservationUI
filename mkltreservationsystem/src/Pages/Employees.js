@@ -39,7 +39,7 @@ function Employees() {
 
       // On submit of the form, send a GET request with the date to the server
       const response = await fetch(
-        `http://localhost:9100/displayemployees/filter/${employeeNameSearch}`,
+        `http://flip2.engr.oregonstate.edu:9100/displayemployees/filter/${employeeNameSearch}`,
         { headers: { "Content-Type": "application/json" } }
       );
       const employees = await response.json();
@@ -226,7 +226,7 @@ function Employees() {
         payRate: payRate,
       };
       console.log("this is data", data);
-      const response = await fetch("http://localhost:9100/updateemployees", {
+      const response = await fetch("http://flip2.engr.oregonstate.edu:9100/updateemployees", {
         method: "PUT",
         body: JSON.stringify(data),
         headers: {
