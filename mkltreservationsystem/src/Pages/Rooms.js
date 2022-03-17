@@ -120,7 +120,7 @@ function Rooms() {
           },
         }
       );
-      if (response.status === 200) {
+      if (response.status === 200 || response.status === 201) {
         alert("Successfully updated the Room!");
         console.log(props);
         loadRooms();
@@ -307,7 +307,7 @@ function Rooms() {
           },
         }
       );
-      if (response.status === 200) {
+      if (response.status === 200 || response.status === 201) {
         alert("Successfully deleted the Room!");
         console.log(props);
         loadRooms();
@@ -379,7 +379,7 @@ function Rooms() {
           },
         }
       );
-      if (response.status === 200) {
+      if (response.status === 200 || response.status === 201) {
         alert("Successfully added the Room!");
         loadRooms();
       } else {

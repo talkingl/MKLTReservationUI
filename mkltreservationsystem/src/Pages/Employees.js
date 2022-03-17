@@ -82,7 +82,7 @@ function Employees() {
           },
         }
       );
-      if (response.status === 200) {
+      if (response.status === 200 || response.status === 201) {
         alert("Successfully added the Employee!");
         loadEmployees();
       } else {
@@ -188,7 +188,7 @@ function Employees() {
           "Content-Type": "application/json",
         },
       });
-      if (response.status === 200) {
+      if (response.status === 200 || response.status === 201) {
         alert("Successfully updated the Employee!");
         console.log(props);
         loadEmployees();
@@ -371,7 +371,7 @@ function Employees() {
           },
         }
       );
-      if (response.status === 200) {
+      if (response.status === 200 || response.status === 201) {
         alert("Successfully deleted the Employee!");
         console.log(props);
         loadEmployees();

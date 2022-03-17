@@ -79,7 +79,7 @@ function Customers() {
           },
         }
       );
-      if (response.status === 200) {
+      if (response.status === 200 || response.status === 201) {
         alert("Successfully added the Customer!");
         loadCustomers();
       } else {
@@ -159,7 +159,7 @@ function Customers() {
   //       "Content-Type": "application/json",
   //     },
   //   });
-  //   if (response.status === 201) {
+  //   if (response.status === 200 || response.status === 201) {
   //     alert("Successfully updated the Customer!");
   //   } else {
   //     alert(`Failed to add customer, status code = ${response.status}`);
@@ -212,7 +212,7 @@ function Customers() {
           "Content-Type": "application/json",
         },
       });
-      if (response.status === 200) {
+      if (response.status === 200 || response.status === 201) {
         alert("Successfully updated the Customer!");
         console.log(props);
         loadCustomers();
@@ -380,7 +380,7 @@ function Customers() {
           },
         }
       );
-      if (response.status === 200) {
+      if (response.status === 200 || response.status === 201) {
         alert("Successfully deleted the Customer!");
         console.log(props);
         loadCustomers();

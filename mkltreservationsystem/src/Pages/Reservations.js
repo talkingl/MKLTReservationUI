@@ -105,7 +105,7 @@ function Reservations() {
           },
         }
       );
-      if (response.status === 201) {
+      if (response.status === 200 || response.status === 201) {
         alert("Successfully added the Reservation!");
         loadReservations();
       } else {
@@ -243,7 +243,7 @@ function Reservations() {
           "Content-Type": "application/json",
         },
       });
-      if (response.status === 200) {
+      if (response.status === 200 || response.status === 201) {
         alert("Successfully updated the Reservation!");
         console.log(props);
         loadReservations();
@@ -441,7 +441,7 @@ function Reservations() {
           },
         }
       );
-      if (response.status === 200) {
+      if (response.status === 200 || response.status === 201) {
         alert("Successfully deleted the Reservation!");
         console.log(props);
         loadReservations();

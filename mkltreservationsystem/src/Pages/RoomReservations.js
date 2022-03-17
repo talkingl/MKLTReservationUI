@@ -105,7 +105,7 @@ function RoomsReservations() {
           },
         }
       );
-      if (response.status === 201) {
+      if (response.status === 200 || response.status === 201) {
         alert("Successfully added the Room to the reservation!");
         loadRoomReservations();
       } else {
@@ -236,7 +236,7 @@ function RoomsReservations() {
         "Content-Type": "application/json",
       },
     });
-    if (response.status === 200) {
+    if (response.status === 200 || response.status === 201) {
       alert("Successfully updated the CheckIn Status!");
       console.log(roomReservationToEdit);
       loadRoomReservations();
@@ -271,7 +271,7 @@ function RoomsReservations() {
         "Content-Type": "application/json",
       },
     });
-    if (response.status === 200) {
+    if (response.status === 200 || response.status === 201) {
       alert("Successfully updated the CheckOut Status!");
       console.log(roomReservationToEdit);
       loadRoomReservations();

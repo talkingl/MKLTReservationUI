@@ -101,7 +101,7 @@ function Invoices() {
           "Content-Type": "application/json",
         },
       });
-      if (response.status === 200) {
+      if (response.status === 200 || response.status === 201) {
         alert("Successfully updated the Invoice!");
         console.log(props);
         loadInvoices();
@@ -248,7 +248,7 @@ function Invoices() {
           },
         }
       );
-      if (response.status === 200) {
+      if (response.status === 200 || response.status === 201) {
         alert("Successfully deleted the Invoice!");
         console.log(props);
         loadInvoices();
@@ -324,7 +324,7 @@ function Invoices() {
           },
         }
       );
-      if (response.status === 201) {
+      if (response.status === 200 || response.status === 201) {
         alert("Successfully added the Invoice!");
         loadInvoices();
       } else {
