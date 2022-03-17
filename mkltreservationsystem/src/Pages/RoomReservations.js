@@ -6,32 +6,6 @@ import React from "react";
 import RRList from "../Components/RRList";
 import { useEffect, useState } from "react";
 
-function UpdateModal(props) {
-  return (
-    <Modal
-      {...props}
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Check in Customer to Room
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <h4>Reservation ID</h4>
-        <input type="number"></input>
-        <h4>Room ID</h4>
-        <input type="number"></input>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button onClick={props.onHide}>Check In</Button>
-      </Modal.Footer>
-    </Modal>
-  );
-}
-
 function RoomsReservations() {
   const [modalShowRemove, setModalShowRemove] = React.useState(false);
   const [modalShowAdd, setModalShowAdd] = React.useState(false);
@@ -130,9 +104,16 @@ function RoomsReservations() {
         <Modal.Body>
           <h4>Choose a Reservation</h4>
           <select onChange={(e) => setReservationID(e.target.value)}>
+<<<<<<< HEAD
             {reservationList?.map((item) => {
               return (
                 <option
+=======
+              {reservationList?.map((item)=>{
+                return (
+                  <option
+                  key={item}
+>>>>>>> 887a3e9901df12a44b95c25ac55fc67f4d162b93
                   value={item.reservationID}
                   selected={item.reservationID === reservationID}
                 >
@@ -144,6 +125,7 @@ function RoomsReservations() {
           </select>
           <h4>Choose a Room to Add</h4>
           <select onChange={(e) => setRoomID(e.target.value)}>
+<<<<<<< HEAD
             {roomList?.map((item) => {
               return (
                 <option value={item.roomID} selected={item.roomID === roomID}>
@@ -151,6 +133,18 @@ function RoomsReservations() {
                 </option>
               );
             })}
+=======
+              {roomList?.map((item)=>{
+                return (
+                  <option
+                  key={item}
+                  value={item.roomID}
+                  selected={item.roomID === roomID}>
+                    Room #{item.roomNumber} {item.roomType}
+                  </option>
+                )
+              })}
+>>>>>>> 887a3e9901df12a44b95c25ac55fc67f4d162b93
           </select>
         </Modal.Body>
         <Modal.Footer>
@@ -220,12 +214,11 @@ function RoomsReservations() {
   }
 
   // onEditCheckIn
-  const onEditCheckIn = async (roomReservationToEdit) => {
+  const onEditCheckIn = async (roomReservationToEdit, roomID) => {
     setRoomReservationToEdit(roomReservationToEdit);
     console.log(roomReservationToEdit);
 
     let reservationID = roomReservationToEdit.reservationID;
-    let roomID = roomReservationToEdit.roomID;
     let checkedIn = !roomReservationToEdit.checkedIn;
 
     // On submit of the form, send a POST request with the data to the server.
@@ -255,12 +248,11 @@ function RoomsReservations() {
   };
 
   // onEditCheckOut
-  const onEditCheckOut = async (roomReservationToEdit) => {
+  const onEditCheckOut = async (roomReservationToEdit, roomID) => {
     setRoomReservationToEdit(roomReservationToEdit);
     console.log(roomReservationToEdit);
 
     let reservationID = roomReservationToEdit.reservationID;
-    let roomID = roomReservationToEdit.roomID;
     let checkedOut = !roomReservationToEdit.checkedOut;
 
     // On submit of the form, send a POST request with the data to the server.

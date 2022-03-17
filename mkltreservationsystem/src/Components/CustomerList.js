@@ -27,6 +27,7 @@ function CustomerList({
       <tbody>
         {customers?.map((customer, i) => (
           <Customer
+            key={i}
             modalShowUpdate={modalShowUpdate}
             setModalShowUpdate={setModalShowUpdate}
             modalShowRemove={modalShowRemove}

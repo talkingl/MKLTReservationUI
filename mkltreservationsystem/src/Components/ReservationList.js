@@ -30,6 +30,7 @@ function ReservationList({
         <tbody>
           {reservations?.map((reservation, i) => (
             <Reservation
+              key={i}
               modalShowUpdate={modalShowUpdate}
               setModalShowUpdate={setModalShowUpdate}
               modalShowRemove={modalShowRemove}
