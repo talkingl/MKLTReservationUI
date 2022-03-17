@@ -22,8 +22,6 @@ function ReservationList({
             <th>Employee ID</th>
             <th>Check-In Date</th>
             <th>Stay Length(days)</th>
-            <th>Checked In? (Y/N)</th>
-            <th>Checked Out? (Y/N)</th>
             <th>Special Request(s)</th>
             <th>Edit Reservation</th>
             <th>Delete Reservation</th>
