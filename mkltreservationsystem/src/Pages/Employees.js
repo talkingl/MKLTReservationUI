@@ -12,7 +12,7 @@ function Employees() {
   const [modalShowUpdate, setModalShowUpdate] = React.useState(false);
   const [modalShowSearch, setModalShowSearch] = React.useState(false);
   const [employees, setEmployees] = useState();
-
+  const [employeesMax, setEmployeesMax] = useState(0);
   const [employeeToEdit, setEmployeeToEdit] = useState(" ");
   const [employeeToDelete, setEmployeeToDelete] = useState(" ");
 
@@ -21,6 +21,7 @@ function Employees() {
       "http://flip2.engr.oregonstate.edu:9100/displayemployees"
     );
     const employees = await response.json();
+
     setEmployees(employees);
   };
   useEffect(() => {
@@ -67,12 +68,14 @@ function Employees() {
           ></input>
         </Modal.Body>
         <Modal.Footer>
-        <Button
-          onClick={(e) => {
-            props.onHide();
-            submitButton(e);
-          }}
-        >Search</Button>
+          <Button
+            onClick={(e) => {
+              props.onHide();
+              submitButton(e);
+            }}
+          >
+            Search
+          </Button>
         </Modal.Footer>
       </Modal>
     );
