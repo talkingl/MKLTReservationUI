@@ -39,7 +39,6 @@ function RR({ onEditCheckIn, onEditCheckOut, roomReservation }) {
             : <AiOutlineCloseCircle onClick={() => onEditCheckOut(roomReservation, roomReservation.roomID)} />
         }
       </td>
-      <td>{toggle()}</td>
     </tr>
   );
 }
