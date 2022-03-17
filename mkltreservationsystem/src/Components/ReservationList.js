@@ -28,7 +28,6 @@ function ReservationList({
           </tr>
         </thead>
         <tbody>
-          {console.log(reservations)}
           {reservations?.map((reservation, i) => (
             <Reservation
               key={i}

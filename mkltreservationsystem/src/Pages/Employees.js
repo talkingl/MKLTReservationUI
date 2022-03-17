@@ -35,7 +35,6 @@ function Employees() {
       e.preventDefault();
 
       let data = { employeeNameSearch: employeeNameSearch };
-      console.log(data);
 
       // On submit of the form, send a GET request with the date to the server
       const response = await fetch(
@@ -88,7 +87,6 @@ function Employees() {
 
     const submitButton = async (e) => {
       e.preventDefault();
-      console.log(firstName, lastName, shiftWorked, payRate);
       if (
         firstName === undefined ||
         lastName === undefined ||
@@ -225,7 +223,6 @@ function Employees() {
         shiftWorked: shiftWorked,
         payRate: payRate,
       };
-      console.log("this is data", data);
       const response = await fetch("http://flip2.engr.oregonstate.edu:9100/updateemployees", {
         method: "PUT",
         body: JSON.stringify(data),
@@ -235,7 +232,6 @@ function Employees() {
       });
       if (response.status === 200 || response.status === 201) {
         alert("Successfully updated the Employee!");
-        console.log(props);
         loadEmployees();
       } else {
         alert(
@@ -376,18 +372,15 @@ function Employees() {
   }
   const onEdit = async (employeeToEdit) => {
     setEmployeeToEdit(employeeToEdit);
-    console.log(employeeToEdit);
     setModalShowUpdate(true);
   };
   const onDelete = async (employeeToDelete) => {
     setEmployeeToDelete(employeeToDelete);
-    console.log("this is employeeToDelete", employeeToDelete);
     setModalShowRemove(true);
     loadEmployees();
   };
 
   function RemoveModal(props) {
-    console.log(props.employeeToDelete.employeeID);
     let employeeID = 0;
     let firstName = 0;
     let lastName = 0;
@@ -399,7 +392,6 @@ function Employees() {
 
     const submitButton = async (e) => {
       e.preventDefault();
-      console.log(employeeID);
 
       // On submit of the form, send a DELETE request with the ID to the server.
       let data = {
@@ -418,7 +410,6 @@ function Employees() {
       );
       if (response.status === 200 || response.status === 201) {
         alert("Successfully deleted the Employee!");
-        console.log(props);
         loadEmployees();
       } else {
         alert(

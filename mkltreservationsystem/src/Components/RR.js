@@ -8,7 +8,6 @@ import {
 import { Modal, Button } from "react-bootstrap";
 
 function RR({ onEditCheckIn, onEditCheckOut, roomReservation }) {
-  console.log(roomReservation);
   return (
     <tr>
       <td>{roomReservation.roomNumber}</td>

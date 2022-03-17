@@ -24,7 +24,6 @@ function Reservations() {
       e.preventDefault();
 
       let data = { customerSearch: customerSearch };
-      console.log(data);
 
       // On submit of the form, send a GET request with the date to the server
       const response = await fetch(
@@ -123,7 +122,6 @@ function Reservations() {
           stayLength: stayLength,
           specialRequests: specialRequests,
         };
-        console.log(data);
 
         // On submit of the form, send a POST request with the data to the server.
         const response = await fetch(
@@ -259,7 +257,6 @@ function Reservations() {
       stayLength1 = props.reservationToEdit.stayLength;
       specialRequests1 = props.reservationToEdit.specialRequests;
     }
-    console.log(props);
     const submitButton = async (e) => {
       e.preventDefault();
 
@@ -273,7 +270,6 @@ function Reservations() {
         stayLength: stayLength,
         specialRequests: specialRequests,
       };
-      console.log("this is data", data);
       const response = await fetch("http://flip2.engr.oregonstate.edu:9100/updatereservation", {
         method: "PUT",
         body: JSON.stringify(data),
@@ -283,7 +279,6 @@ function Reservations() {
       });
       if (response.status === 200 || response.status === 201) {
         alert("Successfully updated the Reservation!");
-        console.log(props);
         loadReservations();
       } else {
         alert(
@@ -449,13 +444,11 @@ function Reservations() {
 
   const onDelete = async (reservationToDelete) => {
     setReservationToDelete(reservationToDelete);
-    console.log("this is reservationtodelete", reservationToDelete);
     setModalShowRemove(true);
     loadReservations();
   };
 
   function RemoveReservationModal(props) {
-    console.log(props.reservationToDelete.reservationID);
     let reservationID = 0;
     let customerID = 0;
     let checkInDate = 0;
@@ -467,7 +460,6 @@ function Reservations() {
 
     const submitButton = async (e) => {
       e.preventDefault();
-      console.log(reservationID);
 
       // On submit of the form, send a DELETE request with the ID to the server.
       let data = {
@@ -483,7 +475,6 @@ function Reservations() {
       });
       if (response.status === 200 || response.status === 201) {
         alert("Successfully deleted the Reservation!");
-        console.log(props);
         loadReservations();
       } else {
         alert(
@@ -528,7 +519,6 @@ function Reservations() {
   }
   const onEdit = async (reservationToEdit) => {
     setReservationToEdit(reservationToEdit);
-    console.log(reservationToEdit);
     setModalShowUpdate(true);
   };
 

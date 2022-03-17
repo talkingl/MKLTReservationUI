@@ -66,7 +66,6 @@ function RoomsReservations() {
         roomID: roomID,
         reservationID: reservationID,
       };
-      console.log(data);
 
       // On submit of the form, send a POST request with the data to the server.
       const response = await fetch(
@@ -148,7 +147,6 @@ function RoomsReservations() {
       e.preventDefault();
 
       let data = { searchDate: searchDate };
-      console.log(data);
 
       // On submit of the form, send a GET request with the date to the server
       const response = await fetch(
@@ -196,7 +194,6 @@ function RoomsReservations() {
   // onEditCheckIn
   const onEditCheckIn = async (roomReservationToEdit, roomID) => {
     setRoomReservationToEdit(roomReservationToEdit);
-    console.log(roomReservationToEdit);
 
     let reservationID = roomReservationToEdit.reservationID;
     let checkedIn = !roomReservationToEdit.checkedIn;
@@ -207,7 +204,6 @@ function RoomsReservations() {
       roomID: roomID,
       checkedIn: checkedIn,
     };
-    console.log("this is data", data);
     const response = await fetch("http://flip2.engr.oregonstate.edu:9100/updatecheckin", {
       method: "PUT",
       body: JSON.stringify(data),
@@ -217,7 +213,6 @@ function RoomsReservations() {
     });
     if (response.status === 200 || response.status === 201) {
       alert("Successfully updated the CheckIn Status!");
-      console.log(roomReservationToEdit);
       loadRoomReservations();
     } else {
       alert(
@@ -230,7 +225,6 @@ function RoomsReservations() {
   // onEditCheckOut
   const onEditCheckOut = async (roomReservationToEdit, roomID) => {
     setRoomReservationToEdit(roomReservationToEdit);
-    console.log(roomReservationToEdit);
 
     let reservationID = roomReservationToEdit.reservationID;
     let checkedOut = !roomReservationToEdit.checkedOut;
@@ -241,7 +235,6 @@ function RoomsReservations() {
       roomID: roomID,
       checkedOut: checkedOut,
     };
-    console.log("this is data", data);
     const response = await fetch("http://flip2.engr.oregonstate.edu:9100/updatecheckout", {
       method: "PUT",
       body: JSON.stringify(data),
@@ -251,7 +244,6 @@ function RoomsReservations() {
     });
     if (response.status === 200 || response.status === 201) {
       alert("Successfully updated the CheckOut Status!");
-      console.log(roomReservationToEdit);
       loadRoomReservations();
     } else {
       alert(

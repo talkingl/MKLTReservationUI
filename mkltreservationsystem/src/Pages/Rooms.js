@@ -18,12 +18,10 @@ function Rooms() {
 
   const onEdit = async (roomToEdit) => {
     setRoomToEdit(roomToEdit);
-    console.log(roomToEdit);
     setModalShowUpdate(true);
   };
 
   function UpdateRoomModal(props) {
-    console.log("this is roomtoEdit", props.roomToEdit);
 
     const [roomID, setRoomID] = useState(0);
     const [roomFloor, setRoomFloor] = useState(0);
@@ -57,7 +55,6 @@ function Rooms() {
 
     const submitButton = async (e) => {
       e.preventDefault();
-      console.log(roomFloor, roomNumber, roomType, roomPrice);
 
       // On submit of the form, send a POST request with the data to the server.
 
@@ -81,7 +78,6 @@ function Rooms() {
       );
       if (response.status === 200 || response.status === 201) {
         alert("Successfully updated the Room!");
-        console.log(props);
         loadRooms();
       } else {
         alert(`Failed to update the room, status code = ${response.status}`);
@@ -232,13 +228,11 @@ function Rooms() {
 
   const onDelete = async (roomToDelete) => {
     setRoomToDelete(roomToDelete);
-    console.log("this is roomtodelete", roomToDelete);
     setModalShowRemove(true);
     loadRooms();
   };
 
   function RemoveRoomModal(props) {
-    console.log(props.roomToDelete.roomID);
     let roomID = 0;
     let roomNumber = 0;
     let roomFloor = 0;
@@ -250,7 +244,6 @@ function Rooms() {
 
     const submitButton = async (e) => {
       e.preventDefault();
-      console.log(roomID);
 
       // On submit of the form, send a DELETE request with the ID to the server.
       let data = {
@@ -269,7 +262,6 @@ function Rooms() {
       );
       if (response.status === 200 || response.status === 201) {
         alert("Successfully deleted the Room!");
-        console.log(props);
         loadRooms();
       } else {
         alert(`Failed to delete the room, status code = ${response.status}`);
@@ -319,7 +311,6 @@ function Rooms() {
 
       if(roomFloor !== 0){
         let data = { roomFloor: roomFloor };
-        console.log(data);
 
         // On submit of the form, send a GET request with the date to the server
         const response = await fetch(
@@ -330,7 +321,6 @@ function Rooms() {
         setRooms(rooms);
       } else{
         let data = { roomType: roomType };
-        console.log(data);
 
         // On submit of the form, send a GET request with the date to the server
         const response = await fetch(
@@ -415,7 +405,6 @@ function Rooms() {
         }
       } else {
         props.onHide();
-        console.log(roomFloor, roomNumber, roomType, roomPrice);
 
         // On submit of the form, send a POST request with the data to the server.
 
