@@ -503,7 +503,7 @@ app.get("/displayreservations", function (req, res) {
 
 // Search reservations
 app.get("/displayreservations/:filter/:keyword", function (req, res) {
-  query = "SELECT res.reservationID, cus.firstName AS cusFName, cus.lastName AS cusLName, emp.firstName AS empFName, emp.lastName AS empLName, res.checkInDate, res.stayLength, res.specialRequests FROM Customers AS cus INNER JOIN Reservations AS res ON res.customerID = cus.customerID INNER JOIN Employees AS emp ON res.employeeID = emp.employeeID WHERE cusFName LIKE '"+req.params.keyword+"' OR cusLName LIKE '"+req.params.keyword+"'";
+  query = "SELECT res.reservationID, cus.firstName AS cusFName, cus.lastName AS cusLName, emp.firstName AS empFName, emp.lastName AS empLName, res.checkInDate, res.stayLength, res.specialRequests FROM Customers AS cus INNER JOIN Reservations AS res ON res.customerID = cus.customerID INNER JOIN Employees AS emp ON res.employeeID = emp.employeeID WHERE cus.firstName LIKE '"+req.params.keyword+"' OR cus.lastName LIKE '"+req.params.keyword+"'";
   db.pool.query(query, (err, result) => {
     if(err){
       console.log(JSON.stringify(err));

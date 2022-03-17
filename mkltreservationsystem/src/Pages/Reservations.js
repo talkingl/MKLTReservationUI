@@ -19,7 +19,21 @@ function Reservations() {
   const [customerList, setCustomerList] = useState();
   function SearchModal(props) {
     const [customerSearch, setCustomerSearch] = useState();
-    const [reservationSearch, setReservationSearch] = useState();
+
+    const submitButton = async (e) => {
+      e.preventDefault();
+
+      let data = { customerSearch: customerSearch };
+      console.log(data);
+
+      // On submit of the form, send a GET request with the date to the server
+      const response = await fetch(
+        `http://localhost:9100/displayreservations/filter/${customerSearch}`,
+        { headers: { "Content-Type": "application/json" } }
+      );
+      const reservations = await response.json();
+      setReservation(reservations);
+    };
 
     return (
       <Modal
@@ -35,23 +49,22 @@ function Reservations() {
         </Modal.Header>
         <Modal.Body>
           <h2>
-            Enter a customer name or room number to search for a Reservation
+            Enter a customer name to search for a Reservation
           </h2>
-          <h4>Customer ID</h4>
+          <h4>Customer Name</h4>
           <input
             type="text"
             value={customerSearch}
             onChange={(e) => setCustomerSearch(e.target.value)}
           ></input>
-          <h4>Reservation ID</h4>
-          <input
-            type="text"
-            value={reservationSearch}
-            onChange={(e) => setReservationSearch(e.target.value)}
-          ></input>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={props.onHide}>Search</Button>
+        <Button
+          onClick={(e) => {
+            props.onHide();
+            submitButton(e);
+          }}
+        >Search</Button>
         </Modal.Footer>
       </Modal>
     );
