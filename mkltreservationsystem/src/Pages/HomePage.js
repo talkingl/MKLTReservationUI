@@ -18,8 +18,8 @@ function Rooms() {
           </Col>
         </Row>
       </Container>
-      <h1>Hotel MKLT Homepage</h1>
-      <p>Welcome! Please follow a link below to get to your desired input.</p>
+      <h1>Hotel MKLT Admin Reservation System Home Page</h1>
+      <p>Welcome! Please follow a link below to get to your desired system.</p>
       <Container>
         <Row>
           <Col className="link-card">
