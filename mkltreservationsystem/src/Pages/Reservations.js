@@ -44,7 +44,6 @@ function Reservations() {
   const [reservationToDelete, setReservationToDelete] = useState(" ");
 
   const [customerList, setCustomerList] = useState();
-
   const loadCustomerList = async () =>{
       const response = await fetch('http://localhost:9100/listcustomers', {
           headers: {
@@ -59,7 +58,6 @@ function Reservations() {
   }, []);
 
   const [employeeList, setEmployeeList] = useState();
-
   const loadEmployeeList = async () =>{
       const response = await fetch('http://localhost:9100/listemployees', {
           headers: {
@@ -505,11 +503,6 @@ function Reservations() {
         show={modalShowSearch}
         onHide={() => setModalShowSearch(false)}
       />
-      <UpdateModal
-        reservationToEdit={reservationToEdit}
-        show={modalShowUpdate}
-        onHide={() => setModalShowUpdate(false)}
-      />
       <ReservationList
         modalShowUpdate={modalShowUpdate}
         setModalShowUpdate={setModalShowUpdate}
@@ -519,6 +512,11 @@ function Reservations() {
         onDelete={onDelete}
         reservations={reservations}
       ></ReservationList>
+      <UpdateModal
+        reservationToEdit={reservationToEdit}
+        show={modalShowUpdate}
+        onHide={() => setModalShowUpdate(false)}
+      />
       <RemoveReservationModal
         reservationToDelete={reservationToDelete}
         show={modalShowRemove}
