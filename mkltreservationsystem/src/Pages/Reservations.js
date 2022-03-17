@@ -17,7 +17,6 @@ function Reservations() {
   const [reservationToDelete, setReservationToDelete] = useState(" ");
 
   const [customerList, setCustomerList] = useState();
-
   function SearchModal(props) {
     const [customerSearch, setCustomerSearch] = useState();
     const [reservationSearch, setReservationSearch] = useState();

@@ -176,7 +176,7 @@ function RoomsReservations() {
 
       // On submit of the form, send a GET request with the date to the server
       const response = await fetch(
-        `http://localhost:9100//displayguestcheckinout/:filter/:date/${searchDate}`,
+        `http://localhost:9100/displayguestcheckinout/filter/date/${searchDate}`,
         { headers: { "Content-Type": "application/json", }, }
       );
       const reservations = await response.json();

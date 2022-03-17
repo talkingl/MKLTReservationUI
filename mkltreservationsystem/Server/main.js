@@ -53,7 +53,7 @@ app.get("/listrooms", function (req, res) {
 
 // for reservation dropdown menus
 app.get("/listreservations", function (req, res) {
-  db.pool.query("SELECT res.reservationID, cust.firstName, cust.lastName, res.checkInDate FROM Reservations AS res INNER JOIN Customers AS cust ON cust.customerID = res.customerID",
+  db.pool.query("SELECT res.reservationID, cust.firstName, cust.lastName, DATE_FORMAT(res.checkInDate,'%d/%m/%Y') FROM Reservations AS res INNER JOIN Customers AS cust ON cust.customerID = res.customerID",
   function (error, result, fields){
     if(error){
       console.log(JSON.stringify(error));
@@ -100,9 +100,23 @@ app.get("/displayrooms", function (req, res) {
   });
 });
 
-// search rooms by floor & Type
+// Search rooms by floor
 app.get("/displayrooms/:filter/:keyword", function (req, res) {
-  query = "SELECT * FROM Rooms";
+  query = "SELECT * FROM Rooms WHERE roomFloor = '"+req.params.keyword+"'";
+  db.pool.query(query, (err, result) => {
+    if(err){
+      console.log(JSON.stringify(err));
+      res.write(JSON.stringify(err));
+    } else{
+      console.log(result);
+      res.send(result);
+    }
+  });
+});
+
+// Search rooms by Type
+app.get("/displayrooms/:filter/:keyword", function (req, res) {
+  query = "SELECT * FROM Rooms WHERE roomType LIKE '"+req.params.keyword+"'";
   db.pool.query(query, (err, result) => {
     if(err){
       console.log(JSON.stringify(err));
@@ -169,9 +183,9 @@ app.get("/displayemployees", function (req, res) {
   });
 });
 
-// search employees by ID
+// Search employees by ID
 app.get("/displayemployees/:id", function (req, res) {
-  query = "SELECT * FROM Employees";
+  query = "SELECT * FROM Employees WHERE employeeID = '"+req.params.id+"'";
   db.pool.query(query, (err, result) => {
     if(err){
       console.log(JSON.stringify(err));
@@ -183,9 +197,9 @@ app.get("/displayemployees/:id", function (req, res) {
   });
 });
 
-// search employees by name
+// Search employees by name
 app.get("/displayemployees/:filter/:keyword", function (req, res) {
-  query = "SELECT * FROM Employees";
+  query = "SELECT * FROM Employees WHERE firstName LIKE '"+req.params.keyword+"' OR lastName LIKE '"+req.params.keyword+"'";
   db.pool.query(query, (err, result) => {
     if(err){
       console.log(JSON.stringify(err));
@@ -272,10 +286,10 @@ app.get("/displaycustomers", function (req, res) {
   });
 });
 
-// search customers by ID
+// Search customers by ID
 app.get("/displaycustomers/:id", function (req, res) {
   query =
-    "SELECT customerID, firstName, lastName, emailAddress, phoneNumber FROM Customers";
+    "SELECT customerID, firstName, lastName, emailAddress, phoneNumber FROM Customers WHERE customerID = '"+req.params.id+"'";
   db.pool.query(query, (err, result) => {
     if(err){
       console.log(JSON.stringify(err));
@@ -287,10 +301,10 @@ app.get("/displaycustomers/:id", function (req, res) {
   });
 });
 
-// search customers by name
+// Search customers by name
 app.get("/displaycustomers/:filter/:keyword", function (req, res) {
   query =
-    "SELECT customerID, firstName, lastName, emailAddress, phoneNumber FROM Customers";
+    "SELECT customerID, firstName, lastName, emailAddress, phoneNumber FROM Customers WHERE firstName LIKE '"+req.params.keyword+"' OR lastName LIKE '"+req.params.keyword+"'";
   db.pool.query(query, (err, result) => {
     if(err){
       console.log(JSON.stringify(err));
@@ -374,9 +388,9 @@ app.get("/displayinvoices", function (req, res) {
   });
 });
 
-// search invoices
+// Search invoices
 app.get("/displayinvoices/:filter/:date/:keyword", function (req, res) {
-  query = "SELECT * FROM Invoices";
+  query = "SELECT * FROM Invoices WHERE dueDate = '"+req.params.keyword+"'";
   db.pool.query(query, (err, result) => {
     if(err){
       console.log(JSON.stringify(err));
@@ -487,9 +501,9 @@ app.get("/displayreservations", function (req, res) {
   });
 });
 
-// search reservations
+// Search reservations
 app.get("/displayreservations/:filter/:keyword", function (req, res) {
-  query = "SELECT * FROM Reservations";
+  query = "SELECT res.reservationID, cus.firstName AS cusFName, cus.lastName AS cusLName, emp.firstName AS empFName, emp.lastName AS empLName, res.checkInDate, res.stayLength, res.specialRequests FROM Customers AS cus INNER JOIN Reservations AS res ON res.customerID = cus.customerID INNER JOIN Employees AS emp ON res.employeeID = emp.employeeID WHERE cusFName LIKE '"+req.params.keyword+"' OR cusLName LIKE '"+req.params.keyword+"'";
   db.pool.query(query, (err, result) => {
     if(err){
       console.log(JSON.stringify(err));
@@ -554,7 +568,7 @@ app.get("/displayguestcheckinout", function (req, res) {
   });
 });
 
-//search for a specific checkInDate for roomReservations page
+//Search for a specific checkInDate for roomReservations page
 app.get("/displayguestcheckinout/:filter/:date/:keyword", function (req, res) {
   query = "SELECT room.roomNumber, concat(cust.firstName, ' ', cust.lastName) AS customerName, res.checkInDate, res.reservationID FROM Customers AS cust INNER JOIN Reservations AS res ON cust.customerID = res.customerID INNER JOIN RoomReservations AS rr ON res.reservationID = rr.reservationID INNER JOIN Rooms AS room ON rr.roomID = room.roomID WHERE res.checkInDate = '"+req.params.keyword+"';";
   db.pool.query(query, (err, result) => {
