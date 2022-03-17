@@ -6,48 +6,6 @@ import React from "react";
 import RoomList from "../Components/RoomList";
 import { useState, useEffect } from "react";
 
-function SearchModal(props) {
-  const [roomFloor, setRoomFloor] = useState(0);
-  const [roomType, setRoomType] = useState(0);
-
-  return (
-    <Modal
-      {...props}
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Search Rooms
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <h2> Enter any of the following to search for a Room</h2>
-        <h4>Room Floor</h4>
-        <select
-          value={roomFloor}
-          onChange={(e) => setRoomFloor(e.target.value)}
-        >
-          <option value="1">1st Floor</option>
-          <option value="2">2nd Floor</option>
-          <option value="3">3rd Floor</option>
-          <option value="4">4th Floor</option>
-          <option value="5">5th Floor</option>
-        </select>
-        <h4>Room Type Includes:</h4>
-        <input
-          value={roomType}
-          onChange={(e) => setRoomType(e.target.value)}
-        ></input>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button onClick={props.onHide}>Search</Button>
-      </Modal.Footer>
-    </Modal>
-  );
-}
-
 function Rooms() {
   const [modalShowAdd, setModalShowAdd] = React.useState(false);
   const [modalShowRemove, setModalShowRemove] = React.useState(false);
@@ -347,6 +305,82 @@ function Rooms() {
           >
             Remove
           </Button>
+        </Modal.Footer>
+      </Modal>
+    );
+  }
+
+  function SearchModal(props) {
+    const [roomFloor, setRoomFloor] = useState(0);
+    const [roomType, setRoomType] = useState(0);
+
+    const submitButton = async (e) => {
+      e.preventDefault();
+
+      if(roomFloor !== 0){
+        let data = { roomFloor: roomFloor };
+        console.log(data);
+
+        // On submit of the form, send a GET request with the date to the server
+        const response = await fetch(
+          `http://localhost:9100/displayroomsbyfloor/filter/${roomFloor}`,
+          { headers: { "Content-Type": "application/json" } }
+        );
+        const rooms = await response.json();
+        setRooms(rooms);
+      } else{
+        let data = { roomType: roomType };
+        console.log(data);
+
+        // On submit of the form, send a GET request with the date to the server
+        const response = await fetch(
+          `http://localhost:9100/displayrooms/filter/${roomType}`,
+          { headers: { "Content-Type": "application/json" } }
+        );
+        const rooms = await response.json();
+        setRooms(rooms);
+      }
+
+    };
+
+    return (
+      <Modal
+        {...props}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            Search Rooms
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <h2> Choose a room floor OR enter a room type to search for a Room</h2>
+          <h4>Room Floor</h4>
+          <select
+            value={roomFloor}
+            onChange={(e) => setRoomFloor(e.target.value)}
+          >
+            <option value="1">1st Floor</option>
+            <option value="2">2nd Floor</option>
+            <option value="3">3rd Floor</option>
+            <option value="4">4th Floor</option>
+            <option value="5">5th Floor</option>
+          </select>
+          <h4>Room Type Includes:</h4>
+          <input
+            value={roomType}
+            onChange={(e) => setRoomType(e.target.value)}
+          ></input>
+        </Modal.Body>
+        <Modal.Footer>
+        <Button
+          onClick={(e) => {
+            props.onHide();
+            submitButton(e);
+          }}
+        >Search</Button>
         </Modal.Footer>
       </Modal>
     );

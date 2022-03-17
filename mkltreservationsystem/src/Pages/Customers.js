@@ -6,40 +6,6 @@ import { Link } from "react-router-dom";
 import React from "react";
 import { useEffect, useState } from "react";
 
-function SearchModal(props) {
-  const [customerIDSearch, setCustomerIDSearch] = useState();
-  const [customerNameSearch, setCustomerNameSearch] = useState();
-  return (
-    <Modal
-      {...props}
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
-      <Modal.Header closeButton>
-        <Modal.Title id="search-customers">Search Customers</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <h2>Enter either an ID or a name to search for a Customer</h2>
-        <h4>Customer ID</h4>
-        <input
-          type="number"
-          value={customerIDSearch}
-          onChange={(e) => setCustomerIDSearch(e.target.value)}
-        ></input>
-        <h4>Customer Name</h4>
-        <input
-          type="text"
-          value={customerNameSearch}
-          onChange={(e) => setCustomerNameSearch(e.target.value)}
-        ></input>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button onClick={props.onHide}>Search</Button>
-      </Modal.Footer>
-    </Modal>
-  );
-}
 
 function Customers() {
   const [customers, setCustomers] = React.useState([]);
@@ -61,6 +27,56 @@ function Customers() {
   useEffect(() => {
     loadCustomers();
   }, []);
+
+  function SearchModal(props) {
+    const [customerNameSearch, setCustomerNameSearch] = useState();
+
+    const submitButton = async (e) => {
+      e.preventDefault();
+
+      let data = { customerNameSearch: customerNameSearch };
+      console.log(data);
+
+      // On submit of the form, send a GET request with the date to the server
+      const response = await fetch(
+        `http://localhost:9100/displaycustomers/filter/${customerNameSearch}`,
+        { headers: { "Content-Type": "application/json" } }
+      );
+      const customers = await response.json();
+      setCustomers(customers);
+    };
+
+    return (
+      <Modal
+        {...props}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="search-customers">Search Customers</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <h2>Enter a name to search for a Customer</h2>
+          <h4>Customer Name Includes: </h4>
+          <input
+            type="text"
+            value={customerNameSearch}
+            onChange={(e) => setCustomerNameSearch(e.target.value)}
+          ></input>
+        </Modal.Body>
+        <Modal.Footer>
+        <Button
+          onClick={(e) => {
+            props.onHide();
+            submitButton(e);
+          }}
+        >Search</Button>
+        </Modal.Footer>
+      </Modal>
+    );
+  }
+
 
   function AddModal(props) {
     const [firstName, setFirstName] = useState();

@@ -6,44 +6,6 @@ import React from "react";
 import EmployeeList from "../Components/EmployeeList";
 import { useState, useEffect, useRef } from "react";
 
-function SearchModal(props) {
-  const [employeeIDSearch, setEmployeeIDSearch] = useState();
-  const [employeeNameSearch, setEmployeeNameSearch] = useState();
-
-  return (
-    <Modal
-      {...props}
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Search Employees
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <h2>Enter an ID or a name to search for an Employee</h2>
-        <h4>Employee ID</h4>
-        <input
-          type="number"
-          value={employeeIDSearch}
-          onChange={(e) => setEmployeeIDSearch(e.target.value)}
-        ></input>
-        <h4>Employee Name</h4>
-        <input
-          type="text"
-          value={employeeNameSearch}
-          onChange={(e) => setEmployeeNameSearch(e.target.value)}
-        ></input>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button onClick={props.onHide}>Search</Button>
-      </Modal.Footer>
-    </Modal>
-  );
-}
-
 function Employees() {
   const [modalShowAdd, setModalShowAdd] = React.useState(false);
   const [modalShowRemove, setModalShowRemove] = React.useState(false);
@@ -65,6 +27,56 @@ function Employees() {
     loadEmployees();
   }, []);
 
+  function SearchModal(props) {
+    const [employeeNameSearch, setEmployeeNameSearch] = useState();
+
+    const submitButton = async (e) => {
+      e.preventDefault();
+
+      let data = { employeeNameSearch: employeeNameSearch };
+      console.log(data);
+
+      // On submit of the form, send a GET request with the date to the server
+      const response = await fetch(
+        `http://localhost:9100/displayemployees/filter/${employeeNameSearch}`,
+        { headers: { "Content-Type": "application/json" } }
+      );
+      const employees = await response.json();
+      setEmployees(employees);
+    };
+
+    return (
+      <Modal
+        {...props}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            Search Employees
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <h2>Enter a name to search for an Employee</h2>
+          <h4>Employee Name</h4>
+          <input
+            type="text"
+            value={employeeNameSearch}
+            onChange={(e) => setEmployeeNameSearch(e.target.value)}
+          ></input>
+        </Modal.Body>
+        <Modal.Footer>
+        <Button
+          onClick={(e) => {
+            props.onHide();
+            submitButton(e);
+          }}
+        >Search</Button>
+        </Modal.Footer>
+      </Modal>
+    );
+  }
   function AddModal(props) {
     const [firstName, setFirstName] = useState();
     const [lastName, setLastName] = useState();
