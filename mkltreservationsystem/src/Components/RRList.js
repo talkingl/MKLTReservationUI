@@ -24,7 +24,7 @@ function RRList({
         <tbody>
           {roomReservations?.map((roomReservation, i) => (
             <RR
-              key={roomReservation}
+              key={i}
               onEditCheckIn={onEditCheckIn}
               onEditCheckOut={onEditCheckOut}
               roomReservation={roomReservation}

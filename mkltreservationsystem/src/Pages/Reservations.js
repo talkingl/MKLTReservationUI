@@ -150,6 +150,7 @@ function Reservations() {
             {customerList?.map((item) => {
               return (
                 <option
+                  key={item}
                   value={item.customerID}
                   selected={item.customerID === customerID}
                 >
@@ -163,6 +164,7 @@ function Reservations() {
             {employeeList?.map((item) => {
               return (
                 <option
+                  key={item}
                   value={item.employeeID}
                   selected={item.employeeID === employeeID}
                 >
@@ -295,6 +297,7 @@ function Reservations() {
             {customerList?.map((item) => {
               return (
                 <option
+                  key={item}
                   value={item.customerID}
                   selected={item.customerID === customerID}
                 >
@@ -324,6 +327,7 @@ function Reservations() {
             {employeeList?.map((item) => {
               return (
                 <option
+                  key={item}
                   value={item.employeeID}
                   selected={item.employeeID === employeeID}
                 >

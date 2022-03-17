@@ -10,21 +10,21 @@ function Room({
   setModalShowRemove,
   onEdit,
   onDelete,
-  rooms,
+  room,
   roomToEdit,
   roomToDelete,
 }) {
   return (
     <tr>
-      <td>{rooms.roomID}</td>
-      <td>{rooms.roomFloor}</td>
-      <td>{rooms.roomNumber}</td>
-      <td>{rooms.roomType}</td>
-      <td>{rooms.roomPrice}</td>
+      <td>{room.roomID}</td>
+      <td>{room.roomFloor}</td>
+      <td>{room.roomNumber}</td>
+      <td>{room.roomType}</td>
+      <td>{room.roomPrice}</td>
       <td>
         <MdEdit
           onClick={() => {
-            onEdit(rooms);
+            onEdit(room);
             setModalShowUpdate(true);
           }}
         />
@@ -32,7 +32,7 @@ function Room({
       <td>
         <MdDelete
           onClick={() => {
-            onDelete(rooms);
+            onDelete(room);
             setModalShowRemove(true);
           }}
         />

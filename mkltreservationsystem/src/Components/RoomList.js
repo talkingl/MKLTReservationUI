@@ -18,24 +18,27 @@ function RoomList({
       <h1> Rooms</h1>
       <Table id="Rooms" className="borderless striped hover color-table">
         <thead className="color-table">
-          <th>Room ID</th>
-          <th>Room Floor</th>
-          <th>Room Number</th>
-          <th>Room Type</th>
-          <th>Room Price</th>
-          <th>Edit Room</th>
-          <th>Delete Room</th>
+          <tr>
+            <th>Room ID</th>
+            <th>Room Floor</th>
+            <th>Room Number</th>
+            <th>Room Type</th>
+            <th>Room Price</th>
+            <th>Edit Room</th>
+            <th>Delete Room</th>
+          </tr>
         </thead>
         <tbody>
-          {rooms?.map((rooms, i) => (
+          {rooms?.map((room, i) => (
             <Room
+              key={i}
               modalShowUpdate={modalShowUpdate}
               setModalShowUpdate={setModalShowUpdate}
               modalShowRemove={modalShowRemove}
               setModalShowRemove={setModalShowRemove}
               onEdit={onEdit}
               onDelete={onDelete}
-              rooms={rooms}
+              room={room}
               roomToEdit={roomToEdit}
               roomToDelete={roomToDelete}
             ></Room>

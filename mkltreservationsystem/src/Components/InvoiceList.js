@@ -16,18 +16,21 @@ function InvoiceList({
       <h1> Invoices</h1>
       <Table id="Invoices" className="borderless">
         <thead>
-          <th>Invoice ID</th>
-          <th>Reservation ID</th>
-          <th>Invoice Amount</th>
-          <th>Credit Card on File</th>
-          <th>Due Date</th>
-          <th>Invoice Paid</th>
-          <th>Edit Invoice </th>
-          <th>Delete Invoice </th>
+          <tr>
+            <th>Invoice ID</th>
+            <th>Reservation ID</th>
+            <th>Invoice Amount</th>
+            <th>Credit Card on File</th>
+            <th>Due Date</th>
+            <th>Invoice Paid</th>
+            <th>Edit Invoice </th>
+            <th>Delete Invoice </th>
+          </tr>
         </thead>
         <tbody>
           {invoices?.map((invoice, i) => (
             <Invoice
+              key={i}
               modalShowUpdate={modalShowUpdate}
               setModalShowUpdate={setModalShowUpdate}
               modalShowRemove={modalShowRemove}
