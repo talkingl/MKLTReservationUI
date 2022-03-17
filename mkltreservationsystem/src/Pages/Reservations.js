@@ -48,9 +48,7 @@ function Reservations() {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h2>
-            Enter a customer name to search for a Reservation
-          </h2>
+          <h2>Enter a customer name to search for a Reservation</h2>
           <h4>Customer Name</h4>
           <input
             type="text"
@@ -59,12 +57,14 @@ function Reservations() {
           ></input>
         </Modal.Body>
         <Modal.Footer>
-        <Button
-          onClick={(e) => {
-            props.onHide();
-            submitButton(e);
-          }}
-        >Search</Button>
+          <Button
+            onClick={(e) => {
+              props.onHide();
+              submitButton(e);
+            }}
+          >
+            Search
+          </Button>
         </Modal.Footer>
       </Modal>
     );
@@ -259,6 +259,7 @@ function Reservations() {
       stayLength1 = props.reservationToEdit.stayLength;
       specialRequests1 = props.reservationToEdit.specialRequests;
     }
+    console.log(props);
     const submitButton = async (e) => {
       e.preventDefault();
 
@@ -409,6 +410,7 @@ function Reservations() {
               }
             }}
           ></input>
+          <h4> Special Requests</h4>
           <input value={specialRequests1} className="greyedOut"></input>
           <input
             type="text"
