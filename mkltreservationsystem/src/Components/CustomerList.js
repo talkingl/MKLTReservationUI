@@ -12,7 +12,7 @@ function CustomerList({
   customers,
 }) {
   return (
-    <Table id="Customers" className="borderless">
+    <Table hover variant="dark">
       <thead>
         <tr>
           <th>ID</th>

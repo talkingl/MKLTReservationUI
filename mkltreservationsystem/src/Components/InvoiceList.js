@@ -14,7 +14,7 @@ function InvoiceList({
   return (
     <div>
       <h1> Invoices</h1>
-      <Table id="Invoices" className="borderless">
+      <Table hover variant="dark">
         <thead>
           <tr>
             <th>Invoice ID</th>

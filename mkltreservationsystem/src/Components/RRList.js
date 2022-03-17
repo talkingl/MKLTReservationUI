@@ -7,7 +7,7 @@ function RRList({ onEditCheckIn, onEditCheckOut, roomReservations }) {
   return (
     <div>
       <h1>Guest Check-In / Check-Out</h1>
-      <Table id="RoomsReservations" className="borderless ">
+      <Table hover variant="dark">
         <thead>
           <tr>
             <th>Room Number</th>
