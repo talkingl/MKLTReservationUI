@@ -53,6 +53,21 @@ function Invoices() {
     loadInvoices();
   }, []);
 
+  // Reservation List for dropdowns
+  const [reservationList, setReservationList] = useState();
+  const loadReservationList = async () =>{
+      const response = await fetch('http://localhost:9100/listreservations', {
+          headers: {
+              'Content-Type': 'application/json',
+          }
+      });
+      const reservations = await response.json();
+      setReservationList(reservations);
+  }
+  useEffect(() => {
+    loadReservationList();
+  }, []);
+
   function UpdateModal(props) {
     const [invoiceID, setInvoiceID] = useState(0);
     const [reservationID, setReservationID] = useState(0);
@@ -343,12 +358,18 @@ function Invoices() {
           <Modal.Title id="add-customer">Add Invoice</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h4>Reservation ID</h4>
-          <input
-            type="number"
-            value={reservationID}
-            onChange={(e) => setReservationID(e.target.value)}
-          ></input>
+        <h4>Choose a Reservation</h4>
+        <select onChange={(e) => setReservationID(e.target.value)}>
+            {reservationList?.map((item)=>{
+              return (
+                <option
+                value={item.reservationID}
+                selected={item.reservationID === reservationID}>
+                  Customer: {item.firstName} {item.lastName} Check-in on: {item.checkInDate}
+                </option>
+              )
+            })}
+        </select>
           <h4>Invoice Amount</h4>
           <input
             type="number"
