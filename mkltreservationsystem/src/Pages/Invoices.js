@@ -285,13 +285,13 @@ function Invoices() {
     const submitButton = async (e) => {
       e.preventDefault();
 
-      let data = {searchDate: searchDate};
+      let data = { searchDate: searchDate };
       console.log(data);
 
       // On submit of the form, send a GET request with the date to the server
       const response = await fetch(
         `http://localhost:9100/displayinvoices/filter/date/${searchDate}`,
-        { headers: { "Content-Type": "application/json", }, }
+        { headers: { "Content-Type": "application/json" } }
       );
       const invoices = await response.json();
       setInvoices(invoices);
@@ -311,16 +311,20 @@ function Invoices() {
         <Modal.Body>
           <h2>Enter a due date to search for invoices</h2>
           <h4>Due Date</h4>
-          <input type="date"
-          onChange={(e) => setSearchDate(e.target.value)}></input>
+          <input
+            type="date"
+            onChange={(e) => setSearchDate(e.target.value)}
+          ></input>
         </Modal.Body>
         <Modal.Footer>
-        <Button
-          onClick={(e) => {
-            props.onHide();
-            submitButton(e);
-          }}
-        >Search</Button>
+          <Button
+            onClick={(e) => {
+              props.onHide();
+              submitButton(e);
+            }}
+          >
+            Search
+          </Button>
         </Modal.Footer>
       </Modal>
     );
