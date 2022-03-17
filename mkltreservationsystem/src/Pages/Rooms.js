@@ -27,7 +27,8 @@ function SearchModal(props) {
         <h4>Room Floor</h4>
         <select
           value={roomFloor}
-          onChange={(e) => setRoomFloor(e.target.value)}>
+          onChange={(e) => setRoomFloor(e.target.value)}
+        >
           <option value="1">1st Floor</option>
           <option value="2">2nd Floor</option>
           <option value="3">3rd Floor</option>
@@ -147,7 +148,8 @@ function Rooms() {
           <input value={roomFloor1} className="greyedOut"></input>
           <select
             value={roomFloor}
-            onChange={(e) => setRoomFloor(e.target.value)}>
+            onChange={(e) => setRoomFloor(e.target.value)}
+          >
             <option value="1">1st Floor</option>
             <option value="2">2nd Floor</option>
             <option value="3">3rd Floor</option>
@@ -358,33 +360,55 @@ function Rooms() {
 
     const submitButton = async (e) => {
       e.preventDefault();
-      console.log(roomFloor, roomNumber, roomType, roomPrice);
-
-      // On submit of the form, send a POST request with the data to the server.
-
-      let data = {
-        roomFloor: roomFloor,
-        roomNumber: roomNumber,
-        roomType: roomType,
-        roomPrice: roomPrice,
-      };
-
-      const response = await fetch(
-        "http://flip2.engr.oregonstate.edu:9100/createroom",
-        {
-          method: "POST",
-          body: JSON.stringify(data),
-          headers: {
-            "Content-Type": "application/json",
-          },
+      if (
+        roomFloor === undefined ||
+        roomNumber === undefined ||
+        roomType === undefined ||
+        roomPrice === undefined
+      ) {
+        alert("invalid entry");
+        if (roomFloor === undefined) {
+          alert("invalid entry in roomFloor");
         }
-      );
-      if (response.status === 200 || response.status === 201) {
-        alert("Successfully added the Room!");
-        loadRooms();
+        if (roomNumber === undefined) {
+          alert("invalid entry in roomNumber");
+        }
+        if (roomType === undefined) {
+          alert("invalid entry in roomType");
+        }
+        if (roomPrice === undefined) {
+          alert("invalid entry in roomPrice");
+        }
       } else {
-        alert(`Failed to add room, status code = ${response.status}`);
-        loadRooms();
+        props.onHide();
+        console.log(roomFloor, roomNumber, roomType, roomPrice);
+
+        // On submit of the form, send a POST request with the data to the server.
+
+        let data = {
+          roomFloor: roomFloor,
+          roomNumber: roomNumber,
+          roomType: roomType,
+          roomPrice: roomPrice,
+        };
+
+        const response = await fetch(
+          "http://flip2.engr.oregonstate.edu:9100/createroom",
+          {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        if (response.status === 200 || response.status === 201) {
+          alert("Successfully added the Room!");
+          loadRooms();
+        } else {
+          alert(`Failed to add room, status code = ${response.status}`);
+          loadRooms();
+        }
       }
     };
     return (
@@ -440,7 +464,6 @@ function Rooms() {
         <Modal.Footer>
           <Button
             onClick={(e) => {
-              props.onHide();
               submitButton(e);
             }}
           >

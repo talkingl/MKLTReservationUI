@@ -67,7 +67,20 @@ function Customers() {
         phoneNumber === undefined
       ) {
         alert("incorrect input");
+        if (firstName === undefined) {
+          alert("incorrect first name entry");
+        }
+        if (lastName === undefined) {
+          alert("incorrect last name entry");
+        }
+        if (emailAddress === undefined) {
+          alert("incorrect email Address entry");
+        }
+        if (phoneNumber === undefined) {
+          alert("incorrect phone Number entry");
+        }
       } else {
+        props.onHide();
         let data = {
           firstName: firstName,
           lastName: lastName,
@@ -134,7 +147,6 @@ function Customers() {
         <Modal.Footer>
           <Button
             onClick={(e) => {
-              props.onHide();
               submitButton(e);
             }}
           >

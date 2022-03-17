@@ -55,7 +55,7 @@ function Reservations() {
         </Modal.Footer>
       </Modal>
     );
-    }
+  }
 
   const loadCustomerList = async () => {
     const response = await fetch("http://localhost:9100/listcustomers", {
@@ -71,16 +71,16 @@ function Reservations() {
   }, []);
 
   const [employeeList, setEmployeeList] = useState();
-  const loadEmployeeList = async () =>{
-      const response = await fetch('http://localhost:9100/listemployees', {
-          headers: {
-              'Content-Type': 'application/json',
-              'Accept': 'application/json'
-          }
-      });
-      const employees = await response.json();
-      setEmployeeList(employees);
-  }
+  const loadEmployeeList = async () => {
+    const response = await fetch("http://localhost:9100/listemployees", {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    });
+    const employees = await response.json();
+    setEmployeeList(employees);
+  };
   useEffect(() => {
     loadEmployeeList();
   }, []);
@@ -94,30 +94,42 @@ function Reservations() {
 
     const submitButton = async (e) => {
       e.preventDefault();
-
-      let data = {
-        customerID: customerID,
-        employeeID: employeeID,
-        checkInDate: checkInDate,
-        stayLength: stayLength,
-        specialRequests: specialRequests,
-      };
-      console.log(data);
-
-      // On submit of the form, send a POST request with the data to the server.
-      const response = await fetch("http://localhost:9100/createreservation", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      if (response.status === 200 || response.status === 201) {
-        alert("Successfully added the Reservation!");
-        loadReservations();
+      if (checkInDate === undefined || stayLength === undefined) {
+        alert("messed up");
+        if (checkInDate === undefined) {
+          alert("check in date is incorrect");
+        }
+        if (stayLength === undefined) {
+          alert("stay length is incorrect");
+        }
       } else {
-        alert(`Failed to add Reservation, status code = ${response.status}`);
-        loadReservations();
+        let data = {
+          customerID: customerID,
+          employeeID: employeeID,
+          checkInDate: checkInDate,
+          stayLength: stayLength,
+          specialRequests: specialRequests,
+        };
+        console.log(data);
+
+        // On submit of the form, send a POST request with the data to the server.
+        const response = await fetch(
+          "http://localhost:9100/createreservation",
+          {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        if (response.status === 200 || response.status === 201) {
+          alert("Successfully added the Reservation!");
+          loadReservations();
+        } else {
+          alert(`Failed to add Reservation, status code = ${response.status}`);
+          loadReservations();
+        }
       }
     };
     return (

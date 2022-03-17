@@ -55,15 +55,15 @@ function Invoices() {
 
   // Reservation List for dropdowns
   const [reservationList, setReservationList] = useState();
-  const loadReservationList = async () =>{
-      const response = await fetch('http://localhost:9100/listreservations', {
-          headers: {
-              'Content-Type': 'application/json',
-          }
-      });
-      const reservations = await response.json();
-      setReservationList(reservations);
-  }
+  const loadReservationList = async () => {
+    const response = await fetch("http://localhost:9100/listreservations", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const reservations = await response.json();
+    setReservationList(reservations);
+  };
   useEffect(() => {
     loadReservationList();
   }, []);
@@ -311,40 +311,62 @@ function Invoices() {
     const [dueDate, setDueDate] = useState();
     const [invoicePaid, setInvoicePaid] = useState();
     const submitButton = async (e) => {
-      e.preventDefault();
-      console.log(
-        reservationID,
-        invoiceAmount,
-        creditCard,
-        dueDate,
-        invoicePaid
-      );
-
-      let data = {
-        reservationID: reservationID,
-        invoiceAmount: invoiceAmount,
-        creditCard: creditCard,
-        dueDate: dueDate,
-        invoicePaid: invoicePaid,
-      };
-
-      // On submit of the form, send a POST request with the data to the server.
-      const response = await fetch(
-        "http://flip2.engr.oregonstate.edu:9100/createinvoice",
-        {
-          method: "POST",
-          body: JSON.stringify(data),
-          headers: {
-            "Content-Type": "application/json",
-          },
+      if (
+        invoiceAmount === undefined ||
+        creditCard === undefined ||
+        dueDate === undefined ||
+        invoicePaid === undefined
+      ) {
+        alert("yo this is messed up");
+        if (invoiceAmount === undefined) {
+          alert("Invoice Amount is incorrect");
         }
-      );
-      if (response.status === 200 || response.status === 201) {
-        alert("Successfully added the Invoice!");
-        loadInvoices();
+        if (creditCard === undefined) {
+          alert("Credit Card is incorrect");
+        }
+        if (invoicePaid === undefined) {
+          alert("Invoice Paid entry is incorrect");
+        }
+        if (dueDate === undefined) {
+          alert("Due Date is incorrect");
+        }
       } else {
-        alert(`Failed to add invoice, status code = ${response.status}`);
-        loadInvoices();
+        props.onHide();
+        e.preventDefault();
+        console.log(
+          reservationID,
+          invoiceAmount,
+          creditCard,
+          dueDate,
+          invoicePaid
+        );
+
+        let data = {
+          reservationID: reservationID,
+          invoiceAmount: invoiceAmount,
+          creditCard: creditCard,
+          dueDate: dueDate,
+          invoicePaid: invoicePaid,
+        };
+
+        // On submit of the form, send a POST request with the data to the server.
+        const response = await fetch(
+          "http://flip2.engr.oregonstate.edu:9100/createinvoice",
+          {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        if (response.status === 200 || response.status === 201) {
+          alert("Successfully added the Invoice!");
+          loadInvoices();
+        } else {
+          alert(`Failed to add invoice, status code = ${response.status}`);
+          loadInvoices();
+        }
       }
     };
     return (
@@ -358,18 +380,20 @@ function Invoices() {
           <Modal.Title id="add-customer">Add Invoice</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <h4>Choose a Reservation</h4>
-        <select onChange={(e) => setReservationID(e.target.value)}>
-            {reservationList?.map((item)=>{
+          <h4>Choose a Reservation</h4>
+          <select onChange={(e) => setReservationID(e.target.value)}>
+            {reservationList?.map((item) => {
               return (
                 <option
-                value={item.reservationID}
-                selected={item.reservationID === reservationID}>
-                  Customer: {item.firstName} {item.lastName} Check-in on: {item.checkInDate}
+                  value={item.reservationID}
+                  selected={item.reservationID === reservationID}
+                >
+                  Customer: {item.firstName} {item.lastName} Check-in on:{" "}
+                  {item.checkInDate}
                 </option>
-              )
+              );
             })}
-        </select>
+          </select>
           <h4>Invoice Amount</h4>
           <input
             type="number"
@@ -400,7 +424,6 @@ function Invoices() {
         <Modal.Footer>
           <Button
             onClick={(e) => {
-              props.onHide();
               submitButton(e);
             }}
           >
