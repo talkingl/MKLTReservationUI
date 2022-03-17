@@ -4,7 +4,7 @@ import "../App.css";
 import { Link } from "react-router-dom";
 import React from "react";
 import EmployeeList from "../Components/EmployeeList";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 function SearchModal(props) {
   return (
@@ -63,31 +63,51 @@ function Employees() {
     const submitButton = async (e) => {
       e.preventDefault();
       console.log(firstName, lastName, shiftWorked, payRate);
-
-      let data = {
-        firstName: firstName,
-        lastName: lastName,
-        shiftWorked: shiftWorked,
-        payRate: payRate,
-      };
-
-      // On submit of the form, send a POST request with the data to the server.
-      const response = await fetch(
-        "http://flip2.engr.oregonstate.edu:9100/createemployee",
-        {
-          method: "POST",
-          body: JSON.stringify(data),
-          headers: {
-            "Content-Type": "application/json",
-          },
+      if (
+        firstName === undefined ||
+        lastName === undefined ||
+        shiftWorked === undefined ||
+        payRate == undefined
+      ) {
+        if (firstName === undefined) {
+          alert("invalid entry, please correct the first name");
         }
-      );
-      if (response.status === 200 || response.status === 201) {
-        alert("Successfully added the Employee!");
-        loadEmployees();
+        if (lastName === undefined) {
+          alert("invalid entry, please correct the last name");
+        }
+        if (shiftWorked === undefined) {
+          alert("invalid entry, please correct the shiftWorked ");
+        }
+        if (payRate === undefined) {
+          alert("invalid entry, please correct the payRate");
+        }
       } else {
-        alert(`Failed to add employee, status code = ${response.status}`);
-        loadEmployees();
+        props.onHide();
+        let data = {
+          firstName: firstName,
+          lastName: lastName,
+          shiftWorked: shiftWorked,
+          payRate: payRate,
+        };
+
+        // On submit of the form, send a POST request with the data to the server.
+        const response = await fetch(
+          "http://flip2.engr.oregonstate.edu:9100/createemployee",
+          {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        if (response.status === 200 || response.status === 201) {
+          alert("Successfully added the Employee!");
+          loadEmployees();
+        } else {
+          alert(`Failed to add employee, status code = ${response.status}`);
+          loadEmployees();
+        }
       }
     };
     return (
@@ -134,7 +154,6 @@ function Employees() {
         <Modal.Footer>
           <Button
             onClick={(e) => {
-              props.onHide();
               submitButton(e);
             }}
           >

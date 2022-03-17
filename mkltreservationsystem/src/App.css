@@ -85,3 +85,7 @@ thead {
 .checkbox-form {
   margin-left: 10px;
 }
+
+#first-name-employee {
+  border-radius: 10px;
+}

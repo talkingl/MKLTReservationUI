@@ -60,31 +60,39 @@ function Customers() {
     const submitButton = async (e) => {
       e.preventDefault();
       console.log(firstName, lastName, emailAddress, phoneNumber);
-
-      let data = {
-        firstName: firstName,
-        lastName: lastName,
-        emailAddress: emailAddress,
-        phoneNumber: phoneNumber,
-      };
-
-      // On submit of the form, send a POST request with the data to the server.
-      const response = await fetch(
-        "http://flip2.engr.oregonstate.edu:9100/createcustomer",
-        {
-          method: "POST",
-          body: JSON.stringify(data),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      if (response.status === 200 || response.status === 201) {
-        alert("Successfully added the Customer!");
-        loadCustomers();
+      if (
+        firstName === undefined ||
+        lastName === undefined ||
+        emailAddress === undefined ||
+        phoneNumber === undefined
+      ) {
+        alert("incorrect input");
       } else {
-        alert(`Failed to add customer, status code = ${response.status}`);
-        loadCustomers();
+        let data = {
+          firstName: firstName,
+          lastName: lastName,
+          emailAddress: emailAddress,
+          phoneNumber: phoneNumber,
+        };
+
+        // On submit of the form, send a POST request with the data to the server.
+        const response = await fetch(
+          "http://flip2.engr.oregonstate.edu:9100/createcustomer",
+          {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        if (response.status === 200 || response.status === 201) {
+          alert("Successfully added the Customer!");
+          loadCustomers();
+        } else {
+          alert(`Failed to add customer, status code = ${response.status}`);
+          loadCustomers();
+        }
       }
     };
     return (
