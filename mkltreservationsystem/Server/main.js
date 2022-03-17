@@ -53,7 +53,7 @@ app.get("/listrooms", function (req, res) {
 
 // for reservation dropdown menus
 app.get("/listreservations", function (req, res) {
-  db.pool.query("SELECT res.reservationID, cust.firstName, cust.lastName, DATE_FORMAT(res.checkInDate,'%d/%m/%Y') FROM Reservations AS res INNER JOIN Customers AS cust ON cust.customerID = res.customerID",
+  db.pool.query("SELECT res.reservationID, cust.firstName, cust.lastName, DATE_FORMAT(res.checkInDate,'%m/%d/%Y') AS checkInDate FROM Reservations AS res INNER JOIN Customers AS cust ON cust.customerID = res.customerID",
   function (error, result, fields){
     if(error){
       console.log(JSON.stringify(error));
@@ -556,7 +556,7 @@ app.delete("/deletereservation", function (req, res) {
 
 //displays room reservations table
 app.get("/displayguestcheckinout", function (req, res) {
-  query = "SELECT room.roomNumber, concat(cust.firstName, ' ', cust.lastName) AS customerName, res.checkInDate, res.reservationID FROM Customers AS cust INNER JOIN Reservations AS res ON cust.customerID = res.customerID INNER JOIN RoomReservations AS rr ON res.reservationID = rr.reservationID INNER JOIN Rooms AS room ON rr.roomID = room.roomID;";
+  query = "SELECT room.roomID, room.roomNumber, concat(cust.firstName, ' ', cust.lastName) AS customerName, res.checkInDate, res.reservationID, rr.checkedIn, rr.checkedOut FROM Customers AS cust INNER JOIN Reservations AS res ON cust.customerID = res.customerID INNER JOIN RoomReservations AS rr ON res.reservationID = rr.reservationID INNER JOIN Rooms AS room ON rr.roomID = room.roomID;";
   db.pool.query(query, (err, result) => {
     if(err){
       console.log(JSON.stringify(err));
@@ -570,7 +570,7 @@ app.get("/displayguestcheckinout", function (req, res) {
 
 //Search for a specific checkInDate for roomReservations page
 app.get("/displayguestcheckinout/:filter/:date/:keyword", function (req, res) {
-  query = "SELECT room.roomNumber, concat(cust.firstName, ' ', cust.lastName) AS customerName, res.checkInDate, res.reservationID FROM Customers AS cust INNER JOIN Reservations AS res ON cust.customerID = res.customerID INNER JOIN RoomReservations AS rr ON res.reservationID = rr.reservationID INNER JOIN Rooms AS room ON rr.roomID = room.roomID WHERE res.checkInDate = '"+req.params.keyword+"';";
+  query = "SELECT room.roomID, room.roomNumber, concat(cust.firstName, ' ', cust.lastName) AS customerName, res.checkInDate, res.reservationID, rr.checkedIn, rr.checkedOut FROM Customers AS cust INNER JOIN Reservations AS res ON cust.customerID = res.customerID INNER JOIN RoomReservations AS rr ON res.reservationID = rr.reservationID INNER JOIN Rooms AS room ON rr.roomID = room.roomID WHERE res.checkInDate = '"+req.params.keyword+"';";
   db.pool.query(query, (err, result) => {
     if(err){
       console.log(JSON.stringify(err));

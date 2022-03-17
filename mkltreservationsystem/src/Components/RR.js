@@ -14,20 +14,16 @@ function RR({
       <td>{roomReservation.customerName}</td>
       <td>{(new Date(roomReservation.checkInDate)).toLocaleDateString()}</td>
       <td>
-        {roomReservation.checkedIn
-            ? <AiFillCheckCircle
-                onClick={() => {
-                  onEditCheckIn(roomReservation);
-                }} />
-            : <AiOutlineCheckCircle onClick={() => {
-              onEditCheckIn(roomReservation);
-            }} />
+        {roomReservation.checkedIn === 1 ? <AiFillCheckCircle
+                onClick={() => onEditCheckIn(roomReservation, roomReservation.roomID)} />
+            : <AiOutlineCheckCircle
+                onClick={() => onEditCheckIn(roomReservation, roomReservation.roomID)} />
         }
       </td>
       <td>
-        {roomReservation.checkedOut
-            ? <AiFillCheckCircle onClick={() => onEditCheckOut(roomReservation)} />
-            : <AiOutlineCheckCircle onClick={() => onEditCheckOut(roomReservation)} />
+        {roomReservation.checkedOut === 1
+            ? <AiFillCloseCircle onClick={() => onEditCheckOut(roomReservation, roomReservation.roomID)} />
+            : <AiOutlineCloseCircle onClick={() => onEditCheckOut(roomReservation, roomReservation.roomID)} />
         }
       </td>
     </tr>
