@@ -2,11 +2,8 @@ import React from "react";
 import RR from "./RR";
 import { Table } from "react-bootstrap";
 
-function RRList({
-  onEditCheckIn,
-  onEditCheckOut,
-  roomReservations,
-}) {
+function RRList({ onEditCheckIn, onEditCheckOut, roomReservations }) {
+  console.log(roomReservations);
   return (
     <div>
       <h1>Guest Check-In / Check-Out</h1>
@@ -20,6 +17,7 @@ function RRList({
           <th>Guest Check Out</th>
         </thead>
         <tbody>
+          {console.log(roomReservations)}
           {roomReservations?.map((roomReservation, i) => (
             <RR
               onEditCheckIn={onEditCheckIn}

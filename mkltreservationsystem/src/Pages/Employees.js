@@ -7,6 +7,9 @@ import EmployeeList from "../Components/EmployeeList";
 import { useState, useEffect, useRef } from "react";
 
 function SearchModal(props) {
+  const [employeeIDSearch, setEmployeeIDSearch] = useState();
+  const [employeeNameSearch, setEmployeeNameSearch] = useState();
+
   return (
     <Modal
       {...props}
@@ -22,9 +25,17 @@ function SearchModal(props) {
       <Modal.Body>
         <h2>Enter an ID or a name to search for an Employee</h2>
         <h4>Employee ID</h4>
-        <input type="number"></input>
+        <input
+          type="number"
+          value={employeeIDSearch}
+          onChange={(e) => setEmployeeIDSearch(e.target.value)}
+        ></input>
         <h4>Employee Name</h4>
-        <input type="text"></input>
+        <input
+          type="text"
+          value={employeeNameSearch}
+          onChange={(e) => setEmployeeNameSearch(e.target.value)}
+        ></input>
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={props.onHide}>Search</Button>

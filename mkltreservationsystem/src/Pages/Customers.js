@@ -7,6 +7,8 @@ import React from "react";
 import { useEffect, useState } from "react";
 
 function SearchModal(props) {
+  const [customerIDSearch, setCustomerIDSearch] = useState();
+  const [customerNameSearch, setCustomerNameSearch] = useState();
   return (
     <Modal
       {...props}
@@ -20,9 +22,17 @@ function SearchModal(props) {
       <Modal.Body>
         <h2>Enter either an ID or a name to search for a Customer</h2>
         <h4>Customer ID</h4>
-        <input type="number"></input>
+        <input
+          type="number"
+          value={customerIDSearch}
+          onChange={(e) => setCustomerIDSearch(e.target.value)}
+        ></input>
         <h4>Customer Name</h4>
-        <input type="text"></input>
+        <input
+          type="text"
+          value={customerNameSearch}
+          onChange={(e) => setCustomerNameSearch(e.target.value)}
+        ></input>
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={props.onHide}>Search</Button>

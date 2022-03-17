@@ -53,29 +53,29 @@ function RoomsReservations() {
   }, []);
 
   // load rooms for dropdown
-  const loadRoomList = async () =>{
-      const response = await fetch('http://localhost:9100/listrooms', {
-          headers: {
-              'Content-Type': 'application/json',
-          }
-      });
-      const rooms = await response.json();
-      setRoomList(rooms);
-  }
+  const loadRoomList = async () => {
+    const response = await fetch("http://localhost:9100/listrooms", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const rooms = await response.json();
+    setRoomList(rooms);
+  };
   useEffect(() => {
     loadRoomList();
   }, []);
 
   // load reservations for dropdown
-  const loadReservationList = async () =>{
-      const response = await fetch('http://localhost:9100/listreservations', {
-          headers: {
-              'Content-Type': 'application/json',
-          }
-      });
-      const reservations = await response.json();
-      setReservationList(reservations);
-  }
+  const loadReservationList = async () => {
+    const response = await fetch("http://localhost:9100/listreservations", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const reservations = await response.json();
+    setReservationList(reservations);
+  };
   useEffect(() => {
     loadReservationList();
   }, []);
@@ -109,7 +109,9 @@ function RoomsReservations() {
         alert("Successfully added the Room to the reservation!");
         loadRoomReservations();
       } else {
-        alert(`Failed to add Room to the reservation, status code = ${response.status}`);
+        alert(
+          `Failed to add Room to the reservation, status code = ${response.status}`
+        );
         loadRoomReservations();
       }
     };
@@ -128,27 +130,27 @@ function RoomsReservations() {
         <Modal.Body>
           <h4>Choose a Reservation</h4>
           <select onChange={(e) => setReservationID(e.target.value)}>
-              {reservationList?.map((item)=>{
-                return (
-                  <option
+            {reservationList?.map((item) => {
+              return (
+                <option
                   value={item.reservationID}
-                  selected={item.reservationID === reservationID}>
-                    Customer: {item.firstName} {item.lastName} Check-in on: {item.checkInDate}
-                  </option>
-                )
-              })}
+                  selected={item.reservationID === reservationID}
+                >
+                  Customer: {item.firstName} {item.lastName} Check-in on:{" "}
+                  {item.checkInDate}
+                </option>
+              );
+            })}
           </select>
           <h4>Choose a Room to Add</h4>
           <select onChange={(e) => setRoomID(e.target.value)}>
-              {roomList?.map((item)=>{
-                return (
-                  <option
-                  value={item.roomID}
-                  selected={item.roomID === roomID}>
-                    Room #{item.roomNumber} {item.roomType}
-                  </option>
-                )
-              })}
+            {roomList?.map((item) => {
+              return (
+                <option value={item.roomID} selected={item.roomID === roomID}>
+                  Room #{item.roomNumber} {item.roomType}
+                </option>
+              );
+            })}
           </select>
         </Modal.Body>
         <Modal.Footer>
@@ -171,13 +173,13 @@ function RoomsReservations() {
     const submitButton = async (e) => {
       e.preventDefault();
 
-      let data = {searchDate: searchDate};
+      let data = { searchDate: searchDate };
       console.log(data);
 
       // On submit of the form, send a GET request with the date to the server
       const response = await fetch(
         `http://localhost:9100/displayguestcheckinout/filter/date/${searchDate}`,
-        { headers: { "Content-Type": "application/json", }, }
+        { headers: { "Content-Type": "application/json" } }
       );
       const reservations = await response.json();
       setRoomReservation(reservations);
@@ -198,8 +200,10 @@ function RoomsReservations() {
         <Modal.Body>
           <h2>Choose a Date for filtering reservations</h2>
           <h4>Check In Date</h4>
-          <input type="date"
-          onChange={(e) => setSearchDate(e.target.value)}></input>
+          <input
+            type="date"
+            onChange={(e) => setSearchDate(e.target.value)}
+          ></input>
         </Modal.Body>
         <Modal.Footer>
           <Button
@@ -207,7 +211,9 @@ function RoomsReservations() {
               props.onHide();
               submitButton(e);
             }}
-          >Search</Button>
+          >
+            Search
+          </Button>
         </Modal.Footer>
       </Modal>
     );
@@ -246,7 +252,7 @@ function RoomsReservations() {
       );
       loadRoomReservations();
     }
-  }
+  };
 
   // onEditCheckOut
   const onEditCheckOut = async (roomReservationToEdit) => {
@@ -281,17 +287,14 @@ function RoomsReservations() {
       );
       loadRoomReservations();
     }
-  }
+  };
 
   return (
     <div>
       <button className="crud-buttons" onClick={() => setModalShowAdd(true)}>
         Add
       </button>
-      <AddModal
-        show={modalShowAdd}
-        onHide={() => setModalShowAdd(false)}
-      />
+      <AddModal show={modalShowAdd} onHide={() => setModalShowAdd(false)} />
       <button className="crud-buttons" onClick={() => setModalShowSearch(true)}>
         Search
       </button>
