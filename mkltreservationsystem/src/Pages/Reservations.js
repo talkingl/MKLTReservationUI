@@ -17,6 +17,7 @@ function Reservations() {
   const [reservationToDelete, setReservationToDelete] = useState(" ");
 
   const [customerList, setCustomerList] = useState();
+<<<<<<< HEAD
 
   function SearchModal(props) {
     const [customerSearch, setCustomerSearch] = useState();
@@ -56,6 +57,16 @@ function Reservations() {
         </Modal.Footer>
       </Modal>
     );
+=======
+  const loadCustomerList = async () =>{
+      const response = await fetch('http://localhost:9100/listcustomers', {
+          headers: {
+              'Content-Type': 'application/json',
+          }
+      });
+      const customers = await response.json();
+      setCustomerList(customers);
+>>>>>>> 204b949355559d382a994c55d796c325409eef24
   }
   const loadCustomerList = async () => {
     const response = await fetch("http://localhost:9100/listcustomers", {
@@ -71,6 +82,7 @@ function Reservations() {
   }, []);
 
   const [employeeList, setEmployeeList] = useState();
+<<<<<<< HEAD
 
   const loadEmployeeList = async () => {
     const response = await fetch("http://localhost:9100/listemployees", {
@@ -82,6 +94,18 @@ function Reservations() {
     const employees = await response.json();
     setEmployeeList(employees);
   };
+=======
+  const loadEmployeeList = async () =>{
+      const response = await fetch('http://localhost:9100/listemployees', {
+          headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+          }
+      });
+      const employees = await response.json();
+      setEmployeeList(employees);
+  }
+>>>>>>> 204b949355559d382a994c55d796c325409eef24
   useEffect(() => {
     loadEmployeeList();
   }, []);
@@ -515,11 +539,6 @@ function Reservations() {
         show={modalShowSearch}
         onHide={() => setModalShowSearch(false)}
       />
-      <UpdateModal
-        reservationToEdit={reservationToEdit}
-        show={modalShowUpdate}
-        onHide={() => setModalShowUpdate(false)}
-      />
       <ReservationList
         modalShowUpdate={modalShowUpdate}
         setModalShowUpdate={setModalShowUpdate}
@@ -529,6 +548,11 @@ function Reservations() {
         onDelete={onDelete}
         reservations={reservations}
       ></ReservationList>
+      <UpdateModal
+        reservationToEdit={reservationToEdit}
+        show={modalShowUpdate}
+        onHide={() => setModalShowUpdate(false)}
+      />
       <RemoveReservationModal
         reservationToDelete={reservationToDelete}
         show={modalShowRemove}

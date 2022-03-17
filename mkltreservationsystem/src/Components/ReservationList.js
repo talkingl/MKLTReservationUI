@@ -18,8 +18,8 @@ function ReservationList({
         <thead>
           <tr>
             <th>Reservation ID</th>
-            <th>Customer ID</th>
-            <th>Employee ID</th>
+            <th>Customer</th>
+            <th>Employee</th>
             <th>Check-In Date</th>
             <th>Stay Length(days)</th>
             <th>Special Request(s)</th>

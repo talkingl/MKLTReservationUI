@@ -475,7 +475,7 @@ app.post("/createreservation", function (req, res) {
 
 //displays reservations
 app.get("/displayreservations", function (req, res) {
-  query = "SELECT * FROM Reservations";
+  query = "SELECT res.reservationID, cus.firstName AS cusFName, cus.lastName AS cusLName, emp.firstName AS empFName, emp.lastName AS empLName, res.checkInDate, res.stayLength, res.specialRequests FROM Customers AS cus INNER JOIN Reservations AS res ON res.customerID = cus.customerID INNER JOIN Employees AS emp ON res.employeeID = emp.employeeID";
   db.pool.query(query, (err, result) => {
     if(err){
       console.log(JSON.stringify(err));

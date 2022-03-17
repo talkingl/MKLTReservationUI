@@ -14,12 +14,11 @@ function Reservation({
   return (
     <tr>
       <td>{reservation.reservationID}</td>
-      <td>{reservation.customerID}</td>
-      <td>{reservation.employeeID}</td>
+      <td>{reservation.cusFName} {reservation.cusLName}</td>
+      <td>{reservation.empFName} {reservation.empLName}</td>
       <td>{(new Date(reservation.checkInDate)).toLocaleDateString()}</td>
       <td>{reservation.stayLength}</td>
       <td>{reservation.specialRequests}</td>
-
       <td>
         <MdEdit
           onClick={() => {
