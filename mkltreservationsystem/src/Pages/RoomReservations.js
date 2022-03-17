@@ -104,16 +104,9 @@ function RoomsReservations() {
         <Modal.Body>
           <h4>Choose a Reservation</h4>
           <select onChange={(e) => setReservationID(e.target.value)}>
-<<<<<<< HEAD
             {reservationList?.map((item) => {
               return (
                 <option
-=======
-              {reservationList?.map((item)=>{
-                return (
-                  <option
-                  key={item}
->>>>>>> 887a3e9901df12a44b95c25ac55fc67f4d162b93
                   value={item.reservationID}
                   selected={item.reservationID === reservationID}
                 >
@@ -125,7 +118,6 @@ function RoomsReservations() {
           </select>
           <h4>Choose a Room to Add</h4>
           <select onChange={(e) => setRoomID(e.target.value)}>
-<<<<<<< HEAD
             {roomList?.map((item) => {
               return (
                 <option value={item.roomID} selected={item.roomID === roomID}>
@@ -133,18 +125,6 @@ function RoomsReservations() {
                 </option>
               );
             })}
-=======
-              {roomList?.map((item)=>{
-                return (
-                  <option
-                  key={item}
-                  value={item.roomID}
-                  selected={item.roomID === roomID}>
-                    Room #{item.roomNumber} {item.roomType}
-                  </option>
-                )
-              })}
->>>>>>> 887a3e9901df12a44b95c25ac55fc67f4d162b93
           </select>
         </Modal.Body>
         <Modal.Footer>
