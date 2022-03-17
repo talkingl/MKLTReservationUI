@@ -6,33 +6,6 @@ import React from "react";
 import ReservationList from "../Components/ReservationList";
 import { useEffect, useState } from "react";
 
-function SearchModal(props) {
-  return (
-    <Modal
-      {...props}
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Search Reservations
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <h2>
-          Enter a customer name or room number to search for a Reservation
-        </h2>
-        <h4>Customer Name</h4>
-        <input type="text"></input>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button onClick={props.onHide}>Search</Button>
-      </Modal.Footer>
-    </Modal>
-  );
-}
-
 function Reservations() {
   const [modalShowAdd, setModalShowAdd] = React.useState(false);
   const [modalShowRemove, setModalShowRemove] = React.useState(false);
@@ -45,35 +18,73 @@ function Reservations() {
 
   const [customerList, setCustomerList] = useState();
 
-  const loadCustomerList = async () =>{
-      const response = await fetch('http://localhost:9100/listcustomers', {
-          headers: {
-              'Content-Type': 'application/json',
-          }
-      });
-      const customers = await response.json();
-      setCustomerList(customers);
+  function SearchModal(props) {
+    const [customerSearch, setCustomerSearch] = useState();
+    const [reservationSearch, setReservationSearch] = useState();
+
+    return (
+      <Modal
+        {...props}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            Search Reservations
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <h2>
+            Enter a customer name or room number to search for a Reservation
+          </h2>
+          <h4>Customer ID</h4>
+          <input
+            type="text"
+            value={customerSearch}
+            onChange={(e) => setCustomerSearch(e.target.value)}
+          ></input>
+          <h4>Reservation ID</h4>
+          <input
+            type="text"
+            value={reservationSearch}
+            onChange={(e) => setReservationSearch(e.target.value)}
+          ></input>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={props.onHide}>Search</Button>
+        </Modal.Footer>
+      </Modal>
+    );
   }
+  const loadCustomerList = async () => {
+    const response = await fetch("http://localhost:9100/listcustomers", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const customers = await response.json();
+    setCustomerList(customers);
+  };
   useEffect(() => {
     loadCustomerList();
   }, []);
 
   const [employeeList, setEmployeeList] = useState();
 
-  const loadEmployeeList = async () =>{
-      const response = await fetch('http://localhost:9100/listemployees', {
-          headers: {
-              'Content-Type': 'application/json',
-              'Accept': 'application/json'
-          }
-      });
-      const employees = await response.json();
-      setEmployeeList(employees);
-  }
+  const loadEmployeeList = async () => {
+    const response = await fetch("http://localhost:9100/listemployees", {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    });
+    const employees = await response.json();
+    setEmployeeList(employees);
+  };
   useEffect(() => {
     loadEmployeeList();
   }, []);
-
 
   function AddModal(props) {
     const [customerID, setCustomerID] = useState();
@@ -95,16 +106,13 @@ function Reservations() {
       console.log(data);
 
       // On submit of the form, send a POST request with the data to the server.
-      const response = await fetch(
-        "http://localhost:9100/createreservation",
-        {
-          method: "POST",
-          body: JSON.stringify(data),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch("http://localhost:9100/createreservation", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       if (response.status === 200 || response.status === 201) {
         alert("Successfully added the Reservation!");
         loadReservations();
@@ -128,27 +136,29 @@ function Reservations() {
         <Modal.Body>
           <h4>Customer</h4>
           <select onChange={(e) => setCustomerID(e.target.value)}>
-              {customerList?.map((item)=>{
-                return (
-                  <option
+            {customerList?.map((item) => {
+              return (
+                <option
                   value={item.customerID}
-                  selected={item.customerID === customerID}>
-                    {item.firstName} {item.lastName}
-                  </option>
-                )
-              })}
+                  selected={item.customerID === customerID}
+                >
+                  {item.firstName} {item.lastName}
+                </option>
+              );
+            })}
           </select>
           <h4>Employee</h4>
           <select onChange={(e) => setEmployeeID(e.target.value)}>
-              {employeeList?.map((item)=>{
-                return (
-                  <option
+            {employeeList?.map((item) => {
+              return (
+                <option
                   value={item.employeeID}
-                  selected={item.employeeID === employeeID}>
-                    {item.firstName} {item.lastName}
-                  </option>
-                )
-              })}
+                  selected={item.employeeID === employeeID}
+                >
+                  {item.firstName} {item.lastName}
+                </option>
+              );
+            })}
           </select>
           <h4>checkInDate</h4>
           <input
@@ -184,9 +194,7 @@ function Reservations() {
   }
 
   const loadReservations = async () => {
-    const response = await fetch(
-      "http://localhost:9100/displayreservations"
-    );
+    const response = await fetch("http://localhost:9100/displayreservations");
     const reservations = await response.json();
     setReservation(reservations);
   };
@@ -218,7 +226,10 @@ function Reservations() {
       employeeID1 = props.reservationToEdit.employeeID;
       customerID1 = props.reservationToEdit.customerID;
       reservationID1 = props.reservationToEdit.reservationID;
-      checkInDate1 = (props.reservationToEdit.checkInDate !== undefined ? props.reservationToEdit.checkInDate.split('T')[0] : props.reservationToEdit.checkInDate);
+      checkInDate1 =
+        props.reservationToEdit.checkInDate !== undefined
+          ? props.reservationToEdit.checkInDate.split("T")[0]
+          : props.reservationToEdit.checkInDate;
       stayLength1 = props.reservationToEdit.stayLength;
       specialRequests1 = props.reservationToEdit.specialRequests;
     }
@@ -270,15 +281,16 @@ function Reservations() {
           <h4>Customer</h4>
           <input value={customerID1} className="greyedOut"></input>
           <select onChange={(e) => setCustomerID(e.target.value)}>
-              {customerList?.map((item)=>{
-                return (
-                  <option
+            {customerList?.map((item) => {
+              return (
+                <option
                   value={item.customerID}
-                  selected={item.customerID === customerID}>
-                    {item.firstName} {item.lastName}
-                  </option>
-                )
-              })}
+                  selected={item.customerID === customerID}
+                >
+                  {item.firstName} {item.lastName}
+                </option>
+              );
+            })}
           </select>
           <input
             type="checkbox"
@@ -298,15 +310,16 @@ function Reservations() {
           <h4>Employee</h4>
           <input value={employeeID1} className="greyedOut"></input>
           <select onChange={(e) => setEmployeeID(e.target.value)}>
-              {employeeList?.map((item)=>{
-                return (
-                  <option
+            {employeeList?.map((item) => {
+              return (
+                <option
                   value={item.employeeID}
-                  selected={item.employeeID === employeeID}>
-                    {item.firstName} {item.lastName}
-                  </option>
-                )
-              })}
+                  selected={item.employeeID === employeeID}
+                >
+                  {item.firstName} {item.lastName}
+                </option>
+              );
+            })}
           </select>
 
           <input
@@ -431,16 +444,13 @@ function Reservations() {
         reservationID: reservationID,
       };
 
-      const response = await fetch(
-        "http://localhost:9100/deletereservation",
-        {
-          method: "DELETE",
-          body: JSON.stringify(data),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch("http://localhost:9100/deletereservation", {
+        method: "DELETE",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       if (response.status === 200 || response.status === 201) {
         alert("Successfully deleted the Reservation!");
         console.log(props);
