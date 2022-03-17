@@ -100,7 +100,20 @@ app.get("/displayrooms", function (req, res) {
   });
 });
 
-// displays rooms with Id
+// search rooms by floor & Type
+app.get("/displayrooms/:filter/:keyword", function (req, res) {
+  query = "SELECT * FROM Rooms";
+  db.pool.query(query, (err, result) => {
+    if(err){
+      console.log(JSON.stringify(err));
+      res.write(JSON.stringify(err));
+    } else{
+      console.log(result);
+      res.send(result);
+    }
+  });
+});
+
 
 // updates rooms
 app.put("/updaterooms", function (req, res) {
@@ -155,6 +168,35 @@ app.get("/displayemployees", function (req, res) {
     }
   });
 });
+
+// search employees by ID
+app.get("/displayemployees/:id", function (req, res) {
+  query = "SELECT * FROM Employees";
+  db.pool.query(query, (err, result) => {
+    if(err){
+      console.log(JSON.stringify(err));
+      res.write(JSON.stringify(err));
+    } else{
+      console.log(result);
+      res.send(result);
+    }
+  });
+});
+
+// search employees by name
+app.get("/displayemployees/:filter/:keyword", function (req, res) {
+  query = "SELECT * FROM Employees";
+  db.pool.query(query, (err, result) => {
+    if(err){
+      console.log(JSON.stringify(err));
+      res.write(JSON.stringify(err));
+    } else{
+      console.log(result);
+      res.send(result);
+    }
+  });
+});
+
 //updates employee
 app.put("/updateemployees", function (req, res) {
   let inserts = [
@@ -229,6 +271,37 @@ app.get("/displaycustomers", function (req, res) {
     }
   });
 });
+
+// search customers by ID
+app.get("/displaycustomers/:id", function (req, res) {
+  query =
+    "SELECT customerID, firstName, lastName, emailAddress, phoneNumber FROM Customers";
+  db.pool.query(query, (err, result) => {
+    if(err){
+      console.log(JSON.stringify(err));
+      res.write(JSON.stringify(err));
+    } else{
+      console.log(result);
+      res.send(result);
+    }
+  });
+});
+
+// search customers by name
+app.get("/displaycustomers/:filter/:keyword", function (req, res) {
+  query =
+    "SELECT customerID, firstName, lastName, emailAddress, phoneNumber FROM Customers";
+  db.pool.query(query, (err, result) => {
+    if(err){
+      console.log(JSON.stringify(err));
+      res.write(JSON.stringify(err));
+    } else{
+      console.log(result);
+      res.send(result);
+    }
+  });
+});
+
 //creates a customer
 app.post("/createcustomer", function (req, res) {
   console.log(req.body);
@@ -300,6 +373,21 @@ app.get("/displayinvoices", function (req, res) {
     }
   });
 });
+
+// search invoices
+app.get("/displayinvoices/:filter/:date/:keyword", function (req, res) {
+  query = "SELECT * FROM Invoices";
+  db.pool.query(query, (err, result) => {
+    if(err){
+      console.log(JSON.stringify(err));
+      res.write(JSON.stringify(err));
+    } else{
+      console.log(result);
+      res.send(result);
+    }
+  });
+});
+
 //creates an invoice
 app.post("/createinvoice", function (req, res) {
   console.log(req.body);
@@ -387,6 +475,20 @@ app.post("/createreservation", function (req, res) {
 
 //displays reservations
 app.get("/displayreservations", function (req, res) {
+  query = "SELECT * FROM Reservations";
+  db.pool.query(query, (err, result) => {
+    if(err){
+      console.log(JSON.stringify(err));
+      res.write(JSON.stringify(err));
+    } else{
+      console.log(result);
+      res.send(result);
+    }
+  });
+});
+
+// search reservations
+app.get("/displayreservations/:filter/:keyword", function (req, res) {
   query = "SELECT * FROM Reservations";
   db.pool.query(query, (err, result) => {
     if(err){

@@ -25,8 +25,6 @@ function SearchModal(props) {
         </h2>
         <h4>Customer Name</h4>
         <input type="text"></input>
-        <h4>Room Number</h4>
-        <input type="number"></input>
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={props.onHide}>Search</Button>
