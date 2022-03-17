@@ -9,17 +9,6 @@ import { Modal, Button } from "react-bootstrap";
 
 function RR({ onEditCheckIn, onEditCheckOut, roomReservation }) {
   console.log(roomReservation);
-  const toggle = () => {
-    if (roomReservation.checkedOut == 1) {
-      return (
-        <AiFillCheckCircle onClick={() => onEditCheckOut(roomReservation)} />
-      );
-    } else {
-      return (
-        <AiOutlineCheckCircle onClick={() => onEditCheckOut(roomReservation)} />
-      );
-    }
-  };
   return (
     <tr>
       <td>{roomReservation.roomNumber}</td>

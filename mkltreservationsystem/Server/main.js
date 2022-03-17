@@ -101,7 +101,7 @@ app.get("/displayrooms", function (req, res) {
 });
 
 // Search rooms by floor
-app.get("/displayrooms/:filter/:keyword", function (req, res) {
+app.get("/displayroomsbyfloor/:filter/:keyword", function (req, res) {
   query = "SELECT * FROM Rooms WHERE roomFloor = '"+req.params.keyword+"'";
   db.pool.query(query, (err, result) => {
     if(err){
