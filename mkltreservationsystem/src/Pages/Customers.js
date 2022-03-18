@@ -184,8 +184,8 @@ function Customers() {
     const [customerID, setCustomerID] = useState(0);
     const [firstName, setFirstName] = useState(0);
     const [lastName, setLastName] = useState(0);
-    const [emailAddress, setEmailAddress] = useState(0);
-    const [phoneNumber, setPhoneNumber] = useState(0);
+    const [emailAddress, setEmailAddress] = useState("");
+    const [phoneNumber, setPhoneNumber] = useState("");
     const [checkedFirstName, setCheckedFirstName] = useState(false);
     const [checkedLastName, setCheckedLastName] = useState(false);
     const [checkedEmailAddress, setCheckedEmailAddress] = useState(false);

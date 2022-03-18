@@ -70,11 +70,14 @@ function Reservations() {
   }
 
   const loadCustomerList = async () => {
-    const response = await fetch("http://flip2.engr.oregonstate.edu:9100/listcustomers", {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await fetch(
+      "http://flip2.engr.oregonstate.edu:9100/listcustomers",
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     const customers = await response.json();
     setCustomerList(customers);
   };
@@ -84,12 +87,15 @@ function Reservations() {
 
   const [employeeList, setEmployeeList] = useState();
   const loadEmployeeList = async () => {
-    const response = await fetch("http://flip2.engr.oregonstate.edu:9100/listemployees", {
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    });
+    const response = await fetch(
+      "http://flip2.engr.oregonstate.edu:9100/listemployees",
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      }
+    );
     const employees = await response.json();
     setEmployeeList(employees);
   };
@@ -220,7 +226,9 @@ function Reservations() {
   }
 
   const loadReservations = async () => {
-    const response = await fetch("http://flip2.engr.oregonstate.edu:9100/displayreservations");
+    const response = await fetch(
+      "http://flip2.engr.oregonstate.edu:9100/displayreservations"
+    );
     const reservations = await response.json();
     setReservation(reservations);
   };
@@ -234,7 +242,7 @@ function Reservations() {
     const [reservationID, setReservationID] = useState(0);
     const [checkInDate, setCheckInDate] = useState(0);
     const [stayLength, setStayLength] = useState(0);
-    const [specialRequests, setSpecialRequests] = useState(0);
+    const [specialRequests, setSpecialRequests] = useState("");
     const [checkedEmployeeID, setCheckedEmployeeID] = useState(false);
     const [checkedCustomerID, setCheckedCustomerID] = useState(false);
     const [checkedCheckInDate, setCheckedCheckInDate] = useState(false);
@@ -272,13 +280,16 @@ function Reservations() {
         stayLength: stayLength,
         specialRequests: specialRequests,
       };
-      const response = await fetch("http://flip2.engr.oregonstate.edu:9100/updatereservation", {
-        method: "PUT",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        "http://flip2.engr.oregonstate.edu:9100/updatereservation",
+        {
+          method: "PUT",
+          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       if (response.status === 200 || response.status === 201) {
         alert("Successfully updated the Reservation!");
         loadReservations();
@@ -470,13 +481,16 @@ function Reservations() {
         reservationID: reservationID,
       };
 
-      const response = await fetch("http://flip2.engr.oregonstate.edu:9100/deletereservation", {
-        method: "DELETE",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        "http://flip2.engr.oregonstate.edu:9100/deletereservation",
+        {
+          method: "DELETE",
+          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       if (response.status === 200 || response.status === 201) {
         alert("Successfully deleted the Reservation!");
         loadReservations();

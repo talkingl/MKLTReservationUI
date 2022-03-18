@@ -50,7 +50,7 @@ function Invoices() {
     const [invoiceID, setInvoiceID] = useState(0);
     const [reservationID, setReservationID] = useState(0);
     const [invoiceAmount, setInvoiceAmount] = useState(0);
-    const [creditCard, setCreditCard] = useState(0);
+    const [creditCard, setCreditCard] = useState("");
     const [dueDate, setDueDate] = useState(0);
     const [invoicePaid, setInvoicePaid] = useState(0);
     const [checkedReservationID, setCheckedReservationID] = useState(false);
