@@ -68,7 +68,9 @@ function Invoices() {
       reservationID1 = props.invoiceToEdit.reservationID;
       invoiceAmount1 = props.invoiceToEdit.invoiceAmount;
       creditCard1 = props.invoiceToEdit.creditCard;
-      dueDate1 = props.invoiceToEdit.dueDate;
+      dueDate1 = props.invoiceToEdit.dueDate !== undefined
+        ? props.invoiceToEdit.dueDate.split("T")[0]
+        : props.invoiceToEdit.dueDate;
       invoicePaid1 = props.invoiceToEdit.invoicePaid;
     }
     const submitButton = async (e) => {
