@@ -181,6 +181,7 @@ function Invoices() {
           <input value={invoicePaid1} className="greyedOut"></input>
 
           <select onChange={(e) => setInvoicePaid(e.target.value)}>
+            <option value="0"></option>
             <option value="0">No</option>
             <option value="1">Yes</option>
           </select>
@@ -352,7 +353,7 @@ function Invoices() {
       } else {
         props.onHide();
         e.preventDefault();
-        
+
         let data = {
           reservationID: reservationID,
           invoiceAmount: invoiceAmount,
@@ -394,6 +395,7 @@ function Invoices() {
         <Modal.Body>
           <h4>Choose a Reservation</h4>
           <select onChange={(e) => setReservationID(e.target.value)}>
+            <option value="0"></option>
             {reservationList?.map((item) => {
               return (
                 <option
@@ -430,6 +432,7 @@ function Invoices() {
             value={invoicePaid}
             onChange={(e) => setInvoicePaid(e.target.value)}
           >
+            <option value="0"></option>
             <option value="0">No</option>
             <option value="1">Yes</option>
           </select>
