@@ -1,29 +1,8 @@
--- These are some Database Manipulation queries for a partially implemented Project Website
--- using the bsg database.
--- Your submission should contain ALL the queries required to implement ALL the
--- functionalities listed in the Project Specs.
+-- Database Manipulation queries for our Hotel MKLT Project Website
 
---Select alls for each of the tables to display
-SELECT * from Employees;
-
-SELECT * from Customers;
-
-SELECT * from Rooms;
-
-SELECT * from Invoices;
-
-SELECT res.customerID, res.employeeID, res.checkInDate, res.stayLength,
-  room.roomNumber, res.checkedIn, res.checkedOut, res.specialRequest
-FROM Reservations AS res
-INNER JOIN RoomReservations AS rr ON res.reservationID = rr.reservationID
-INNER JOIN Rooms AS room ON rr.roomID = room.roomID;
-
-SELECT room.roomNumber, concat(cust.firstName, ' ', cust.lastName), res.checkInDate
-FROM Customers AS cust
-INNER JOIN Reservations AS res ON cust.customerID = res.customerID
-INNER JOIN RoomReservations AS rr ON res.reservationID = rr.reservationID
-INNER JOIN Rooms AS room ON rr.roomID = room.roomID;
-
+--
+--CREATE
+--
 -- inserts into tables
 INSERT INTO Employees (firstName, lastName, shiftWorked, payRate)
 VALUES (:firstNameInput, :lastNameInput, :shiftWorkedInput, :payRateInput);
@@ -39,70 +18,134 @@ VALUES (:reservationIDInput, :invoiceAmountInput, :creditCardInput,
     :dueDateInput, :invoicePaidInput);
 
 INSERT INTO Reservations (customerID, employeeID, checkInDate, stayLength,
-  specialRequests, checkedIn, checkedOut) VALUES (:customerIDInput,
-  :employeeIDInput, :checkedInInput, :stayLengthInput,
-  :specialRequestsInput, :checkedInInput,  :checkedOutInput);
+specialRequests) VALUES (:customerIDInput,:employeeIDInput,
+    :checkInDateInput, :stayLengthInput, :specialRequestsInput);
 
---
--- This needs to be linked to the above Reservations insert function...
---
-INSERT INTO RoomsReservations (roomID, reservationID )
+INSERT INTO RoomReservations (roomID, reservationID )
 VALUES (:roomIDInput, :reservationIDInput);
 
--- updates for each table
+--
+--READ
+--
+--Select alls for each of the tables to display
+SELECT * from Employees;
+
+SELECT * from Customers;
+
+SELECT * from Rooms;
+
+SELECT * from Invoices;
+
+SELECT res.customerID, res.employeeID, res.checkInDate, res.stayLength,
+  room.roomNumber, rr.checkedIn, rr.checkedOut, res.specialRequests
+FROM Reservations AS res
+INNER JOIN RoomReservations AS rr ON res.reservationID = rr.reservationID
+INNER JOIN Rooms AS room ON rr.roomID = room.roomID;
+
+SELECT room.roomNumber, concat(cust.firstName, ' ', cust.lastName) AS custName, res.checkInDate
+FROM Customers AS cust
+INNER JOIN Reservations AS res ON cust.customerID = res.customerID
+INNER JOIN RoomReservations AS rr ON res.reservationID = rr.reservationID
+INNER JOIN Rooms AS room ON rr.roomID = room.roomID;
+
+--search functionality
+SELECT * FROM Rooms
+WHERE roomFloor = '%:searchQuery%';
+
+SELECT * FROM Rooms
+WHERE roomType LIKE '%:searchQuery%';
+
+SELECT * FROM Employees
+WHERE employeeID = '%:searchQuery%';
+
+SELECT * FROM Employees
+WHERE firstName LIKE '%:searchQuery%' OR lastName LIKE '%:searchQuery%';
+
+SELECT customerID, firstName, lastName, emailAddress, phoneNumber FROM Customers
+WHERE customerID = '%:searchQuery%';
+
+SELECT customerID, firstName, lastName, emailAddress, phoneNumber FROM Customers
+WHERE firstName LIKE '%:searchQuery%' OR lastName LIKE '%:searchQuery%';
+
+SELECT * FROM Invoices
+WHERE dueDate = '%:searchQuery%';
+
+SELECT res.reservationID, cus.firstName AS cusFName, cus.lastName AS cusLName,
+  emp.firstName AS empFName, emp.lastName AS empLName, res.checkInDate,
+  res.stayLength, res.specialRequests
+FROM Customers AS cus
+INNER JOIN Reservations AS res ON res.customerID = cus.customerID
+INNER JOIN Employees AS emp ON res.employeeID = emp.employeeID
+WHERE cus.firstName LIKE '%:searchQuery%' OR cus.lastName LIKE '%:searchQuery%';
+
+SELECT room.roomID, room.roomNumber,
+  concat(cust.firstName, ' ', cust.lastName) AS customerName, res.checkInDate,
+  res.reservationID, rr.checkedIn, rr.checkedOut
+FROM Customers AS cust
+INNER JOIN Reservations AS res ON cust.customerID = res.customerID
+INNER JOIN RoomReservations AS rr ON res.reservationID = rr.reservationID
+INNER JOIN Rooms AS room ON rr.roomID = room.roomID
+WHERE res.checkInDate = '%:searchQuery%';
+
+--dropdowns read queries
+SELECT customerID, firstName, lastName FROM Customers;
+SELECT employeeID, firstName, lastName FROM Employees;
+SELECT roomID, roomNumber, roomType FROM Rooms;
+SELECT res.reservationID, cust.firstName, cust.lastName,
+  DATE_FORMAT(res.checkInDate,'%m/%d/%Y') AS checkInDate
+  FROM Reservations AS res
+  INNER JOIN Customers AS cust
+  ON cust.customerID = res.customerID;
+
+--
+--UPDATE
+--
 UPDATE Employees SET firstName = :firstNameInput, lastName= :lastNameInput,
   shiftWorked = :shiftWorkedInput, payRate= :payRateInput
-WHERE id= :employeeIDInput;
+WHERE employeeID= :employeeIDInput;
 
 UPDATE Customers
 SET firstName = :firstNameInput, lastName= :lastNameInput,
   emailAddress = :emailAddressInput, phoneNumber= :phoneNumberInput
-WHERE id= :customerIDInput;
+WHERE customerID= :customerIDInput;
 
 UPDATE Rooms
 SET roomFloor = :roomFloorInput, roomNumber= :roomNumberInput,
   roomType = :roomTypeInput, roomPrice= :roomPriceInput
-WHERE id= :roomIDInput;
+WHERE roomID= :roomIDInput;
 
 UPDATE Invoices
 SET reservationID = :reservationIDInput, invoiceAmount= :invoiceAmountInput,
   creditCard = :creditCardInput, dueDate = :dueDateInput,
   invoicePaid = :invoicePaidInput
-WHERE id= :invoiceIDInput;
+WHERE invoiceID= :invoiceIDInput;
 
 UPDATE Reservations
 SET customerID = :customerIDInput, employeeID= :employeeIDInput,
   checkInDate = :checkInDateInput, stayLength= :stayLengthInput,
-  specialRequests= :specialRequestsInput, checkedIn= :checkedInInput,
-  checkedOut= :checkedOutInput
-WHERE id= :reservationIDInput;
--- need to incorporate changes to RoomReservations here also^^
+  specialRequests= :specialRequestsInput
+WHERE reservationID= :reservationIDInput;
 
--- Below are updates based on the Guest Check In/Out Page, figure out how to link them back
-UPDATE Reservations
+UPDATE RoomReservations
 SET checkedIn= :checkedInInput
-WHERE id= :reservationIDInput;
+WHERE roomID= :roomIDInput AND reservationID= :reservationIDInput;
 
-UPDATE Reservations
+UPDATE RoomReservations
 SET checkedOut= :checkedOutInput
-WHERE id= :reservationIDInput;
+WHERE roomID= :roomIDInput AND reservationID= :reservationIDInput;
 
---delete each table
-DELETE FROM Employees WHERE id = :employeeID_from_form;
+--
+--DELETE
+--
+DELETE FROM Employees WHERE employeeID = :employeeID_from_form;
 
-DELETE FROM Customers WHERE id = :customerID_from_form;
+DELETE FROM Customers WHERE customerID = :customerID_from_form;
 
-DELETE FROM Rooms WHERE id = :roomID_from_form;
+DELETE FROM Rooms WHERE roomID = :roomID_from_form;
 
-DELETE FROM Invoices WHERE id = :invoiceID_from_form;
+DELETE FROM Invoices WHERE invoiceID = :invoiceID_from_form;
 
-DELETE FROM Reservations WHERE id = :reservationID_from_form;
--- also need to delete RoomReservations related to this reservationID
+DELETE FROM Reservations WHERE reservationID = :reservationID_from_form;
+
 DELETE FROM RoomReservations
-WHERE resID = :reservationID_from_form AND roomID = :roomID_from_form;
-
-
---search functionality
-SELECT *
-FROM :tableName
-WHERE :columnName LIKE '%:searchQuery%';
+WHERE reservationID = :reservationID_from_form AND roomID = :roomID_from_form;

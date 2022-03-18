@@ -103,6 +103,7 @@ function RoomsReservations() {
         <Modal.Body>
           <h4>Choose a Reservation</h4>
           <select onChange={(e) => setReservationID(e.target.value)}>
+            <option value="0"></option>
             {reservationList?.map((item) => {
               return (
                 <option
@@ -117,6 +118,7 @@ function RoomsReservations() {
           </select>
           <h4>Choose a Room to Add</h4>
           <select onChange={(e) => setRoomID(e.target.value)}>
+            <option value="0"></option>
             {roomList?.map((item) => {
               return (
                 <option value={item.roomID} selected={item.roomID === roomID}>

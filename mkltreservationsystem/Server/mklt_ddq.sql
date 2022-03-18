@@ -1,9 +1,16 @@
 -- Data Definition Queries & Sample Data
 
+DROP TABLE IF EXISTS `RoomReservations`;
+DROP TABLE IF EXISTS `Invoices`;
+DROP TABLE IF EXISTS `Reservations`;
+DROP TABLE IF EXISTS `Employees`;
+DROP TABLE IF EXISTS `Customers`;
+DROP TABLE IF EXISTS `Rooms`;
+
+
 --
 -- Table structure for table `Employees`
 --
-DROP TABLE IF EXISTS `Employees`;
 CREATE TABLE `Employees` (
   `employeeID` int(11) NOT NULL AUTO_INCREMENT,
   `firstName`varchar(255) NOT NULL,
@@ -24,7 +31,6 @@ UNLOCK TABLES;
 --
 -- Table structure for table `Customers`
 --
-DROP TABLE IF EXISTS `Customers`;
 CREATE TABLE `Customers` (
   `customerID` int(11) NOT NULL AUTO_INCREMENT,
   `firstName` varchar(255) NOT NULL,
@@ -49,7 +55,6 @@ UNLOCK TABLES;
 --
 -- Table structure for table `Rooms`
 --
-DROP TABLE IF EXISTS `Rooms`;
 CREATE TABLE `Rooms` (
   `roomID` int(11) NOT NULL AUTO_INCREMENT,
   `roomFloor` int(11) NOT NULL,
@@ -74,7 +79,6 @@ UNLOCK TABLES;
 --
 -- Table structure for table `Reservations`
 --
-DROP TABLE IF EXISTS `Reservations`;
 CREATE TABLE `Reservations` (
   `reservationID` int(11) NOT NULL AUTO_INCREMENT,
   `customerID` int(11) NOT NULL,
@@ -103,7 +107,6 @@ UNLOCK TABLES;
 --
 -- Table structure for table `RoomReservations`
 --
-DROP TABLE IF EXISTS `RoomReservations`;
 CREATE TABLE `RoomReservations` (
   `roomID` int(11) NOT NULL DEFAULT '0',
   `reservationID` int(11) NOT NULL DEFAULT '0',
@@ -122,13 +125,14 @@ CREATE TABLE `RoomReservations` (
 -- Dumping data for table `RoomReservations`
 --
 LOCK TABLES `RoomReservations` WRITE;
-INSERT INTO `RoomReservations` VALUES (2,1), (3,1), (8,2), (6,3), (4,4);
+INSERT INTO `RoomReservations` VALUES (2,1,false,false),
+(3,1,false,false), (8,2,false,false),
+(6,3,false,false), (4,4,false,false);
 UNLOCK TABLES;
 
 --
 -- Table structure for table `Invoices`
 --
-DROP TABLE IF EXISTS `Invoices`;
 CREATE TABLE `Invoices` (
   `invoiceID` int(11) NOT NULL AUTO_INCREMENT,
   `reservationID` int(11) NOT NULL,
