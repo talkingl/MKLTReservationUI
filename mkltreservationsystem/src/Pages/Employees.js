@@ -87,23 +87,12 @@ function Employees() {
 
     const submitButton = async (e) => {
       e.preventDefault();
-      if (
-        firstName === undefined ||
-        lastName === undefined ||
-        shiftWorked === undefined ||
-        payRate == undefined
-      ) {
+      if (firstName === undefined || lastName === undefined) {
         if (firstName === undefined) {
           alert("invalid entry, please correct the first name");
         }
         if (lastName === undefined) {
           alert("invalid entry, please correct the last name");
-        }
-        if (shiftWorked === undefined) {
-          alert("invalid entry, please correct the shiftWorked ");
-        }
-        if (payRate === undefined) {
-          alert("invalid entry, please correct the payRate");
         }
       } else {
         props.onHide();
@@ -193,7 +182,7 @@ function Employees() {
     const [firstName, setFirstName] = useState(0);
     const [lastName, setLastName] = useState(0);
     const [shiftWorked, setShiftWorked] = useState(0);
-    const [payRate, setPayRate] = useState(0);
+    const [payRate, setPayRate] = useState("");
     const [checkedFirstName, setCheckedFirstName] = useState(false);
     const [checkedLastName, setCheckedLastName] = useState(false);
     const [checkedShiftWorked, setCheckedShiftWorked] = useState(false);
@@ -201,8 +190,8 @@ function Employees() {
     let employeeID1 = 0;
     let firstName1 = 0;
     let lastName1 = 0;
-    let shiftWorked1 = 0;
-    let payRate1 = 0;
+    let shiftWorked1 = undefined;
+    let payRate1 = undefined;
 
     if (props.employeeToEdit) {
       employeeID1 = props.employeeToEdit.employeeID;
@@ -223,13 +212,16 @@ function Employees() {
         shiftWorked: shiftWorked,
         payRate: payRate,
       };
-      const response = await fetch("http://flip2.engr.oregonstate.edu:9100/updateemployees", {
-        method: "PUT",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        "http://flip2.engr.oregonstate.edu:9100/updateemployees",
+        {
+          method: "PUT",
+          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       if (response.status === 200 || response.status === 201) {
         alert("Successfully updated the Employee!");
         loadEmployees();
@@ -304,6 +296,7 @@ function Employees() {
           <input value={shiftWorked1} className="greyedOut"></input>
 
           <select onChange={(e) => setShiftWorked(e.target.value)}>
+            <option value="0"> </option>
             <option value="1">First Shift</option>
             <option value="2">Second Shift</option>
             <option value="3">Third Shift</option>
