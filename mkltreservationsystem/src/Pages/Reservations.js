@@ -158,6 +158,7 @@ function Reservations() {
         <Modal.Body>
           <h4>Customer</h4>
           <select onChange={(e) => setCustomerID(e.target.value)}>
+            <option value="0"></option>
             {customerList?.map((item) => {
               return (
                 <option
@@ -172,6 +173,7 @@ function Reservations() {
           </select>
           <h4>Employee</h4>
           <select onChange={(e) => setEmployeeID(e.target.value)}>
+            <option value="0"></option>
             {employeeList?.map((item) => {
               return (
                 <option
@@ -303,6 +305,7 @@ function Reservations() {
           <h4>Customer</h4>
           <input value={customerID1} className="greyedOut"></input>
           <select onChange={(e) => setCustomerID(e.target.value)}>
+            <option value="0"></option>
             {customerList?.map((item) => {
               return (
                 <option
@@ -333,6 +336,7 @@ function Reservations() {
           <h4>Employee</h4>
           <input value={employeeID1} className="greyedOut"></input>
           <select onChange={(e) => setEmployeeID(e.target.value)}>
+            <option value="0"></option>
             {employeeList?.map((item) => {
               return (
                 <option
