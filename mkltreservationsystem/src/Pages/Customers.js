@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import React from "react";
 import { useEffect, useState } from "react";
 
-
 function Customers() {
   const [customers, setCustomers] = React.useState([]);
   const [modalShowRemove, setModalShowRemove] = React.useState(false);
@@ -65,17 +64,18 @@ function Customers() {
           ></input>
         </Modal.Body>
         <Modal.Footer>
-        <Button
-          onClick={(e) => {
-            props.onHide();
-            submitButton(e);
-          }}
-        >Search</Button>
+          <Button
+            onClick={(e) => {
+              props.onHide();
+              submitButton(e);
+            }}
+          >
+            Search
+          </Button>
         </Modal.Footer>
       </Modal>
     );
   }
-
 
   function AddModal(props) {
     const [firstName, setFirstName] = useState();
@@ -87,8 +87,7 @@ function Customers() {
       if (
         firstName === undefined ||
         lastName === undefined ||
-        emailAddress === undefined ||
-        phoneNumber === undefined
+        emailAddress === undefined
       ) {
         alert("incorrect input");
         if (firstName === undefined) {
@@ -99,9 +98,6 @@ function Customers() {
         }
         if (emailAddress === undefined) {
           alert("incorrect email Address entry");
-        }
-        if (phoneNumber === undefined) {
-          alert("incorrect phone Number entry");
         }
       } else {
         props.onHide();
@@ -209,7 +205,6 @@ function Customers() {
   // };
 
   function UpdateModal(props) {
-
     const [customerID, setCustomerID] = useState(0);
     const [firstName, setFirstName] = useState(0);
     const [lastName, setLastName] = useState(0);
@@ -245,13 +240,16 @@ function Customers() {
         emailAddress: emailAddress,
         phoneNumber: phoneNumber,
       };
-      const response = await fetch("http://flip2.engr.oregonstate.edu:9100/updatecustomers", {
-        method: "PUT",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        "http://flip2.engr.oregonstate.edu:9100/updatecustomers",
+        {
+          method: "PUT",
+          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       if (response.status === 200 || response.status === 201) {
         alert("Successfully updated the Customer!");
         loadCustomers();
