@@ -44,7 +44,7 @@ app.get("/listemployees", function (req, res) {
 // for room dropdown menus
 app.get("/listrooms", function (req, res) {
   db.pool.query(
-    "SELECT roomID, roomNumber, roomType FROM Rooms",
+    "SELECT roomID, roomNumber, roomType FROM Rooms ORDER BY roomNumber",
     function (error, result, fields) {
       if (error) {
         console.log(JSON.stringify(error));
