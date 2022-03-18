@@ -17,10 +17,11 @@ function RoomsReservations() {
 
   const loadRoomReservations = async () => {
     const response = await fetch(
-      "http://localhost:9100/displayguestcheckinout"
+      "http://flip2.engr.oregonstate.edu:9100/displayguestcheckinout"
     );
     const reservations = await response.json();
     setRoomReservation(reservations);
+    
   };
   useEffect(() => {
     loadRoomReservations();

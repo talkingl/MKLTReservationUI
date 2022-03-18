@@ -180,30 +180,6 @@ function Customers() {
     setCustomerToEdit(customerToEdit);
     setModalShowUpdate(true);
   };
-  // const onEdit = async (e) => {
-
-  //   let data = {
-  //     firstName: firstName,
-  //     lastName: lastName,
-  //     emailAddress: emailAddress,
-  //     phoneNumber: phoneNumber,
-  //   };
-
-  //   // On submit of the form, send a POST request with the data to the server.
-  //   const response = await fetch("http://localhost:8000/updatecustomer", {
-  //     method: "PUT",
-  //     body: JSON.stringify(data),
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //   });
-  //   if (response.status === 200 || response.status === 201) {
-  //     alert("Successfully updated the Customer!");
-  //   } else {
-  //     alert(`Failed to add customer, status code = ${response.status}`);
-  //   }
-  // };
-
   function UpdateModal(props) {
     const [customerID, setCustomerID] = useState(0);
     const [firstName, setFirstName] = useState(0);
