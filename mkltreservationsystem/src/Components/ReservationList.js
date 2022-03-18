@@ -14,7 +14,7 @@ function ReservationList({
   return (
     <div>
       <h1> Reservations</h1>
-      <Table id="Reservations" className="borderless">
+      <Table hover variant="dark">
         <thead>
           <tr>
             <th>Reservation ID</th>

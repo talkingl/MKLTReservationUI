@@ -35,11 +35,10 @@ function Customers() {
       e.preventDefault();
 
       let data = { customerNameSearch: customerNameSearch };
-      console.log(data);
 
       // On submit of the form, send a GET request with the date to the server
       const response = await fetch(
-        `http://localhost:9100/displaycustomers/filter/${customerNameSearch}`,
+        `http://flip2.engr.oregonstate.edu:9100/displaycustomers/filter/${customerNameSearch}`,
         { headers: { "Content-Type": "application/json" } }
       );
       const customers = await response.json();
@@ -85,7 +84,6 @@ function Customers() {
     const [phoneNumber, setPhoneNumber] = useState();
     const submitButton = async (e) => {
       e.preventDefault();
-      console.log(firstName, lastName, emailAddress, phoneNumber);
       if (
         firstName === undefined ||
         lastName === undefined ||
@@ -184,11 +182,9 @@ function Customers() {
   }
   const onEdit = async (customerToEdit) => {
     setCustomerToEdit(customerToEdit);
-    console.log(customerToEdit);
     setModalShowUpdate(true);
   };
   // const onEdit = async (e) => {
-  //   console.log(firstName, lastName, emailAddress, phoneNumber);
 
   //   let data = {
   //     firstName: firstName,
@@ -213,7 +209,6 @@ function Customers() {
   // };
 
   function UpdateModal(props) {
-    console.log("this is updateModa", props);
 
     const [customerID, setCustomerID] = useState(0);
     const [firstName, setFirstName] = useState(0);
@@ -250,8 +245,7 @@ function Customers() {
         emailAddress: emailAddress,
         phoneNumber: phoneNumber,
       };
-      console.log("this is data", data);
-      const response = await fetch("http://localhost:9100/updatecustomers", {
+      const response = await fetch("http://flip2.engr.oregonstate.edu:9100/updatecustomers", {
         method: "PUT",
         body: JSON.stringify(data),
         headers: {
@@ -260,7 +254,6 @@ function Customers() {
       });
       if (response.status === 200 || response.status === 201) {
         alert("Successfully updated the Customer!");
-        console.log(props);
         loadCustomers();
       } else {
         alert(
@@ -391,13 +384,11 @@ function Customers() {
 
   const onDelete = async (customerToDelete) => {
     setCustomerToDelete(customerToDelete);
-    console.log("this is customerToDelete", customerToDelete);
     setModalShowRemove(true);
     loadCustomers();
   };
 
   function RemoveModal(props) {
-    console.log(props.customerToDelete.customerID);
     let customerID = 0;
     let firstName = 0;
     let lastName = 0;
@@ -409,7 +400,6 @@ function Customers() {
 
     const submitButton = async (e) => {
       e.preventDefault();
-      console.log(customerID);
 
       // On submit of the form, send a DELETE request with the ID to the server.
       let data = {
@@ -428,7 +418,6 @@ function Customers() {
       );
       if (response.status === 200 || response.status === 201) {
         alert("Successfully deleted the Customer!");
-        console.log(props);
         loadCustomers();
       } else {
         alert(

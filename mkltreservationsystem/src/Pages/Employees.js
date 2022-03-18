@@ -12,7 +12,7 @@ function Employees() {
   const [modalShowUpdate, setModalShowUpdate] = React.useState(false);
   const [modalShowSearch, setModalShowSearch] = React.useState(false);
   const [employees, setEmployees] = useState();
-
+  const [employeesMax, setEmployeesMax] = useState(0);
   const [employeeToEdit, setEmployeeToEdit] = useState(" ");
   const [employeeToDelete, setEmployeeToDelete] = useState(" ");
 
@@ -21,6 +21,7 @@ function Employees() {
       "http://flip2.engr.oregonstate.edu:9100/displayemployees"
     );
     const employees = await response.json();
+
     setEmployees(employees);
   };
   useEffect(() => {
@@ -34,11 +35,10 @@ function Employees() {
       e.preventDefault();
 
       let data = { employeeNameSearch: employeeNameSearch };
-      console.log(data);
 
       // On submit of the form, send a GET request with the date to the server
       const response = await fetch(
-        `http://localhost:9100/displayemployees/filter/${employeeNameSearch}`,
+        `http://flip2.engr.oregonstate.edu:9100/displayemployees/filter/${employeeNameSearch}`,
         { headers: { "Content-Type": "application/json" } }
       );
       const employees = await response.json();
@@ -67,12 +67,14 @@ function Employees() {
           ></input>
         </Modal.Body>
         <Modal.Footer>
-        <Button
-          onClick={(e) => {
-            props.onHide();
-            submitButton(e);
-          }}
-        >Search</Button>
+          <Button
+            onClick={(e) => {
+              props.onHide();
+              submitButton(e);
+            }}
+          >
+            Search
+          </Button>
         </Modal.Footer>
       </Modal>
     );
@@ -85,7 +87,6 @@ function Employees() {
 
     const submitButton = async (e) => {
       e.preventDefault();
-      console.log(firstName, lastName, shiftWorked, payRate);
       if (
         firstName === undefined ||
         lastName === undefined ||
@@ -222,8 +223,7 @@ function Employees() {
         shiftWorked: shiftWorked,
         payRate: payRate,
       };
-      console.log("this is data", data);
-      const response = await fetch("http://localhost:9100/updateemployees", {
+      const response = await fetch("http://flip2.engr.oregonstate.edu:9100/updateemployees", {
         method: "PUT",
         body: JSON.stringify(data),
         headers: {
@@ -232,7 +232,6 @@ function Employees() {
       });
       if (response.status === 200 || response.status === 201) {
         alert("Successfully updated the Employee!");
-        console.log(props);
         loadEmployees();
       } else {
         alert(
@@ -373,18 +372,15 @@ function Employees() {
   }
   const onEdit = async (employeeToEdit) => {
     setEmployeeToEdit(employeeToEdit);
-    console.log(employeeToEdit);
     setModalShowUpdate(true);
   };
   const onDelete = async (employeeToDelete) => {
     setEmployeeToDelete(employeeToDelete);
-    console.log("this is employeeToDelete", employeeToDelete);
     setModalShowRemove(true);
     loadEmployees();
   };
 
   function RemoveModal(props) {
-    console.log(props.employeeToDelete.employeeID);
     let employeeID = 0;
     let firstName = 0;
     let lastName = 0;
@@ -396,7 +392,6 @@ function Employees() {
 
     const submitButton = async (e) => {
       e.preventDefault();
-      console.log(employeeID);
 
       // On submit of the form, send a DELETE request with the ID to the server.
       let data = {
@@ -415,7 +410,6 @@ function Employees() {
       );
       if (response.status === 200 || response.status === 201) {
         alert("Successfully deleted the Employee!");
-        console.log(props);
         loadEmployees();
       } else {
         alert(

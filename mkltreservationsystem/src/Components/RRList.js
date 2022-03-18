@@ -3,11 +3,10 @@ import RR from "./RR";
 import { Table } from "react-bootstrap";
 
 function RRList({ onEditCheckIn, onEditCheckOut, roomReservations }) {
-  console.log(roomReservations);
   return (
     <div>
       <h1>Guest Check-In / Check-Out</h1>
-      <Table id="RoomsReservations" className="borderless ">
+      <Table hover variant="dark">
         <thead>
           <tr>
             <th>Room Number</th>
@@ -19,7 +18,6 @@ function RRList({ onEditCheckIn, onEditCheckOut, roomReservations }) {
           </tr>
         </thead>
         <tbody>
-          {console.log(roomReservations)}
           {roomReservations?.map((roomReservation, i) => (
             <RR
               key={i}

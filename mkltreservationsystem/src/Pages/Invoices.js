@@ -31,7 +31,7 @@ function Invoices() {
   // Reservation List for dropdowns
   const [reservationList, setReservationList] = useState();
   const loadReservationList = async () => {
-    const response = await fetch("http://localhost:9100/listreservations", {
+    const response = await fetch("http://flip2.engr.oregonstate.edu:9100/listreservations", {
       headers: {
         "Content-Type": "application/json",
       },
@@ -83,8 +83,7 @@ function Invoices() {
         dueDate: dueDate,
         invoicePaid: invoicePaid,
       };
-      console.log("this is data", data);
-      const response = await fetch("http://localhost:9100/updateinvoices", {
+      const response = await fetch("http://flip2.engr.oregonstate.edu:9100/updateinvoices", {
         method: "PUT",
         body: JSON.stringify(data),
         headers: {
@@ -93,7 +92,6 @@ function Invoices() {
       });
       if (response.status === 200 || response.status === 201) {
         alert("Successfully updated the Invoice!");
-        console.log(props);
         loadInvoices();
       } else {
         alert(`Failed to update the invoice, status code = ${response.status}`);
@@ -203,13 +201,11 @@ function Invoices() {
 
   const onDelete = async (invoiceToDelete) => {
     setInvoiceToDelete(invoiceToDelete);
-    console.log("this is invoiceToDelete", invoiceToDelete);
     setModalShowRemove(true);
     loadInvoices();
   };
 
   function RemoveInvoiceModal(props) {
-    console.log(props.invoiceToDelete.invoiceID);
     let invoiceID = 0;
     let reservationID = 0;
     let invoiceAmount = 0;
@@ -221,7 +217,6 @@ function Invoices() {
 
     const submitButton = async (e) => {
       e.preventDefault();
-      console.log(invoiceID);
 
       // On submit of the form, send a DELETE request with the ID to the server.
       let data = {
@@ -240,7 +235,6 @@ function Invoices() {
       );
       if (response.status === 200 || response.status === 201) {
         alert("Successfully deleted the Invoice!");
-        console.log(props);
         loadInvoices();
       } else {
         alert(`Failed to delete the invoice, status code = ${response.status}`);
@@ -286,11 +280,10 @@ function Invoices() {
       e.preventDefault();
 
       let data = { searchDate: searchDate };
-      console.log(data);
 
       // On submit of the form, send a GET request with the date to the server
       const response = await fetch(
-        `http://localhost:9100/displayinvoices/filter/date/${searchDate}`,
+        `http://flip2.engr.oregonstate.edu:9100/displayinvoices/filter/date/${searchDate}`,
         { headers: { "Content-Type": "application/json" } }
       );
       const invoices = await response.json();
@@ -359,14 +352,7 @@ function Invoices() {
       } else {
         props.onHide();
         e.preventDefault();
-        console.log(
-          reservationID,
-          invoiceAmount,
-          creditCard,
-          dueDate,
-          invoicePaid
-        );
-
+        
         let data = {
           reservationID: reservationID,
           invoiceAmount: invoiceAmount,
@@ -462,7 +448,6 @@ function Invoices() {
   }
   const onEdit = async (invoiceToEdit) => {
     setInvoiceToEdit(invoiceToEdit);
-    console.log(invoiceToEdit);
     setModalShowUpdate(true);
   };
 

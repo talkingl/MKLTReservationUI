@@ -24,11 +24,10 @@ function Reservations() {
       e.preventDefault();
 
       let data = { customerSearch: customerSearch };
-      console.log(data);
 
       // On submit of the form, send a GET request with the date to the server
       const response = await fetch(
-        `http://localhost:9100/displayreservations/filter/${customerSearch}`,
+        `http://flip2.engr.oregonstate.edu:9100/displayreservations/filter/${customerSearch}`,
         { headers: { "Content-Type": "application/json" } }
       );
       const reservations = await response.json();
@@ -48,9 +47,7 @@ function Reservations() {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h2>
-            Enter a customer name to search for a Reservation
-          </h2>
+          <h2>Enter a customer name to search for a Reservation</h2>
           <h4>Customer Name</h4>
           <input
             type="text"
@@ -59,19 +56,21 @@ function Reservations() {
           ></input>
         </Modal.Body>
         <Modal.Footer>
-        <Button
-          onClick={(e) => {
-            props.onHide();
-            submitButton(e);
-          }}
-        >Search</Button>
+          <Button
+            onClick={(e) => {
+              props.onHide();
+              submitButton(e);
+            }}
+          >
+            Search
+          </Button>
         </Modal.Footer>
       </Modal>
     );
   }
 
   const loadCustomerList = async () => {
-    const response = await fetch("http://localhost:9100/listcustomers", {
+    const response = await fetch("http://flip2.engr.oregonstate.edu:9100/listcustomers", {
       headers: {
         "Content-Type": "application/json",
       },
@@ -85,7 +84,7 @@ function Reservations() {
 
   const [employeeList, setEmployeeList] = useState();
   const loadEmployeeList = async () => {
-    const response = await fetch("http://localhost:9100/listemployees", {
+    const response = await fetch("http://flip2.engr.oregonstate.edu:9100/listemployees", {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
@@ -123,11 +122,10 @@ function Reservations() {
           stayLength: stayLength,
           specialRequests: specialRequests,
         };
-        console.log(data);
 
         // On submit of the form, send a POST request with the data to the server.
         const response = await fetch(
-          "http://localhost:9100/createreservation",
+          "http://flip2.engr.oregonstate.edu:9100/createreservation",
           {
             method: "POST",
             body: JSON.stringify(data),
@@ -220,7 +218,7 @@ function Reservations() {
   }
 
   const loadReservations = async () => {
-    const response = await fetch("http://localhost:9100/displayreservations");
+    const response = await fetch("http://flip2.engr.oregonstate.edu:9100/displayreservations");
     const reservations = await response.json();
     setReservation(reservations);
   };
@@ -272,8 +270,7 @@ function Reservations() {
         stayLength: stayLength,
         specialRequests: specialRequests,
       };
-      console.log("this is data", data);
-      const response = await fetch("http://localhost:9100/updatereservation", {
+      const response = await fetch("http://flip2.engr.oregonstate.edu:9100/updatereservation", {
         method: "PUT",
         body: JSON.stringify(data),
         headers: {
@@ -282,7 +279,6 @@ function Reservations() {
       });
       if (response.status === 200 || response.status === 201) {
         alert("Successfully updated the Reservation!");
-        console.log(props);
         loadReservations();
       } else {
         alert(
@@ -409,6 +405,7 @@ function Reservations() {
               }
             }}
           ></input>
+          <h4> Special Requests</h4>
           <input value={specialRequests1} className="greyedOut"></input>
           <input
             type="text"
@@ -447,13 +444,11 @@ function Reservations() {
 
   const onDelete = async (reservationToDelete) => {
     setReservationToDelete(reservationToDelete);
-    console.log("this is reservationtodelete", reservationToDelete);
     setModalShowRemove(true);
     loadReservations();
   };
 
   function RemoveReservationModal(props) {
-    console.log(props.reservationToDelete.reservationID);
     let reservationID = 0;
     let customerID = 0;
     let checkInDate = 0;
@@ -465,14 +460,13 @@ function Reservations() {
 
     const submitButton = async (e) => {
       e.preventDefault();
-      console.log(reservationID);
 
       // On submit of the form, send a DELETE request with the ID to the server.
       let data = {
         reservationID: reservationID,
       };
 
-      const response = await fetch("http://localhost:9100/deletereservation", {
+      const response = await fetch("http://flip2.engr.oregonstate.edu:9100/deletereservation", {
         method: "DELETE",
         body: JSON.stringify(data),
         headers: {
@@ -481,7 +475,6 @@ function Reservations() {
       });
       if (response.status === 200 || response.status === 201) {
         alert("Successfully deleted the Reservation!");
-        console.log(props);
         loadReservations();
       } else {
         alert(
@@ -526,7 +519,6 @@ function Reservations() {
   }
   const onEdit = async (reservationToEdit) => {
     setReservationToEdit(reservationToEdit);
-    console.log(reservationToEdit);
     setModalShowUpdate(true);
   };
 

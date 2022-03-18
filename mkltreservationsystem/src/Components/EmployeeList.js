@@ -14,7 +14,7 @@ function EmployeeList({
   return (
     <div>
       <h1> Employees</h1>
-      <Table id="Employees" className="borderless">
+      <Table hover variant="dark">
         <thead>
           <tr>
             <th>Employee ID</th>
