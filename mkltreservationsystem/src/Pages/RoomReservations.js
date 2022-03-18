@@ -17,7 +17,7 @@ function RoomsReservations() {
 
   const loadRoomReservations = async () => {
     const response = await fetch(
-      "http://flip2.engr.oregonstate.edu:9100/displayguestcheckinout"
+      "http://localhost:9100/displayguestcheckinout"
     );
     const reservations = await response.json();
     setRoomReservation(reservations);
@@ -28,11 +28,14 @@ function RoomsReservations() {
 
   // load rooms for dropdown
   const loadRoomList = async () => {
-    const response = await fetch("http://flip2.engr.oregonstate.edu:9100/listrooms", {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await fetch(
+      "http://flip2.engr.oregonstate.edu:9100/listrooms",
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     const rooms = await response.json();
     setRoomList(rooms);
   };
@@ -42,11 +45,14 @@ function RoomsReservations() {
 
   // load reservations for dropdown
   const loadReservationList = async () => {
-    const response = await fetch("http://flip2.engr.oregonstate.edu:9100/listreservations", {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await fetch(
+      "http://flip2.engr.oregonstate.edu:9100/listreservations",
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     const reservations = await response.json();
     setReservationList(reservations);
   };
@@ -206,13 +212,16 @@ function RoomsReservations() {
       roomID: roomID,
       checkedIn: checkedIn,
     };
-    const response = await fetch("http://flip2.engr.oregonstate.edu:9100/updatecheckin", {
-      method: "PUT",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await fetch(
+      "http://flip2.engr.oregonstate.edu:9100/updatecheckin",
+      {
+        method: "PUT",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     if (response.status === 200 || response.status === 201) {
       alert("Successfully updated the CheckIn Status!");
       loadRoomReservations();
@@ -237,13 +246,16 @@ function RoomsReservations() {
       roomID: roomID,
       checkedOut: checkedOut,
     };
-    const response = await fetch("http://flip2.engr.oregonstate.edu:9100/updatecheckout", {
-      method: "PUT",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await fetch(
+      "http://flip2.engr.oregonstate.edu:9100/updatecheckout",
+      {
+        method: "PUT",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     if (response.status === 200 || response.status === 201) {
       alert("Successfully updated the CheckOut Status!");
       loadRoomReservations();
