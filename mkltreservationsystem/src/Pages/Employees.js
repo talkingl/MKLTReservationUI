@@ -153,6 +153,7 @@ function Employees() {
             value={shiftWorked}
             onChange={(e) => setShiftWorked(e.target.value)}
           >
+            <option value="0"></option>
             <option value="1">First Shift</option>
             <option value="2">Second Shift</option>
             <option value="3">Third Shift</option>
