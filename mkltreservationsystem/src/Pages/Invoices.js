@@ -31,11 +31,14 @@ function Invoices() {
   // Reservation List for dropdowns
   const [reservationList, setReservationList] = useState();
   const loadReservationList = async () => {
-    const response = await fetch("http://flip2.engr.oregonstate.edu:9100/listreservations", {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await fetch(
+      "http://flip2.engr.oregonstate.edu:9100/listreservations",
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     const reservations = await response.json();
     setReservationList(reservations);
   };
@@ -85,13 +88,16 @@ function Invoices() {
         dueDate: dueDate,
         invoicePaid: invoicePaid,
       };
-      const response = await fetch("http://flip2.engr.oregonstate.edu:9100/updateinvoices", {
-        method: "PUT",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        "http://flip2.engr.oregonstate.edu:9100/updateinvoices",
+        {
+          method: "PUT",
+          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       if (response.status === 200 || response.status === 201) {
         alert("Successfully updated the Invoice!");
         loadInvoices();
@@ -335,7 +341,6 @@ function Invoices() {
     const submitButton = async (e) => {
       if (
         invoiceAmount === undefined ||
-        creditCard === undefined ||
         dueDate === undefined ||
         invoicePaid === undefined
       ) {
@@ -343,9 +348,7 @@ function Invoices() {
         if (invoiceAmount === undefined) {
           alert("Invoice Amount is incorrect");
         }
-        if (creditCard === undefined) {
-          alert("Credit Card is incorrect");
-        }
+
         if (invoicePaid === undefined) {
           alert("Invoice Paid entry is incorrect");
         }

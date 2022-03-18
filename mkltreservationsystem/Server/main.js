@@ -582,7 +582,7 @@ app.delete("/deletereservation", function (req, res) {
 //displays room reservations table
 app.get("/displayguestcheckinout", function (req, res) {
   query =
-    "SELECT room.roomID, room.roomNumber, concat(cust.firstName, ' ', cust.lastName) AS customerName, res.checkInDate, res.reservationID, rr.checkedIn, rr.checkedOut FROM Customers AS cust INNER JOIN Reservations AS res ON cust.customerID = res.customerID INNER JOIN RoomReservations AS rr ON res.reservationID = rr.reservationID INNER JOIN Rooms AS room ON rr.roomID = room.roomID;";
+    "SELECT room.roomID, room.roomNumber, concat(cust.firstName, ' ', cust.lastName) AS customerName, res.checkInDate, res.reservationID, rr.checkedIn, rr.checkedOut FROM Customers AS cust INNER JOIN Reservations AS res ON cust.customerID = res.customerID INNER JOIN RoomReservations AS rr ON res.reservationID = rr.reservationID INNER JOIN Rooms AS room ON rr.roomID = room.roomID ORDER BY room.roomNumber;";
   db.pool.query(query, (err, result) => {
     if (err) {
       console.log(JSON.stringify(err));
