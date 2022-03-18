@@ -104,6 +104,7 @@ function Rooms() {
             value={roomFloor}
             onChange={(e) => setRoomFloor(e.target.value)}
           >
+            <option value="0"></option>
             <option value="1">1st Floor</option>
             <option value="2">2nd Floor</option>
             <option value="3">3rd Floor</option>
@@ -154,6 +155,7 @@ function Rooms() {
             value={roomType}
             onChange={(e) => setRoomType(e.target.value)}
           >
+            <option value="0"></option>
             <option value="Queen">Two Queen Beds</option>
             <option value="King">One King Bed</option>
             <option value="JrSuite">Junior Suite</option>
@@ -352,6 +354,7 @@ function Rooms() {
             value={roomFloor}
             onChange={(e) => setRoomFloor(e.target.value)}
           >
+            <option value="0"></option>
             <option value="1">1st Floor</option>
             <option value="2">2nd Floor</option>
             <option value="3">3rd Floor</option>
@@ -452,6 +455,7 @@ function Rooms() {
             value={roomFloor}
             onChange={(e) => setRoomFloor(e.target.value)}
           >
+            <option value="0"></option>
             <option value="1">1st Floor</option>
             <option value="2">2nd Floor</option>
             <option value="3">3rd Floor</option>
@@ -469,6 +473,7 @@ function Rooms() {
             value={roomType}
             onChange={(e) => setRoomType(e.target.value)}
           >
+            <option value="0"></option>
             <option value="Queen">Two Queen Beds</option>
             <option value="King">One King Bed</option>
             <option value="JrSuite">Junior Suite</option>
